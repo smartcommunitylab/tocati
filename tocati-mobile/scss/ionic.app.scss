@@ -15,9 +15,43 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+// Ionic overrides
+$energized: #fcbf0e !default;
+$assertive: #e64a1a !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
-
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-
+.tutorial {
+	background-color: $energized;
+}
+.tutorial .title {
+	height: 10%;
+	color: $assertive;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: larger;
+}
+.tutorial ion-slides {
+	height: 70%;
+}
+.tutorial ion-slides .swiper-slide {
+	text-align: center;
+}
+.tutorial ion-slides .swiper-pagination .swiper-pagination-bullet {
+	width: 14px;
+	height: 14px;
+	border: 1px solid $assertive;
+	background: transparent;
+	opacity: 1;
+}
+.tutorial ion-slides .swiper-pagination .swiper-pagination-bullet-active {
+	background: $assertive;
+}
+.tutorial .tutorial-footer {
+	height: 20%;
+	background-color: white;
+}
+.tutorial .tutorial-footer .button {
+	text-transform: uppercase;
+}

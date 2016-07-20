@@ -6,4 +6,12 @@ angular.module('tocati.controllers.home', [])
 	};
 })
 
-.controller('HomeCtrl', function ($scope) {});
+.controller('HomeCtrl', function ($scope) {})
+
+.controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate) {
+	// disable sidemenu
+	$ionicSideMenuDelegate.canDragContent(false);
+
+	// ion-slides options
+	$scope.options = {};
+});
