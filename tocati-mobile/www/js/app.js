@@ -4,6 +4,7 @@ angular.module('tocati', [
     'ngSanitize',
     'pascalprecht.translate',
 	'tocati.controllers.home',
+	'tocati.controllers.diary'
 ])
 
 .run(function ($ionicPlatform) {
@@ -57,15 +58,67 @@ angular.module('tocati', [
 	})
 
 	.state('app.home', {
+		cache: false,
 		url: '/home',
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/home.html',
+				templateUrl: 'templates/home/home.html',
 				controller: 'HomeCtrl'
+			}
+		}
+	})
+
+	.state('app.home.map', {
+		url: '/map',
+		views: {
+			'tab-map': {
+				templateUrl: 'templates/home/map.html',
+				controller: 'HomeMapCtrl'
+			}
+		}
+	})
+
+	.state('app.home.list', {
+		url: '/list',
+		views: {
+			'tab-list': {
+				templateUrl: 'templates/home/list.html',
+				controller: 'HomeListCtrl'
+			}
+		}
+	})
+
+	.state('app.diary', {
+		cache: false,
+		url: '/diary',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/diary/diary.html',
+				controller: 'DiaryCtrl'
+			}
+		}
+	})
+
+	.state('app.diary.points', {
+		url: '/points',
+		views: {
+			'tab-points': {
+				templateUrl: 'templates/diary/points.html',
+				controller: 'DiaryPointsCtrl'
+			}
+		}
+	})
+
+	.state('app.diary.ranking', {
+		url: '/ranking',
+		views: {
+			'tab-ranking': {
+				templateUrl: 'templates/diary/ranking.html',
+				controller: 'DiaryRankingCtrl'
 			}
 		}
 	});
 
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/app/tutorial');
+	$urlRouterProvider.otherwise('/app/home');
 });

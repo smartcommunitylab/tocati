@@ -2,5 +2,16 @@
 	"app": "Tocatì",
 	"home": "Home",
 	"credits": "Credits",
-	"login": "Accedi"
+	"login": "Accedi",
+	"logout": "Esci",
+	"my_diary": "Il mio diario",
+	"rules": "Regolamento",
+	"map": "Mappa",
+	"list": "Lista",
+	"points": "Punti",
+	"ranking": "Classifica",
+	"modal_choose": "Scegli cosa vuoi visualizzare",
+	"diary_ranking_listheader_position": "Posizione",
+	"diary_ranking_listheader_player": "Giocatore",
+	"diary_ranking_listheader_points": "Punti"
 }

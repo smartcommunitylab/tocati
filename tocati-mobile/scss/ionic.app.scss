@@ -15,19 +15,67 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+// Tocatì Color Schema
+$t_yellow: #fcbf0e;
+$t_orange: #e64a1a;
+$t_darkgrey: #686d6f;
+$t_lightgrey: #ececec;
+$t_midgrey: #c6c6c5;
 // Ionic overrides
-$energized: #fcbf0e !default;
-$assertive: #e64a1a !default;
+$energized: $t_yellow !default;
+$assertive: $t_orange !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+/*
+ * GENERAL
+ */
+
+
+/* Tabs */
+
+.tabs-top.tabs-striped .tab-item {
+	max-width: none;
+	text-transform: uppercase;
+}
+.tabs-top.tabs-striped .tab-item.tab-item-active,
+.tabs-top.tabs-striped .tab-item.active,
+.tabs-top.tabs-striped .tab-item.activated {
+	border-width: 0px 0px 3px 0px !important;
+}
+.tabs-striped.tabs-energized .tab-item {
+	color: white;
+	opacity: 1;
+}
+.tabs-striped.tabs-energized .tab-item.tab-item-active,
+.tabs-striped.tabs-energized .tab-item.active,
+.tabs-striped.tabs-energized .tab-item.activated {
+	color: $t_orange;
+	border-color: $t_orange;
+}
+
+/* Checkbox */
+
+.item-checkbox-right .checkbox input,
+.item-checkbox-right .checkbox-icon {
+	float: right;
+}
+.item-checkbox.item-checkbox-right {
+	padding: 15px;
+}
+
+/*
+ * TUTORIAL
+ */
+
 .tutorial {
-	background-color: $energized;
+	background-color: $t_yellow;
 }
 .tutorial .title {
 	height: 10%;
-	color: $assertive;
+	color: $t_orange;
 	text-transform: uppercase;
 	text-align: center;
 	font-size: larger;
@@ -41,12 +89,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .tutorial ion-slides .swiper-pagination .swiper-pagination-bullet {
 	width: 14px;
 	height: 14px;
-	border: 1px solid $assertive;
+	border: 1px solid $t_orange;
 	background: transparent;
 	opacity: 1;
 }
 .tutorial ion-slides .swiper-pagination .swiper-pagination-bullet-active {
-	background: $assertive;
+	background: $t_orange;
 }
 .tutorial .tutorial-footer {
 	height: 20%;
@@ -54,4 +102,67 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 .tutorial .tutorial-footer .button {
 	text-transform: uppercase;
+}
+
+/*
+ * Menu
+ */
+.menu {
+	background-color: $t_yellow;
+}
+.menu .list .item {
+	border-color: transparent;
+	color: white;
+}
+.menu .list .item,
+.menu .list .item.item-complex .item-content {
+	background-color: transparent;
+}
+.menu .list .item.active {
+	color: $t_orange;
+}
+/*
+ * Home
+ */
+
+.types-modal .list .item {
+	border: none;
+}
+.types-modal .list .item-checkbox .item-content span {
+	padding-left: 38px;
+}
+.types-modal ion-content .title {
+	text-align: center;
+}
+
+/*
+ * Diary
+ */
+
+.diary-ranking {
+	text-align: center;
+}
+.diary-ranking .listheader {
+	font-weight: bold;
+	height: 44px;
+}
+.diary-ranking .listheader .row {
+	height: 44px;
+}
+.diary-ranking .listheader.hasprize {
+	background-color: $t_orange;
+	background-image: linear-gradient($t_orange, white);
+}
+.diary-ranking .listheader.hasprize .prize {
+	padding: 8px 0;
+	color: white;
+	text-align: center;
+}
+.diary-ranking .me {
+	background-color: $t_orange;
+	margin-bottom: 8px;
+	box-shadow: 0px 4px 10px 0px $t_darkgrey;
+}
+.diary-ranking .pos-even {
+	background-color: $t_lightgrey;
 }

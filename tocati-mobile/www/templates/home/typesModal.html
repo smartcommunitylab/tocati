@@ -1,0 +1,16 @@
+<ion-modal-view class="types-modal">
+	<ion-header-bar class="bar bar-header bar-light">
+		<h1 class="title"></h1>
+		<button class="button button-icon button-clear ion-android-close" ng-click="typesModal.hide()"></button>
+	</ion-header-bar>
+
+	<ion-content class="padding">
+		<h4 class="title">{{'modal_choose' | translate}}:</h4 cl>
+		<ion-list>
+			<ion-checkbox class="checkbox-assertive item-checkbox-right item-icon-left" ng-repeat="type in types" ng-model="type.checked">
+				<i class="icon ion-stop"></i>
+				<span>{{type.name}}</span>
+			</ion-checkbox>
+		</ion-list>
+	</ion-content>
+</ion-modal-view>
