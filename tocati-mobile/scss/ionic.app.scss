@@ -35,11 +35,17 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 /* Tabs */
+
 .tab-item {
-    opacity: 1;
+	opacity: 1;
 }
-.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+.tab-item.tab-item-active,
+.tab-item.active,
+.tab-item.activated {
 	color: $t_orange;
+}
+.tabs-striped .tabs {
+	border-color: transparent;
 }
 .tabs-top.tabs-striped .tab-item {
 	max-width: none;
@@ -112,6 +118,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 /*
  * Menu
  */
+
 .menu {
 	background-color: $t_yellow;
 }
@@ -126,6 +133,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .menu .list .item.active {
 	color: $t_orange;
 }
+
 /*
  * Home
  */
@@ -139,9 +147,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .types-modal ion-content .title {
 	text-align: center;
 }
+
 /*
  * Home - List
  */
+
 .card-entry {
 	padding: 0;
 }
@@ -197,10 +207,33 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	text-transform: uppercase;
 	font-size: smaller;
 }
+
 /*
  * Diary
  */
 
+.me {
+	background-color: $t_orange;
+	margin-bottom: 8px;
+	box-shadow: 0px 4px 10px 0px $t_darkgrey;
+}
+.diary-points {}
+.diary-points .me {
+	@extend .me;
+	color: white;
+	border-top: 2px solid $t_yellow;
+	text-align: center;
+	height: 44px;
+	line-height: 44px;
+}
+.diary-points .me span {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
+.diary-points .me span.points {
+	font-size: 28px;
+}
 .diary-ranking {
 	text-align: center;
 }
@@ -221,9 +254,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	text-align: center;
 }
 .diary-ranking .me {
-	background-color: $t_orange;
-	margin-bottom: 8px;
-	box-shadow: 0px 4px 10px 0px $t_darkgrey;
+	@extend .me;
 }
 .diary-ranking .pos-even {
 	background-color: $t_lightgrey;
