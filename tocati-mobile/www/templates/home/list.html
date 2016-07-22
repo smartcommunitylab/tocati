@@ -1,8 +1,46 @@
-<ion-view title="{{'app' | translate}}">
+<ion-view title="{{'app' | translate}}" class="home-list">
 	<ion-nav-buttons side="right">
 		<button class="button button-icon button-clear ion-eye" ng-click="typesModal.show()"></button>
 	</ion-nav-buttons>
 
 	<ion-content>
+		<ion-list>
+			<div class="card card-entry" ng-click="">
+				<div class="row">
+					<div class="col col-25 image" style="background-image: url(http://placekitten.com/100/110)"></div>
+					<div class="col col-75 data">
+						<div class="description">
+							<h4 class="title">Nome evento/gioco</h4>
+							<h6 class="distance">distanza 30m</h6>
+						</div>
+						<div class="actions">
+							<div class="points">## punti</div>
+							<div class="checkin">
+								<i class="icon ion-ios-location"></i>
+								<span class="status">Check-in</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card card-entry" ng-click="">
+				<div class="row">
+					<div class="col col-25 image" style="background-image: url(http://placehold.it/100x110)"></div>
+					<div class="col col-75 data">
+						<div class="description">
+							<h4 class="title">Nome altro evento/gioco</h4>
+							<h6 class="distance">distanza 80m</h6>
+						</div>
+						<div class="actions">
+							<div class="points">## punti</div>
+							<div class="checkin">
+								<i class="icon ion-ios-location"></i>
+								<span class="status">Check-in</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</ion-list>
 	</ion-content>
 </ion-view>

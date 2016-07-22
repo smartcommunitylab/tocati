@@ -35,7 +35,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 
 /* Tabs */
-
+.tab-item {
+    opacity: 1;
+}
+.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+	color: $t_orange;
+}
 .tabs-top.tabs-striped .tab-item {
 	max-width: none;
 	text-transform: uppercase;
@@ -134,7 +139,64 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .types-modal ion-content .title {
 	text-align: center;
 }
-
+/*
+ * Home - List
+ */
+.card-entry {
+	padding: 0;
+}
+.card-entry > .row {
+	padding: 0;
+}
+.card-entry .image {
+	height: 110px;
+	padding: 0;
+	/*background-image: url(http://placekitten.com/100/110);*/
+	background-size: cover;
+	background-position: center;
+}
+.card-entry .image img {
+	width: 100%;
+}
+.card-entry .data {
+	position: relative;
+	/*padding: 0 10px 0 10px;*/
+	padding: 0;
+}
+.card-entry .data .description {
+	padding: 0 10px 0 10px;
+}
+.card-entry .data .description .title {
+	margin: 0;
+	padding-top: 10px;
+}
+.card-entry .data .description .distance {
+	margin: 0;
+	color: $t_darkgrey;
+}
+.card-entry .data .actions {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 0 10px;
+}
+.card-entry .data .actions .points {
+	text-align: right;
+	padding: 5px 0;
+}
+.card-entry .data .actions .checkin {
+	border-top: 1px solid $t_lightgrey;
+	padding: 5px 0;
+}
+.card-entry .data .actions .checkin .icon {
+	color: $t_orange;
+	font-size: larger;
+}
+.card-entry .data .actions .checkin .status {
+	float: right;
+	text-transform: uppercase;
+	font-size: smaller;
+}
 /*
  * Diary
  */
