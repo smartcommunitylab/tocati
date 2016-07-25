@@ -2,8 +2,13 @@ angular.module('tocati', [
 	'ionic',
 	'ngCordova',
     'ngSanitize',
+	'leaflet-directive',
+	'tocati.services.config',
+	'tocati.services.geolocalization',
+	'tocati.services.map',
     'pascalprecht.translate',
 	'tocati.controllers.home',
+	'tocati.controllers.entry',
 	'tocati.controllers.diary'
 ])
 
@@ -58,63 +63,34 @@ angular.module('tocati', [
 	})
 
 	.state('app.home', {
-		cache: false,
 		url: '/home',
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/home/home.html',
+				templateUrl: 'templates/home.html',
 				controller: 'HomeCtrl'
 			}
 		}
 	})
 
-	.state('app.home.map', {
-		url: '/map',
+	.state('app.entry', {
+		url: '/home/entry/{id}',
+		params: {
+			entry: null
+		},
 		views: {
-			'tab-map': {
-				templateUrl: 'templates/home/map.html',
-				controller: 'HomeMapCtrl'
-			}
-		}
-	})
-
-	.state('app.home.list', {
-		url: '/list',
-		views: {
-			'tab-list': {
-				templateUrl: 'templates/home/list.html',
-				controller: 'HomeListCtrl'
+			'menuContent': {
+				templateUrl: 'templates/entry.html',
+				controller: 'EntryCtrl'
 			}
 		}
 	})
 
 	.state('app.diary', {
-		cache: false,
 		url: '/diary',
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/diary/diary.html',
+				templateUrl: 'templates/diary.html',
 				controller: 'DiaryCtrl'
-			}
-		}
-	})
-
-	.state('app.diary.points', {
-		url: '/points',
-		views: {
-			'tab-points': {
-				templateUrl: 'templates/diary/points.html',
-				controller: 'DiaryPointsCtrl'
-			}
-		}
-	})
-
-	.state('app.diary.ranking', {
-		url: '/ranking',
-		views: {
-			'tab-ranking': {
-				templateUrl: 'templates/diary/ranking.html',
-				controller: 'DiaryRankingCtrl'
 			}
 		}
 	});

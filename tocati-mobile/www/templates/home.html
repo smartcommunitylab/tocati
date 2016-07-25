@@ -1,0 +1,44 @@
+<ion-view view-title="{{'app' | translate}}" class="home">
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear ion-eye" ng-click="typesModal.show()"></button>
+	</ion-nav-buttons>
+
+	<ion-tabs class="tabs-energized">
+		<!-- Map -->
+		<ion-tab title="{{'map' | translate}}" ng-controller="HomeMapCtrl">
+			<ion-pane>
+				<ion-content class="home-map">
+					<leaflet event-broadcast="events" center="center" markers="markers" paths="paths" ng-init="initMap()" id="home-map"></leaflet>
+				</ion-content>
+			</ion-pane>
+		</ion-tab>
+
+		<!-- Entries list -->
+		<ion-tab title="{{'list' | translate}}" ng-controller="HomeListCtrl">
+			<ion-pane>
+				<ion-content class="home-list">
+					<ion-list>
+						<div class="card card-entry" ng-repeat="entry in entries" ng-click="openEntry(entry)">
+							<div class="row">
+								<div class="col col-25 image" style="background-image: url({{entry.typeImage}})"></div>
+								<div class="col col-75 data">
+									<div class="description">
+										<h4 class="title">{{entry.title}}</h4>
+										<h6 class="distance">distanza 30m</h6>
+									</div>
+									<div class="actions">
+										<div class="points">## punti</div>
+										<div class="checkin">
+											<i class="icon ion-ios-location"></i>
+											<span class="status">Check-in</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ion-list>
+				</ion-content>
+			</ion-pane>
+		</ion-tab>
+	</ion-tabs>
+</ion-view>

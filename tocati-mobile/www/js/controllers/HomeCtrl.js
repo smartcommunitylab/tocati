@@ -47,7 +47,7 @@ angular.module('tocati.controllers.home', [])
 		}
 	];
 
-	$ionicModal.fromTemplateUrl('templates/home/typesModal.html', {
+	$ionicModal.fromTemplateUrl('templates/typesModal.html', {
 		scope: $scope,
 		animation: 'slide-in-up'
 	}).then(function (modal) {
@@ -55,6 +55,41 @@ angular.module('tocati.controllers.home', [])
 	});
 })
 
-.controller('HomeMapCtrl', function ($scope) {})
+.controller('HomeMapCtrl', function ($scope, Config, MapSrv) {
+	angular.extend($scope, {
+		center: Config.mapDefaultCenter,
+		markers: [],
+		events: {}
+	});
 
-.controller('HomeListCtrl', function ($scope) {});
+	$scope.initMap = function () {
+		MapSrv.initMap('home-map').then(function (map) {
+			// FIXME on development only
+			MapSrv.centerOnMe('home-map');
+		});
+	};
+})
+
+.controller('HomeListCtrl', function ($scope, $state) {
+	$scope.entries = [
+		{
+			id: '1',
+			title: 'Say my name',
+			image: 'http://placekitten.com/500/300',
+			typeImage: 'http://placekitten.com/100/110'
+		},
+		{
+			id: '2',
+			title: 'I am the danger',
+			image: 'http://placehold.it/500x300',
+			typeImage: 'http://placehold.it/100x110'
+		}
+	];
+
+	$scope.openEntry = function (entry) {
+		$state.go('app.entry', {
+			id: entry.id,
+			entry: entry
+		});
+	};
+});

@@ -1,0 +1,152 @@
+<ion-view view-title="{{'app' | translate}}" class="diary">
+	<ion-tabs class="tabs-energized">
+		<!-- Points -->
+		<ion-tab title="{{'points' | translate}}" ng-controller="DiaryPointsCtrl">
+			<ion-pane>
+				<ion-content class="diary-points" has-bouncing="false" scroll="false">
+					<div class="me">
+						<span>Punti totali:</span>
+						<span class="points">108</span>
+					</div>
+
+					<ion-scroll ng-style="pointsStyle" delegate-handle="pointsScroll">
+						<ion-list>
+						</ion-list>
+					</ion-scroll>
+				</ion-content>
+			</ion-pane>
+		</ion-tab>
+
+		<!-- Ranking -->
+		<ion-tab title="{{'ranking' | translate}}" ng-controller="DiaryRankingCtrl">
+			<ion-pane>
+				<ion-content class="diary-ranking" has-bouncing="false" scroll="false">
+					<div class="listheader" ng-class="{hasprize: !!prize}">
+						<div class="prize" ng-if="!!prize">
+							<div>Prize</div>
+							<div>Lorem ipsum sic dolor amet</div>
+						</div>
+						<div class="row">
+							<div class="col col-25">{{'diary_ranking_listheader_position' | translate}}</div>
+							<div class="col col-50">{{'diary_ranking_listheader_player' | translate}}</div>
+							<div class="col col-25">{{'diary_ranking_listheader_points' | translate}}</div>
+						</div>
+					</div>
+					<div class="me">
+						<div class="row">
+							<div class="col col-25">2</div>
+							<div class="col col-50">Heisenberg</div>
+							<div class="col col-25">108</div>
+						</div>
+					</div>
+
+					<ion-scroll class="ranking" ng-style="rankingStyle" delegate-handle="rankingScroll">
+						<ion-list>
+							<!--
+							<div ng-repeat="rankingUser in ranking" ng-class="{'pos-even': ($index % 2 == 0)}">
+								<div class="row">
+									<div class="col col-25">{{rankingUser.position}}</div>
+									<div class="col col-50">{{rankingUser.nickName}}</div>
+									<div class="col col-25">{{rankingUser.score}}</div>
+								</div>
+							</div>
+							-->
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">1</div>
+									<div class="col col-50">Jesse</div>
+									<div class="col col-25">256</div>
+								</div>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col col-25">2</div>
+									<div class="col col-50">Heisenberg</div>
+									<div class="col col-25">108</div>
+								</div>
+							</div>
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div>
+								<div class="row">
+									<div class="col col-25">3</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">99</div>
+								</div>
+							</div>
+							<div class="pos-even">
+								<div class="row">
+									<div class="col col-25">##</div>
+									<div class="col col-50">Saul</div>
+									<div class="col col-25">1</div>
+								</div>
+							</div>
+						</ion-list>
+						<ion-infinite-scroll ng-if="maybeMore" on-infinite=""></ion-infinite-scroll>
+					</ion-scroll>
+				</ion-content>
+			</ion-pane>
+		</ion-tab>
+	</ion-tabs>
+</ion-view>

@@ -77,6 +77,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	padding: 15px;
 }
 
+/* Map */
+
+.angular-leaflet-map {
+	width: 100%;
+	height: 100%;
+}
+
 /*
  * TUTORIAL
  */
@@ -138,6 +145,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
  * Home
  */
 
+.types-modal .bar {
+	background-size: 0;
+}
 .types-modal .list .item {
 	border: none;
 }
@@ -258,4 +268,36 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 }
 .diary-ranking .pos-even {
 	background-color: $t_lightgrey;
+}
+
+/* Entry */
+
+.entry .cover {
+	height: 150px;
+	background-position: center;
+	background-size: cover;
+}
+.entry .row.info {
+	height: 70px;
+}
+.entry .row.info,
+.entry .row.info .col {
+	padding: 0;
+}
+.entry .row.info .entry-where {
+	padding: 0 10px;
+	background-color: $t_lightgrey;
+}
+.entry .entry-where .entry-where-sunny .icon,
+.entry .entry-where .entry-where-rainy .icon {
+	color: $t_darkgrey;
+	font-size: 28px;
+}
+.entry .row.info .entry-points {
+	line-height: 70px;
+	color: white;
+	background-color: $t_yellow;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
 }
