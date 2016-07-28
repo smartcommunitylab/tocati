@@ -1,71 +1,95 @@
-# sco.climb.context-store
+# tocati.web
 ----------
 ## REST API methods
 ----------
 #### Header
-  - **Content-Type** = 'application/json'
+  - **Content-Type** = 'application/json;charset=utf-8'
   - **X-ACCESS-TOKEN** = 'token'
 
-### School Search 
+### User Profile 
 ```
-  GET /api/school/{ownerId}
+  GET /api/users/{ownerId}/{userId}
 ```
 
-#### Result
-    [
+#### Result - UsedData
+    {
+	"ownerId": "DEMO",
+	"objectId": "899f1eaf-7d7a-4f62-ac9f-ac99e131da11",
+	"creationDate": 1469632767395,
+	"lastUpdate": 1469632909029,
+	"userId": "mic",
+	"name": "michele",
+	"surname": "nori",
+	"displayName": "micnori",
+	"points": 177,
+	"checkinList": [
 		{
-			"ownerId": "TEST",
-			"objectId": "70b96fe4-0f76-477c-8a09-49911aa5fee2",
-			"creationDate": 1454598658704,
-			"lastUpdate": 1454598658704,
-			"name": "Scuola Primaria 'De Carli' di Meano",
-			"address": "Via delle Tre Croci, 40"
-    }
-    ]
-
-		
-### Route Search by Id 
-```
-  GET /api/route/{ownerId}/{routeId}
-```
-
-#### Result
-		{
-			"ownerId": "TEST",
-			"objectId": "695b4e34-25f0-4cb0-b8fe-4855c4028d9f",
-			"creationDate": 1454598658980,
-			"lastUpdate": 1454598658980,
-			"name": "Linea Blu",
-			"pedibusId": null,
-			"schoolId": "70b96fe4-0f76-477c-8a09-49911aa5fee2",
-			"from": 1456786800000,
-			"to": 1467237600000,
-			"distance": 0.35
+			"timestamp": 1469632874438,
+			"poi": {
+				"ownerId": "DEMO",
+				"objectId": "poi1",
+				"creationDate": 1469631864657,
+				"lastUpdate": 1469631864657,
+				"name": "uno1",
+				"description": "test",
+				"imageUrl": "http://...",
+				"category": "cat1",
+				"when": "\"dfsdfsd\"",
+				"opening": "\"dvfdgdg\"",
+				"points": 123,
+				"coordinates": [
+					11.185455322265625,
+					46.20264638061019
+				]
+			}
 		}
+	]
+    }
 
-### Route Search by School
+
+### User login 
 ```
-  GET /api/route/{ownerId}/school/{schoolId}
+  POST /api/users/{ownerId}/{userId}/login
+```
+#### Body
+    {
+        "name": "michele",
+    	"surname": "nori",
+    	"displayName": "micnori"
+    }
+    
+#### Result - UserData
+
+
+### ChargingPoint Search
+```
+  GET /api/chargingPoints/{ownerId}
 ```
 
 #### Params
-  - **date**: string, optional, "yyyy-MM-dd"
+  - **position**: string, optional, "lng,lat"
+  - **radius**: double, optional, search radius in KM
 
 #### Result
     [
-		{
-			"ownerId": "TEST",
-			"objectId": "695b4e34-25f0-4cb0-b8fe-4855c4028d9f",
-			"creationDate": 1454598658980,
-			"lastUpdate": 1454598658980,
-			"name": "Linea Blu",
-			"pedibusId": null,
-			"schoolId": "70b96fe4-0f76-477c-8a09-49911aa5fee2",
-			"from": 1456786800000,
-			"to": 1467237600000,
-			"distance": 0.35
-		}
-    ]
+    	{
+    		"ownerId": "DEMO",
+    		"objectId": "cp1",
+    		"creationDate": 1469705192874,
+    		"lastUpdate": 1469705192874,
+    		"name": "trento",
+    		"description": "test",
+    		"imageUrl": "http://...",
+    		"poiList": [
+      			"poi1",
+      			"poi2"
+    		],
+    		"coordinates": [
+      			11.121940612792967,
+      			46.061320531569244
+    		]
+  	},...
+   ]
 
 ### Stop Search
 ```
