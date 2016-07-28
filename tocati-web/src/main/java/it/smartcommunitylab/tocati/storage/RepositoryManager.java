@@ -1,10 +1,11 @@
 package it.smartcommunitylab.tocati.storage;
 
 import it.smartcommunitylab.tocati.common.EntityNotFoundException;
-import it.smartcommunitylab.tocati.common.Utils;
 import it.smartcommunitylab.tocati.model.ChargingPoint;
 import it.smartcommunitylab.tocati.model.Checkin;
+import it.smartcommunitylab.tocati.model.MyRanking;
 import it.smartcommunitylab.tocati.model.Poi;
+import it.smartcommunitylab.tocati.model.Ranking;
 import it.smartcommunitylab.tocati.model.UserData;
 import it.smartcommunitylab.tocati.security.DataSetInfo;
 import it.smartcommunitylab.tocati.security.Token;
@@ -178,6 +179,13 @@ public class RepositoryManager {
 		if(!chargingPoint.getPoiList().contains(poiId)) {
 			throw new EntityNotFoundException(String.format("Poi %s not found in ChargingPoint %s", poiId, pointId));
 		}
+		//check if user has already done the checkin
+		for(Checkin checkin : userData.getCheckinList()) {
+			if(checkin.getPoi().getObjectId().equals(poiId)) {
+				//do nothing
+				return userData;
+			}
+		}
 		
 		Date now = new Date();
 		
@@ -195,5 +203,35 @@ public class RepositoryManager {
 		mongoTemplate.updateFirst(userQuery, update, UserData.class);
 		
 		return userData;
+	}
+
+	public MyRanking getMyRanking(String ownerId, String userId, int startPage, int maxItemsPerPage) throws EntityNotFoundException {
+		Query userQuery = new Query(new Criteria("ownerId").is(ownerId).and("userId").is(userId));
+		UserData userData = mongoTemplate.findOne(userQuery, UserData.class);
+		if(userData == null) {
+			throw new EntityNotFoundException(String.format("Profile for user %s not found", userId));
+		}
+		Query rankQuery = new Query(new Criteria("ownerId").is(ownerId));
+		rankQuery.with(new Sort(Sort.Direction.DESC, "points", "creationDate"));
+		List<UserData> classification = mongoTemplate.find(rankQuery, UserData.class);
+		MyRanking myRanking = new MyRanking();
+		int minIndex = ((startPage -1) * maxItemsPerPage) + 1;
+		int maxIndex = startPage * maxItemsPerPage;
+		int index = 1;
+		for(UserData user : classification) {
+			if(user.getUserId().equals(userId)) {
+				myRanking.setPoints(user.getPoints());
+				myRanking.setPosition(index);
+			}
+			if((minIndex <= index) && (index <= maxIndex)) {
+				Ranking ranking = new Ranking();
+				ranking.setData(user);
+				ranking.setPosition(index);
+				ranking.setPoints(user.getPoints());
+				myRanking.getRanking().add(ranking);
+			}
+			index++;
+		}
+		return myRanking;
 	}
 }

@@ -20,6 +20,7 @@ import it.smartcommunitylab.tocati.common.EntityNotFoundException;
 import it.smartcommunitylab.tocati.common.UnauthorizedException;
 import it.smartcommunitylab.tocati.common.Utils;
 import it.smartcommunitylab.tocati.model.ChargingPoint;
+import it.smartcommunitylab.tocati.model.MyRanking;
 import it.smartcommunitylab.tocati.model.Poi;
 import it.smartcommunitylab.tocati.model.UserData;
 import it.smartcommunitylab.tocati.storage.DataSetSetup;
@@ -51,7 +52,7 @@ public class EntityController {
 	private static final transient Logger logger = LoggerFactory.getLogger(EntityController.class);
 	
 	@Autowired
-	private RepositoryManager storage;
+	private RepositoryManager storageManager;
 
 	@Autowired
 	private DataSetSetup dataSetSetup;
@@ -60,10 +61,10 @@ public class EntityController {
 	@RequestMapping(value = "/api/users/{ownerId}", method = RequestMethod.GET)
 	public @ResponseBody List<UserData> getUsers(@PathVariable String ownerId, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storage)) {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
-		List<UserData> result = (List<UserData>) storage.findData(UserData.class, null, null, ownerId);
+		List<UserData> result = (List<UserData>) storageManager.findData(UserData.class, null, null, ownerId);
 		if(logger.isInfoEnabled()) {
 			logger.info(String.format("getUsers[%s]:%d", ownerId, result.size()));
 		}
@@ -73,11 +74,11 @@ public class EntityController {
 	@RequestMapping(value = "/api/users/{ownerId}/{userId}", method = RequestMethod.GET)
 	public @ResponseBody UserData getUser(@PathVariable String ownerId, @PathVariable String userId,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storage)) {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
 		Criteria criteria = Criteria.where("userId").is(userId);
-		UserData result = storage.findOneData(UserData.class, criteria, ownerId);
+		UserData result = storageManager.findOneData(UserData.class, criteria, ownerId);
 		if(logger.isInfoEnabled()) {
 			logger.info(String.format("getUser[%s]:%s", ownerId, userId));
 		}
@@ -90,7 +91,7 @@ public class EntityController {
 	@RequestMapping(value = "/api/users/{ownerId}/{userId}/login", method = RequestMethod.POST)
 	public @ResponseBody UserData userLogin(@RequestBody UserData user, @PathVariable String ownerId, 
 			@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storage)) {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
 		if(logger.isInfoEnabled()) {
@@ -102,10 +103,10 @@ public class EntityController {
 		user.setUserId(userId);
 		
 		Criteria criteria = Criteria.where("userId").is(userId);
-		UserData userDB = storage.findOneData(UserData.class, criteria, ownerId);
+		UserData userDB = storageManager.findOneData(UserData.class, criteria, ownerId);
 		if(userDB == null) {
 			user.setObjectId(Utils.getUUID());
-			result = storage.addUser(user);
+			result = storageManager.addUser(user);
 		} else {
 			result = userDB;
 		}
@@ -116,7 +117,7 @@ public class EntityController {
 	@RequestMapping(value = "/api/chargingPoints/{ownerId}", method = RequestMethod.GET)
 	public @ResponseBody List<ChargingPoint> getChargingPoints(@PathVariable String ownerId,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storage)) {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
 		if(logger.isInfoEnabled()) {
@@ -124,21 +125,21 @@ public class EntityController {
 		}
 		List<ChargingPoint> result = null;
 		//TODO geoquery 
-		result = (List<ChargingPoint>) storage.findData(ChargingPoint.class, null, null, ownerId);
+		result = (List<ChargingPoint>) storageManager.findData(ChargingPoint.class, null, null, ownerId);
 		return result;
 	}
 
 	@RequestMapping(value = "/api/chargingPoints/{ownerId}/{pointId}/pois", method = RequestMethod.GET)
 	public @ResponseBody List<Poi> getPois(@PathVariable String ownerId, @PathVariable String pointId,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storage)) {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
 		if(logger.isInfoEnabled()) {
-			logger.info(String.format("getChargingPoints[%s]", ownerId));
+			logger.info(String.format("getPois[%s] - %s", ownerId, pointId));
 		}
 		List<Poi> result = null;
-		result = storage.findPois(ownerId, pointId);
+		result = storageManager.findPois(ownerId, pointId);
 		return result;
 	}
 	
@@ -146,14 +147,41 @@ public class EntityController {
 	public @ResponseBody UserData checkin(@PathVariable String ownerId, @PathVariable String userId, 
 			@PathVariable String pointId, @PathVariable String poiId,	
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storage)) {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
 		if(logger.isInfoEnabled()) {
 			logger.info(String.format("checkin[%s] - %s - %s - %s", ownerId, userId, pointId, poiId));
 		}
 		UserData result = null;
-		result = storage.userCheckin(ownerId, userId, pointId, poiId);
+		result = storageManager.userCheckin(ownerId, userId, pointId, poiId);
+		return result;
+	}
+	
+	@RequestMapping(value = "/api/classification/{ownerId}/{userId}", method = RequestMethod.GET)
+	public @ResponseBody MyRanking getMyRanking(@PathVariable String ownerId, @PathVariable String userId,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
+			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+		}
+		if(logger.isInfoEnabled()) {
+			logger.info(String.format("getMyRanking[%s] - %s", ownerId, userId));
+		}
+		int startPage = 1; 
+		int maxItemsPerPage = 10;
+		if(Utils.isNotEmpty(request.getParameter("start"))) {
+			try {
+				startPage = Integer.valueOf(request.getParameter("start"));
+			} catch (NumberFormatException e) {
+			}
+		}
+		if(Utils.isNotEmpty(request.getParameter("count"))) {
+			try {
+				maxItemsPerPage = Integer.valueOf(request.getParameter("count"));
+			} catch (NumberFormatException e) {
+			}
+		}
+		MyRanking result = storageManager.getMyRanking(ownerId, userId, startPage, maxItemsPerPage);
 		return result;
 	}
 		
