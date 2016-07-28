@@ -17,8 +17,16 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.GeoResult;
+import org.springframework.data.geo.GeoResults;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
@@ -31,6 +39,7 @@ public class RepositoryManager {
 	public RepositoryManager(MongoTemplate template, String defaultLang) {
 		this.mongoTemplate = template;
 		this.defaultLang = defaultLang;
+		this.mongoTemplate.indexOps(ChargingPoint.class).ensureIndex(new GeospatialIndex("coordinates"));
 	}
 	
 	public String getDefaultLang() {
@@ -233,5 +242,23 @@ public class RepositoryManager {
 			index++;
 		}
 		return myRanking;
+	}
+
+	public List<ChargingPoint> findChargingPoints(String ownerId, double[] position, double radius) {
+		List<ChargingPoint> result = new ArrayList<ChargingPoint>();
+		if((position != null) && (position.length == 2) && (radius >= 0)) {
+			Point location = new Point(position[0], position[1]);
+			NearQuery query = NearQuery.near(location).maxDistance(new Distance(radius, Metrics.KILOMETERS));
+			query.query(Query.query(Criteria.where("ownerId").is(ownerId)));
+			GeoResults<ChargingPoint> geoNear = mongoTemplate.geoNear(query, ChargingPoint.class);
+			for(GeoResult<ChargingPoint> geoResult : geoNear.getContent()) {
+				result.add(geoResult.getContent());
+			}
+		} else {
+			Criteria criteria = new Criteria("ownerId").is(ownerId);
+			Query query = new Query(criteria);
+			result = mongoTemplate.find(query, ChargingPoint.class);
+		}
+		return result;
 	}
 }

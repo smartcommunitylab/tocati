@@ -113,7 +113,6 @@ public class EntityController {
 		return result;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/api/chargingPoints/{ownerId}", method = RequestMethod.GET)
 	public @ResponseBody List<ChargingPoint> getChargingPoints(@PathVariable String ownerId,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -124,8 +123,29 @@ public class EntityController {
 			logger.info(String.format("getChargingPoints[%s]", ownerId));
 		}
 		List<ChargingPoint> result = null;
-		//TODO geoquery 
-		result = (List<ChargingPoint>) storageManager.findData(ChargingPoint.class, null, null, ownerId);
+		double[] position = null;
+		double radius = -1.0;
+		if(Utils.isNotEmpty(request.getParameter("position"))) {
+			String[] posArray = request.getParameter("position").split(",");
+			if(posArray.length == 2) {
+				try {
+					double lng = Double.valueOf(posArray[0]);
+					double lat = Double.valueOf(posArray[1]);
+					position = new double[2];
+					position[0] = lng;
+					position[1] = lat;
+					radius = 1.0;
+				} catch (NumberFormatException e) {
+				}
+			}
+		}
+		if(Utils.isNotEmpty(request.getParameter("radius"))) {
+			try {
+				radius = Double.valueOf(request.getParameter("radius"));
+			} catch (NumberFormatException e) {
+			}
+		}
+		result = storageManager.findChargingPoints(ownerId, position, radius);
 		return result;
 	}
 
