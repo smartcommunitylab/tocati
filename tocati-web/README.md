@@ -71,25 +71,28 @@
   - **radius**: double, optional, search radius in KM
 
 #### Result - List<ChargingPoint>
-    [
-    	{
-    		"ownerId": "DEMO",
-    		"objectId": "cp1",
-    		"creationDate": 1469705192874,
-    		"lastUpdate": 1469705192874,
-    		"name": "trento",
-    		"description": "test",
-    		"imageUrl": "http://...",
-    		"poiList": [
-      			"poi1",
-      			"poi2"
-    		],
-    		"coordinates": [
-      			11.121940612792967,
-      			46.061320531569244
-    		]
-  	},...
-   ]
+```
+[
+  {
+    "ownerId": "DEMO",
+    "objectId": "cp1",
+    "creationDate": 1469705192874,
+    "lastUpdate": 1469705192874,
+    "name": "trento",
+    "description": "test",
+    "imageUrl": "http://...",
+    "poiList": [
+      "poi1",
+      "poi2"
+    ],
+    "coordinates": [
+      11.121940612792967,
+      46.061320531569244
+    ]
+  },...
+]
+```
+
 
 ### Get Pois by ChargingPoint
 ```
@@ -97,26 +100,28 @@
 ```
 
 #### Result - List<Poi>
-	[
-  	{
-    		"ownerId": "DEMO",
-    		"objectId": "poi1",
-    		"creationDate": 1469631864657,
-    		"lastUpdate": 1469631864657,
-    		"name": "uno1",
-    		"description": "test",
-    		"imageUrl": "http://...",
-    		"category": "cat1",
-    		"when": "dfsdfsd",
-    		"opening": "dvfdgdg",
-    		"points": 123,
-    		"coordinates": [
-      			11.185455322265625,
-      			46.20264638061019
-    		]
-  	},...
-	]
-		]
+```
+[
+  {
+    "ownerId": "DEMO",
+    "objectId": "poi1",
+    "creationDate": 1469631864657,
+    "lastUpdate": 1469631864657,
+    "name": "uno1",
+    "description": "test",
+    "imageUrl": "http://...",
+    "category": "cat1",
+    "when": "\"dfsdfsd\"",
+    "opening": "\"dvfdgdg\"",
+    "points": 123,
+    "coordinates": [
+      11.185455322265625,
+      46.20264638061019
+    ]
+  },...
+]
+```
+
 
 ### User checkin
 ```
@@ -197,44 +202,7 @@
       },
       "position": 1,
       "points": 177
-    },
-    {
-      "data": {
-        "ownerId": "DEMO",
-        "objectId": "a3b0e1ee-a281-466c-95a5-b892c3ecb49d",
-        "creationDate": 1469696315211,
-        "lastUpdate": 1469697087280,
-        "userId": "test1",
-        "name": "test",
-        "surname": "test",
-        "displayName": "test1",
-        "checkinList": [
-          {
-            "timestamp": 1469697087280,
-            "poi": {
-              "ownerId": "DEMO",
-              "objectId": "poi1",
-              "creationDate": 1469631864657,
-              "lastUpdate": 1469631864657,
-              "name": "uno1",
-              "description": "test",
-              "imageUrl": "http://...",
-              "category": "cat1",
-              "when": "\"dfsdfsd\"",
-              "opening": "\"dvfdgdg\"",
-              "points": 123,
-              "coordinates": [
-                11.185455322265625,
-                46.20264638061019
-              ]
-            }
-          }
-        ],
-        "points": 123
-      },
-      "position": 2,
-      "points": 123
-    }
+    },...
   ]
 }
 ```
