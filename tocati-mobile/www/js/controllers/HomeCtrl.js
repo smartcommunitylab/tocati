@@ -57,7 +57,7 @@ angular.module('tocati.controllers.home', [])
 
 .controller('HomeMapCtrl', function ($scope, Config, MapSrv) {
 	angular.extend($scope, {
-		center: Config.mapDefaultCenter,
+		center: Config.MAP_DEFAULT_CENTER,
 		markers: [],
 		events: {}
 	});
