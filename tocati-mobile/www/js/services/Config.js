@@ -10,7 +10,7 @@ angular.module('tocati.services.config', [])
 		timeout: 5000,
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8',
-			'X-ACCESS-TOKEN': CONF.X_ACCESS_TOKEN
+			'X-ACCESS-TOKEN': CONF['X-ACCESS-TOKEN']
 		}
 	};
 
