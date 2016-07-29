@@ -19,10 +19,12 @@ package it.smartcommunitylab.tocati.controller;
 import it.smartcommunitylab.tocati.common.EntityNotFoundException;
 import it.smartcommunitylab.tocati.common.UnauthorizedException;
 import it.smartcommunitylab.tocati.common.Utils;
+import it.smartcommunitylab.tocati.game.GamificationEngineManager;
 import it.smartcommunitylab.tocati.model.ChargingPoint;
 import it.smartcommunitylab.tocati.model.MyRanking;
 import it.smartcommunitylab.tocati.model.Poi;
 import it.smartcommunitylab.tocati.model.UserData;
+import it.smartcommunitylab.tocati.security.DataSetInfo;
 import it.smartcommunitylab.tocati.storage.DataSetSetup;
 import it.smartcommunitylab.tocati.storage.RepositoryManager;
 
@@ -56,6 +58,9 @@ public class EntityController {
 
 	@Autowired
 	private DataSetSetup dataSetSetup;
+	
+	@Autowired
+	private GamificationEngineManager gameManager;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/api/users/{ownerId}", method = RequestMethod.GET)
@@ -175,6 +180,12 @@ public class EntityController {
 		}
 		UserData result = null;
 		result = storageManager.userCheckin(ownerId, userId, pointId, poiId);
+		DataSetInfo dataSetInfo = dataSetSetup.findDataSetById(ownerId);
+		if(dataSetInfo != null) {
+			Criteria criteriaPoi = Criteria.where("objectId").is(poiId);
+			Poi poi = storageManager.findOneData(Poi.class, criteriaPoi, ownerId);
+			gameManager.sendScores(dataSetInfo.getGameId(), userId, poi.getPoints());
+		}
 		return result;
 	}
 	

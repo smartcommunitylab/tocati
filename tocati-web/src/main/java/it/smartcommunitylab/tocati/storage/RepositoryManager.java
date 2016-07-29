@@ -190,8 +190,7 @@ public class RepositoryManager {
 		//check if user has already done the checkin
 		for(Checkin checkin : userData.getCheckinList()) {
 			if(checkin.getPoi().getObjectId().equals(poiId)) {
-				//do nothing
-				return userData;
+				throw new EntityNotFoundException(String.format("Poi %s already checked in", poiId));
 			}
 		}
 		

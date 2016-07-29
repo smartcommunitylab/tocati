@@ -16,6 +16,7 @@
 
 package it.smartcommunitylab.tocati.config;
 
+import it.smartcommunitylab.tocati.game.GamificationEngineManager;
 import it.smartcommunitylab.tocati.storage.RepositoryManager;
 
 import java.net.UnknownHostException;
@@ -64,6 +65,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	RepositoryManager getRepositoryManager() throws UnknownHostException, MongoException {
 		return new RepositoryManager(getMongo(), defaultLang);
+	}
+	
+	@Bean
+	GamificationEngineManager getGamificationEngineManager() {
+		return new GamificationEngineManager();
 	}
 
 	@Bean

@@ -8,6 +8,7 @@ public class DataSetInfo implements Serializable {
 	private String ownerId;
 	private String password;
 	private String token;
+	private String gameId;
 	
 	public String getOwnerId() {
 		return ownerId;
@@ -36,6 +37,14 @@ public class DataSetInfo implements Serializable {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getGameId() {
+		return gameId;
+	}
+
+	public void setGameId(String gameId) {
+		this.gameId = gameId;
 	}
 
 }
