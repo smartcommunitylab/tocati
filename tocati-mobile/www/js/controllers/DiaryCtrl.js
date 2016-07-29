@@ -1,16 +1,25 @@
 angular.module('tocati.controllers.diary', [])
 
-.controller('DiaryCtrl', function ($scope) {})
+.controller('DiaryCtrl', function ($scope, UserSrv, DataSrv) {
+	$scope.myDisplayName = UserSrv.getUser()['displayName'];
+	$scope.myPosition = null;
+	$scope.myPoints = 0;
+
+	$scope.ranking = [];
+
+	/* Populate ranking */
+	DataSrv.getRanking().then(
+		function (myranking) {
+			$scope.myPosition = myranking.position;
+			$scope.myPoints = myranking.points;
+			$scope.ranking = myranking.ranking;
+		}
+	);
+})
 
 .controller('DiaryPointsCtrl', function ($scope) {})
 
-.controller('DiaryRankingCtrl', function ($scope, $ionicScrollDelegate, BackendSrv) {
-	var me = BackendSrv.getUser();
-	$scope.displayName = me['displayName'];
-	$scope.myposition = null;
-	$scope.mypoints = null;
-
-	$scope.ranking = [];
+.controller('DiaryRankingCtrl', function ($scope, $ionicScrollDelegate) {
 	/* Resize ion-scroll */
 	$scope.rankingStyle = {};
 
@@ -23,13 +32,4 @@ angular.module('tocati.controllers.diary', [])
 	};
 
 	generateRankingStyle();
-
-	/* Populate ranking */
-	BackendSrv.getRanking(me['userId']).then(
-		function (myranking) {
-			$scope.myposition = myranking.position;
-			$scope.mypoints = myranking.points;
-			$scope.ranking = myranking.ranking;
-		}
-	);
 });

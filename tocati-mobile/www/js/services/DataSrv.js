@@ -1,23 +1,23 @@
-angular.module('tocati.services.backend', [])
+angular.module('tocati.services.data', [])
 
-.factory('BackendSrv', function ($rootScope, $http, $q, Config) {
-	var backendService = {};
+.factory('DataSrv', function ($rootScope, $http, $q, Config, UserSrv) {
+	var dataService = {};
 
 	var user = {};
 
-	backendService.getUser = function () {
+	dataService.getUser = function () {
 		return user;
 	};
 
-	backendService.setUser = function (userData) {
+	dataService.setUser = function (userData) {
 		user = userData;
 	};
 
 	/* get user profile */
-	backendService.getUserProfile = function (userId) {
+	dataService.getUserProfile = function () {
 		var deferred = $q.defer();
 
-		$http.get(Config.SERVER_URL + '/api/users/' + Config.OWNER_ID + '/' + userId, Config.HTTP_CONFIG)
+		$http.get(Config.SERVER_URL + '/api/users/' + Config.OWNER_ID + '/' + UserSrv.getUser()['userId'], Config.HTTP_CONFIG)
 
 		.then(
 			function (response) {
@@ -33,7 +33,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* user login */
-	backendService.userLogin = function (userId, name, surname, displayName) {
+	dataService.userLogin = function (userId, name, surname, displayName) {
 		var deferred = $q.defer();
 
 		var body = {
@@ -58,7 +58,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* ChargingPoint search */
-	backendService.getChargingPoints = function (params) {
+	dataService.getChargingPoints = function (params) {
 		var deferred = $q.defer();
 
 		var httpConfWithParams = angular.copy(Config.HTTP_CONFIG);
@@ -88,7 +88,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* get POIs by ChargingPoint */
-	backendService.getPOIsByChargingPoints = function (pointId) {
+	dataService.getPOIsByChargingPoints = function (pointId) {
 		var deferred = $q.defer();
 
 		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID + '/' + pointId + '/pois', Config.HTTP_CONFIG)
@@ -107,10 +107,10 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* user checkin */
-	backendService.userCheckin = function (userId, pointId, poiId) {
+	dataService.userCheckin = function (pointId, poiId) {
 		var deferred = $q.defer();
 
-		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID + '/' + userId + '/' + pointId + '/pois/' + poiId + '/checkin', Config.HTTP_CONFIG)
+		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID + '/' + UserSrv.getUser()['userId'] + '/' + pointId + '/pois/' + poiId + '/checkin', Config.HTTP_CONFIG)
 
 		.then(
 			function (response) {
@@ -126,10 +126,10 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* getRanking */
-	backendService.getRanking = function (userId) {
+	dataService.getRanking = function () {
 		var deferred = $q.defer();
 
-		$http.get(Config.SERVER_URL + '/api/classification/' + Config.OWNER_ID + '/' + userId, Config.HTTP_CONFIG)
+		$http.get(Config.SERVER_URL + '/api/classification/' + Config.OWNER_ID + '/' + UserSrv.getUser()['userId'], Config.HTTP_CONFIG)
 
 		.then(
 			function (response) {
@@ -144,5 +144,5 @@ angular.module('tocati.services.backend', [])
 		return deferred.promise;
 	};
 
-	return backendService;
+	return dataService;
 });

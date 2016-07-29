@@ -1,6 +1,6 @@
 angular.module('tocati.controllers.home', [])
 
-.controller('AppCtrl', function ($scope, $state, $ionicHistory, BackendSrv, StorageSrv) {
+.controller('AppCtrl', function ($scope, $state, $ionicHistory, UserSrv, StorageSrv) {
 	$scope.goTo = function (state, params, root) {
 		if (!!root) {
 			$ionicHistory.nextViewOptions({
@@ -12,10 +12,11 @@ angular.module('tocati.controllers.home', [])
 	};
 
 	$scope.login = function () {
-		BackendSrv.userLogin('oskarnrk', 'Oscar', 'Zambotti', 'OskarNRK').then(
+		// FIXME dev only!
+		UserSrv.userLogin('oscar', 'oscar', 'oscar', 'oscar').then(
 			function (userData) {
 				StorageSrv.saveUser(userData);
-				BackendSrv.setUser(userData);
+				UserSrv.setUser(userData);
 			}
 		);
 	};
@@ -23,15 +24,24 @@ angular.module('tocati.controllers.home', [])
 	// FIXME dev only user
 	var user = StorageSrv.getUser();
 	if (!!user) {
-		BackendSrv.setUser(user);
+		UserSrv.setUser(user);
+	}
+
+	if (!StorageSrv.isTutorialDone()) {
+		$scope.goTo('app.tutorial', {}, true);
 	}
 })
 
-.controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate) {
+.controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate, StorageSrv) {
 	// disable sidemenu
 	$ionicSideMenuDelegate.canDragContent(false);
 	// ion-slides options
 	$scope.options = {};
+
+	$scope.endTutorial = function () {
+		StorageSrv.setTutorialDone();
+		$scope.goTo('app.home', {}, true);
+	};
 })
 
 .controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate, $ionicModal) {

@@ -1,4 +1,4 @@
-<ion-view view-title="{{'app' | translate}}" class="diary">
+<ion-view view-title="{{'my_diary' | translate}}" class="diary">
 	<ion-tabs class="tabs-energized">
 		<!-- Points -->
 		<ion-tab title="{{'points' | translate}}" ng-controller="DiaryPointsCtrl">
@@ -6,7 +6,7 @@
 				<ion-content class="diary-points" has-bouncing="false" scroll="false">
 					<div class="me">
 						<span>Punti totali:</span>
-						<span class="points">108</span>
+						<span class="points">{{myPoints}}</span>
 					</div>
 
 					<ion-scroll ng-style="pointsStyle" delegate-handle="pointsScroll">
@@ -34,9 +34,9 @@
 					</div>
 					<div class="me">
 						<div class="row">
-							<div class="col col-25">2</div>
-							<div class="col col-50">Heisenberg</div>
-							<div class="col col-25">108</div>
+							<div class="col col-25">{{myPosition}}</div>
+							<div class="col col-50">{{myDisplayName}}</div>
+							<div class="col col-25">{{myPoints}}</div>
 						</div>
 					</div>
 
@@ -45,8 +45,8 @@
 							<div ng-repeat="rankingUser in ranking" ng-class="{'pos-even': ($index % 2 == 0)}">
 								<div class="row">
 									<div class="col col-25">{{rankingUser.position}}</div>
-									<div class="col col-50">{{rankingUser.nickName}}</div>
-									<div class="col col-25">{{rankingUser.score}}</div>
+									<div class="col col-50">{{rankingUser.data.displayName}}</div>
+									<div class="col col-25">{{rankingUser.points}}</div>
 								</div>
 							</div>
 
