@@ -1,10 +1,20 @@
 angular.module('tocati.services.backend', [])
 
 .factory('BackendSrv', function ($rootScope, $http, $q, Config) {
-	var backend = {};
+	var backendService = {};
+
+	var user = {};
+
+	backendService.getUser = function () {
+		return user;
+	};
+
+	backendService.setUser = function (userData) {
+		user = userData;
+	};
 
 	/* get user profile */
-	backend.getUserProfile = function (userId) {
+	backendService.getUserProfile = function (userId) {
 		var deferred = $q.defer();
 
 		$http.get(Config.SERVER_URL + '/api/users/' + Config.OWNER_ID + '/' + userId, Config.HTTP_CONFIG)
@@ -12,7 +22,7 @@ angular.module('tocati.services.backend', [])
 		.then(
 			function (response) {
 				// UserData
-				deferred.resolve(response);
+				deferred.resolve(response.data);
 			},
 			function (reason) {
 				deferred.reject(reason.data ? reason.data.errorMessage : reason);
@@ -23,7 +33,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* user login */
-	backend.userLogin = function (userId, name, surname, displayName) {
+	backendService.userLogin = function (userId, name, surname, displayName) {
 		var deferred = $q.defer();
 
 		var body = {
@@ -37,7 +47,7 @@ angular.module('tocati.services.backend', [])
 		.then(
 			function (response) {
 				// UserData
-				deferred.resolve(response);
+				deferred.resolve(response.data);
 			},
 			function (reason) {
 				deferred.reject(reason.data ? reason.data.errorMessage : reason);
@@ -48,7 +58,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* ChargingPoint search */
-	backend.getChargingPoints = function (params) {
+	backendService.getChargingPoints = function (params) {
 		var deferred = $q.defer();
 
 		var httpConfWithParams = angular.copy(Config.HTTP_CONFIG);
@@ -67,7 +77,7 @@ angular.module('tocati.services.backend', [])
 		.then(
 			function (response) {
 				// ChargingPoints list
-				deferred.resolve(response);
+				deferred.resolve(response.data);
 			},
 			function (reason) {
 				deferred.reject(reason.data ? reason.data.errorMessage : reason);
@@ -78,7 +88,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* get POIs by ChargingPoint */
-	backend.getPOIsByChargingPoints = function (pointId) {
+	backendService.getPOIsByChargingPoints = function (pointId) {
 		var deferred = $q.defer();
 
 		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID + '/' + pointId + '/pois', Config.HTTP_CONFIG)
@@ -86,7 +96,7 @@ angular.module('tocati.services.backend', [])
 		.then(
 			function (response) {
 				// POIs list
-				deferred.resolve(response);
+				deferred.resolve(response.data);
 			},
 			function (reason) {
 				deferred.reject(reason.data ? reason.data.errorMessage : reason);
@@ -97,7 +107,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* user checkin */
-	backend.userCheckin = function (userId, pointId, poiId) {
+	backendService.userCheckin = function (userId, pointId, poiId) {
 		var deferred = $q.defer();
 
 		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID + '/' + userId + '/' + pointId + '/pois/' + poiId + '/checkin', Config.HTTP_CONFIG)
@@ -105,7 +115,7 @@ angular.module('tocati.services.backend', [])
 		.then(
 			function (response) {
 				// UserData
-				deferred.resolve(response);
+				deferred.resolve(response.data);
 			},
 			function (reason) {
 				deferred.reject(reason.data ? reason.data.errorMessage : reason);
@@ -116,7 +126,7 @@ angular.module('tocati.services.backend', [])
 	};
 
 	/* getRanking */
-	backend.getRanking = function (userId) {
+	backendService.getRanking = function (userId) {
 		var deferred = $q.defer();
 
 		$http.get(Config.SERVER_URL + '/api/classification/' + Config.OWNER_ID + '/' + userId, Config.HTTP_CONFIG)
@@ -124,7 +134,7 @@ angular.module('tocati.services.backend', [])
 		.then(
 			function (response) {
 				// MyRanking
-				deferred.resolve(response);
+				deferred.resolve(response.data);
 			},
 			function (reason) {
 				deferred.reject(reason.data ? reason.data.errorMessage : reason);
@@ -133,4 +143,6 @@ angular.module('tocati.services.backend', [])
 
 		return deferred.promise;
 	};
+
+	return backendService;
 });

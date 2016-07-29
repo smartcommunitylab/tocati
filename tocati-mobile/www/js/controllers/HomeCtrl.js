@@ -1,6 +1,6 @@
 angular.module('tocati.controllers.home', [])
 
-.controller('AppCtrl', function ($scope, $state, $ionicHistory) {
+.controller('AppCtrl', function ($scope, $state, $ionicHistory, BackendSrv, StorageSrv) {
 	$scope.goTo = function (state, params, root) {
 		if (!!root) {
 			$ionicHistory.nextViewOptions({
@@ -10,6 +10,21 @@ angular.module('tocati.controllers.home', [])
 
 		$state.go(state, params);
 	};
+
+	$scope.login = function () {
+		BackendSrv.userLogin('oskarnrk', 'Oscar', 'Zambotti', 'OskarNRK').then(
+			function (userData) {
+				StorageSrv.saveUser(userData);
+				BackendSrv.setUser(userData);
+			}
+		);
+	};
+
+	// FIXME dev only user
+	var user = StorageSrv.getUser();
+	if (!!user) {
+		BackendSrv.setUser(user);
+	}
 })
 
 .controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate) {

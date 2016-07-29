@@ -4,6 +4,8 @@ angular.module('tocati', [
     'ngSanitize',
 	'leaflet-directive',
 	'tocati.services.config',
+	'tocati.services.backend',
+	'tocati.services.storage',
 	'tocati.services.geolocalization',
 	'tocati.services.map',
     'pascalprecht.translate',
