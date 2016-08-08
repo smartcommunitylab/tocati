@@ -1,18 +1,18 @@
 angular.module('tocati', [
-	'ionic',
-	'ngCordova',
-    'ngSanitize',
-	'leaflet-directive',
-	'tocati.services.config',
-	'tocati.services.data',
-	'tocati.services.storage',
-	'tocati.services.user',
-	'tocati.services.geolocalization',
-	'tocati.services.map',
-    'pascalprecht.translate',
-	'tocati.controllers.home',
-	'tocati.controllers.entry',
-	'tocati.controllers.diary'
+  'ionic',
+  'ngCordova',
+  'ngSanitize',
+  'leaflet-directive',
+  'tocati.services.config',
+  'tocati.services.data',
+  'tocati.services.storage',
+  'tocati.services.user',
+  'tocati.services.geolocalization',
+  'tocati.services.map',
+  'pascalprecht.translate',
+  'tocati.controllers.home',
+  'tocati.controllers.entry',
+  'tocati.controllers.diary'
 ])
 
 .run(function ($ionicPlatform) {
