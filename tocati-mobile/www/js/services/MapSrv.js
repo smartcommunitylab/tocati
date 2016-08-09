@@ -4,7 +4,7 @@ angular.module('tocati.services.map', [])
 	// GeoSrv
 	var mapService = {};
 	var cachedMap = {};
-	var myLocation = {};
+	var myPosition = {};
 
 	mapService.getMap = function (mapId) {
 		var deferred = $q.defer();
@@ -20,12 +20,12 @@ angular.module('tocati.services.map', [])
 		return deferred.promise;
 	}
 
-	mapService.setMyLocation = function (myNewLocation) {
-		myLocation = myNewLocation
+	mapService.setMyPosition = function (myNewPosition) {
+		myPosition = myNewPosition
 	};
 
-	mapService.getMyLocation = function () {
-		return myLocation;
+	mapService.getMyPosition = function () {
+		return myPosition;
 	};
 
 	// init map with tile server provider and show my position
@@ -46,9 +46,11 @@ angular.module('tocati.services.map', [])
 
 				$ionicPlatform.ready(function () {
 					// My position
-					GeoSrv.locate().then(function (e) {
-						var myPos = L.marker(L.latLng(e[0], e[1])).addTo(map);
-						cachedMap[mapId].myPos = myPos;
+					GeoSrv.locate().then(function (position) {
+						var me = L.latLng(position[0], position[1]);
+						mapService.setMyPosition(me);
+						var myPosMarker = L.marker(me).addTo(map);
+						cachedMap[mapId].myPos = myPosMarker;
 					});
 				});
 
@@ -58,6 +60,7 @@ angular.module('tocati.services.map', [])
 				console.log('Error creating "' + mapId + '" map!');
 				deferred.reject(error);
 			});
+
 		return deferred.promise;
 	};
 
@@ -70,8 +73,10 @@ angular.module('tocati.services.map', [])
 	mapService.centerOnMe = function (mapId, zoom) {
 		leafletData.getMap(mapId).then(function (map) {
 			GeoSrv.locate().then(function (position) {
+				var me = L.latLng(position[0], position[1]);
+				mapService.setMyPosition(me);
 				$timeout(function () {
-					map.setView(L.latLng(position[0], position[1]), (!!zoom ? zoom : Config.defaultZoom));
+					map.setView(me, (!!zoom ? zoom : Config.MAP_DEFAULT_ZOOM));
 				});
 			});
 		});

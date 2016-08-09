@@ -24,7 +24,7 @@ angular.module('tocati.services.config', [])
 		lng: 11.151393
 	};
 
-	configService.MAP_DEFAULT_ZOOM = 15;
+	configService.MAP_DEFAULT_ZOOM = 10;
 
 	configService.MAP_DEFAULT_CENTER = {
 		lat: verona.lat,

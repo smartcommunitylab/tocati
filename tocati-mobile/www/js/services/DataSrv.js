@@ -64,12 +64,14 @@ angular.module('tocati.services.data', [])
 		var httpConfWithParams = angular.copy(Config.HTTP_CONFIG);
 		httpConfWithParams.params = {};
 
+		// params: lat/lng, radius
+
 		if (angular.isNumber(params.lat) && angular.isNumber(params.lng)) {
 			httpConfWithParams.params['position'] = params.lng + ',' + params.lat;
 		}
 
 		if (angular.isNumber(params.radius)) {
-			httpConfWithParams.params['radius'] = radius;
+			httpConfWithParams.params['radius'] = params.radius;
 		}
 
 		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID, httpConfWithParams)
@@ -88,7 +90,7 @@ angular.module('tocati.services.data', [])
 	};
 
 	/* get POIs by ChargingPoint */
-	dataService.getPOIsByChargingPoints = function (pointId) {
+	dataService.getPOIsByChargingPoint = function (pointId) {
 		var deferred = $q.defer();
 
 		$http.get(Config.SERVER_URL + '/api/chargingPoints/' + Config.OWNER_ID + '/' + pointId + '/pois', Config.HTTP_CONFIG)

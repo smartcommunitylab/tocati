@@ -1,5 +1,8 @@
 angular.module('tocati.controllers.home', [])
 
+/*
+ * App generic controller
+ */
 .controller('AppCtrl', function ($scope, $state, $ionicHistory, UserSrv, StorageSrv) {
 	$scope.goTo = function (state, params, root) {
 		if (!!root) {
@@ -32,6 +35,9 @@ angular.module('tocati.controllers.home', [])
 	}
 })
 
+/*
+ * Tutorial controller
+ */
 .controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate, StorageSrv) {
 	// disable sidemenu
 	$ionicSideMenuDelegate.canDragContent(false);
@@ -44,7 +50,12 @@ angular.module('tocati.controllers.home', [])
 	};
 })
 
+/*
+ * Home generic controller
+ */
 .controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate, $ionicModal) {
+	$scope.chargingPoints = {};
+
 	$scope.types = [
 		{
 			name: 'Giochi',
@@ -80,21 +91,112 @@ angular.module('tocati.controllers.home', [])
 	});
 })
 
-.controller('HomeMapCtrl', function ($scope, Config, MapSrv) {
+/*
+ * Home Map controller
+ */
+.controller('HomeMapCtrl', function ($scope, $timeout, Config, GraphicSrv, MapSrv, DataSrv) {
 	angular.extend($scope, {
 		center: Config.MAP_DEFAULT_CENTER,
-		markers: [],
-		events: {}
+		markers: {},
+		events: {
+			map: {
+				enable: ['click', 'zoomstart', 'zoomend'],
+				logic: 'emit'
+			}
+		}
 	});
 
+	var homeMap;
+	var zoomOut = false;
+	var markersCache = {};
+
 	$scope.initMap = function () {
-		MapSrv.initMap('home-map').then(function (map) {
+		MapSrv.initMap('homemap').then(function (map) {
+			homeMap = map;
+
 			// FIXME on development only
-			MapSrv.centerOnMe('home-map');
+			MapSrv.centerOnMe('homemap');
+
+			$scope.refreshChargingPoints();
 		});
 	};
+
+	$scope.refreshChargingPoints = function () {
+		var myPos = MapSrv.getMyPosition();
+		var params = {
+			lat: myPos.lat,
+			lng: myPos.lng,
+			radius: 5
+		};
+
+		DataSrv.getChargingPoints(params).then(
+			function (cpList) {
+				//var cpMarkers = [];
+				$scope.chargingPoints = {};
+				markersCache.chargingPoints = {};
+
+				angular.forEach(cpList, function (cp) {
+					$scope.chargingPoints[cp.objectId] = cp;
+
+					markersCache.chargingPoints[cp.objectId] = {
+						lat: cp.coordinates[1],
+						lng: cp.coordinates[0],
+						name: cp.name,
+						icon: GraphicSrv.getChargingPointMarkerIcon(),
+						focus: false,
+						draggable: false
+					};
+
+					$scope.markers = angular.copy(markersCache.chargingPoints);
+				});
+			},
+			function (error) {
+				// TODO handle errors
+			}
+		);
+	};
+
+	$scope.$on('leafletDirectiveMarker.homemap.click', function (event, args) {
+		DataSrv.getPOIsByChargingPoint(args.modelName).then(
+			function (pois) {
+				markersCache[args.modelName] = {};
+
+				angular.forEach(pois, function (poi) {
+					markersCache[args.modelName][poi.objectId] = {
+						lat: poi.coordinates[1],
+						lng: poi.coordinates[0],
+						name: poi.name,
+						icon: GraphicSrv.getPoiMarkerIcon(poi.category),
+						focus: false,
+						draggable: false
+					};
+
+					$scope.markers = angular.copy(markersCache[args.modelName]);
+					$scope.markers[args.modelName] = args.model;
+				});
+			}
+		);
+	});
+
+	$scope.$on('leafletDirectiveMap.homemap.zoomstart', function (event, args) {
+		if (args.leafletObject._animateToZoom < args.leafletObject._zoom) {
+			zoomOut = true;
+			//$scope.markers = angular.copy(markersCache.chargingPoints);
+		}
+	});
+
+	$scope.$on('leafletDirectiveMap.homemap.zoomend', function (event, args) {
+		if (!!zoomOut) {
+			$scope.markers = angular.copy(markersCache.chargingPoints);
+			zoomOut = false;
+		}
+	});
+
 })
 
+/*
+ * Home POI list controller
+ */
 .controller('HomeListCtrl', function ($scope, $state) {
 	$scope.entries = [
 		{
