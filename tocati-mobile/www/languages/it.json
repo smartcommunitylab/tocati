@@ -1,9 +1,18 @@
 {
 	"app": "Goevway",
+	"ok": "OK",
+	"close": "Chiudi",
+	"go": "Vai",
 	"home": "Home",
 	"credits": "Credits",
 	"login": "Accedi",
 	"logout": "Esci",
+	"chargingpoint": "Punto di ricarica",
+	"distance": "distanza {{distance}} Km",
+	"points_n": "{{points}} punti",
+	"details": "Dettagli",
+	"checkin": "Check-in",
+	"youarehere": "Ti trovi qui",
 	"my_diary": "Il mio diario",
 	"rules": "Regolamento",
 	"map": "Mappa",
@@ -13,5 +22,6 @@
 	"modal_choose": "Scegli cosa vuoi visualizzare",
 	"diary_ranking_listheader_position": "Posizione",
 	"diary_ranking_listheader_player": "Giocatore",
-	"diary_ranking_listheader_points": "Punti"
+	"diary_ranking_listheader_points": "Punti",
+	"cat_cat1": "Categoria Uno"
 }

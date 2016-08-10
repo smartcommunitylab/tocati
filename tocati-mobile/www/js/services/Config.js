@@ -32,5 +32,8 @@ angular.module('tocati.services.config', [])
 		zoom: configService.MAP_DEFAULT_ZOOM
 	};
 
+	// Unit: Km
+	configService.YOU_ARE_HERE_DISTANCE = 0.1;
+
 	return configService;
 });

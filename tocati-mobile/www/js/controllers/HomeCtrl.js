@@ -1,60 +1,11 @@
 angular.module('tocati.controllers.home', [])
 
 /*
- * App generic controller
- */
-.controller('AppCtrl', function ($scope, $state, $ionicHistory, UserSrv, StorageSrv) {
-	$scope.goTo = function (state, params, root) {
-		if (!!root) {
-			$ionicHistory.nextViewOptions({
-				historyRoot: true
-			});
-		}
-
-		$state.go(state, params);
-	};
-
-	$scope.login = function () {
-		// FIXME dev only!
-		UserSrv.userLogin('oscar', 'oscar', 'oscar', 'oscar').then(
-			function (userData) {
-				StorageSrv.saveUser(userData);
-				UserSrv.setUser(userData);
-			}
-		);
-	};
-
-	// FIXME dev only user
-	var user = StorageSrv.getUser();
-	if (!!user) {
-		UserSrv.setUser(user);
-	}
-
-	if (!StorageSrv.isTutorialDone()) {
-		$scope.goTo('app.tutorial', {}, true);
-	}
-})
-
-/*
- * Tutorial controller
- */
-.controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate, StorageSrv) {
-	// disable sidemenu
-	$ionicSideMenuDelegate.canDragContent(false);
-	// ion-slides options
-	$scope.options = {};
-
-	$scope.endTutorial = function () {
-		StorageSrv.setTutorialDone();
-		$scope.goTo('app.home', {}, true);
-	};
-})
-
-/*
  * Home generic controller
  */
 .controller('HomeCtrl', function ($scope, $ionicSideMenuDelegate, $ionicModal) {
 	$scope.chargingPoints = {};
+	$scope.pois = {};
 
 	$scope.types = [
 		{
@@ -83,7 +34,7 @@ angular.module('tocati.controllers.home', [])
 		}
 	];
 
-	$ionicModal.fromTemplateUrl('templates/typesModal.html', {
+	$ionicModal.fromTemplateUrl('templates/modal_types.html', {
 		scope: $scope,
 		animation: 'slide-in-up'
 	}).then(function (modal) {
@@ -94,7 +45,7 @@ angular.module('tocati.controllers.home', [])
 /*
  * Home Map controller
  */
-.controller('HomeMapCtrl', function ($scope, $timeout, Config, GraphicSrv, MapSrv, DataSrv) {
+.controller('HomeMapCtrl', function ($scope, $timeout, $filter, $ionicPopup, Utils, Config, GraphicSrv, MapSrv, DataSrv) {
 	angular.extend($scope, {
 		center: Config.MAP_DEFAULT_CENTER,
 		markers: {},
@@ -133,12 +84,12 @@ angular.module('tocati.controllers.home', [])
 			function (cpList) {
 				//var cpMarkers = [];
 				$scope.chargingPoints = {};
-				markersCache.chargingPoints = {};
+				markersCache._chargingPoints = {};
 
 				angular.forEach(cpList, function (cp) {
 					$scope.chargingPoints[cp.objectId] = cp;
 
-					markersCache.chargingPoints[cp.objectId] = {
+					markersCache._chargingPoints[cp.objectId] = {
 						lat: cp.coordinates[1],
 						lng: cp.coordinates[0],
 						name: cp.name,
@@ -147,7 +98,7 @@ angular.module('tocati.controllers.home', [])
 						draggable: false
 					};
 
-					$scope.markers = angular.copy(markersCache.chargingPoints);
+					$scope.markers = angular.copy(markersCache._chargingPoints);
 				});
 			},
 			function (error) {
@@ -157,41 +108,121 @@ angular.module('tocati.controllers.home', [])
 	};
 
 	$scope.$on('leafletDirectiveMarker.homemap.click', function (event, args) {
-		DataSrv.getPOIsByChargingPoint(args.modelName).then(
-			function (pois) {
-				markersCache[args.modelName] = {};
-
-				angular.forEach(pois, function (poi) {
-					markersCache[args.modelName][poi.objectId] = {
-						lat: poi.coordinates[1],
-						lng: poi.coordinates[0],
-						name: poi.name,
-						icon: GraphicSrv.getPoiMarkerIcon(poi.category),
-						focus: false,
-						draggable: false
-					};
-
-					$scope.markers = angular.copy(markersCache[args.modelName]);
-					$scope.markers[args.modelName] = args.model;
-				});
-			}
-		);
+		if (!!args.model.parentId) {
+			// POI
+			$scope.openPoiPopup($scope.pois[args.modelName]);
+		} else {
+			// ChargingPoint
+			$scope.openChargingPointPopup($scope.chargingPoints[args.modelName]);
+		}
 	});
+
+	$scope.openChargingPointPopup = function (cp) {
+		$scope.popupValues = {};
+		$scope.selectedChargingPoint = cp;
+
+		var myPos = MapSrv.getMyPosition();
+		var distance = Utils.getDistanceP2P([myPos.lng, myPos.lat], cp.coordinates);
+
+		if (distance > Config.YOU_ARE_HERE_DISTANCE) {
+			$scope.popupValues['distance'] = Utils.roundDecimalPlaces(distance);
+		} else {
+			$scope.popupValues['distance'] = 0;
+		}
+
+		var cpPopup = $ionicPopup.confirm({
+			scope: $scope,
+			templateUrl: 'templates/popup_chargingpoint.html',
+			cancelText: $filter('translate')('close'),
+			cancelType: 'button-clear button-stable',
+			okText: $filter('translate')('go'),
+			okType: 'button-clear button-assertive',
+			cssClass: 'popup-home'
+		});
+
+		cpPopup.then(function (go) {
+			if (go) {
+				DataSrv.getPOIsByChargingPoint(cp.objectId).then(
+					function (pois) {
+						$scope.pois = {};
+						markersCache[cp.objectId] = {};
+						var boundsArray = [];
+
+						angular.forEach(pois, function (poi) {
+							$scope.pois[poi.objectId] = poi;
+							boundsArray.push([poi.coordinates[1], poi.coordinates[0]]);
+
+							markersCache[cp.objectId][poi.objectId] = {
+								parentId: cp.objectId,
+								lat: poi.coordinates[1],
+								lng: poi.coordinates[0],
+								name: poi.objectId,
+								icon: GraphicSrv.getPoiMarkerIcon(poi.category),
+								focus: false,
+								draggable: false
+							};
+						});
+
+						$scope.markers = angular.copy(markersCache[cp.objectId]);
+						$scope.markers[cp.objectId] = markersCache._chargingPoints[cp.objectId];
+						boundsArray.push([$scope.chargingPoints[cp.objectId].coordinates[1], $scope.chargingPoints[cp.objectId].coordinates[0]]);
+						// fit map
+						homeMap.fitBounds(boundsArray);
+					}
+				);
+			} else {
+				cpPopup.close();
+			}
+		});
+	};
+
+	$scope.openPoiPopup = function (poi) {
+		$scope.popupValues = {};
+		$scope.selectedPoi = poi;
+		$scope.categoryImage = GraphicSrv.getPoiIconC(poi.category);
+
+		var myPos = MapSrv.getMyPosition();
+		var distance = Utils.getDistanceP2P([myPos.lng, myPos.lat], poi.coordinates);
+
+		if (distance > Config.YOU_ARE_HERE_DISTANCE) {
+			$scope.popupValues['distance'] = Utils.roundDecimalPlaces(distance);
+		} else {
+			$scope.popupValues['distance'] = 0;
+		}
+
+		$scope.popupValues['points'] = poi.points;
+
+		var poiPopup = $ionicPopup.confirm({
+			scope: $scope,
+			templateUrl: 'templates/popup_poi.html',
+			cancelText: $filter('translate')('close'),
+			cancelType: 'button-clear button-stable',
+			okText: $filter('translate')('details'),
+			okType: 'button-clear button-assertive',
+			cssClass: 'popup-home'
+		});
+
+		poiPopup.then(function (go) {
+			if (go) {
+				// TODO view details
+			} else {
+				poiPopup.close();
+			}
+		});
+	};
 
 	$scope.$on('leafletDirectiveMap.homemap.zoomstart', function (event, args) {
 		if (args.leafletObject._animateToZoom < args.leafletObject._zoom) {
 			zoomOut = true;
-			//$scope.markers = angular.copy(markersCache.chargingPoints);
 		}
 	});
 
 	$scope.$on('leafletDirectiveMap.homemap.zoomend', function (event, args) {
 		if (!!zoomOut) {
-			$scope.markers = angular.copy(markersCache.chargingPoints);
+			$scope.markers = angular.copy(markersCache._chargingPoints);
 			zoomOut = false;
 		}
 	});
-
 })
 
 /*

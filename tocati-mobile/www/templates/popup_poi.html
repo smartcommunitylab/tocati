@@ -1,0 +1,12 @@
+<div class="title">
+	<img ng-src="{{categoryImage}}" />
+	<span>{{'cat_' + selectedPoi.category | translate}}</span>
+</div>
+<div class="name">{{selectedPoi.name}}</div>
+<div class="distance">
+	<span ng-if="!!popupValues['distance']">{{'distance' | translate:popupValues}}</span>
+	<span ng-if="!popupValues['distance']">{{'youarehere' | translate}}</span>
+</div>
+<div class="points">
+	<span>{{'points_n' | translate:popupValues}}</span>
+</div>

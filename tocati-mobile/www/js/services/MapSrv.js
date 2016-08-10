@@ -1,6 +1,6 @@
 angular.module('tocati.services.map', [])
 
-.factory('MapSrv', function ($q, $http, $ionicPlatform, $filter, $timeout, Config, GeoSrv, leafletData) {
+.factory('MapSrv', function ($q, $http, $ionicPlatform, $filter, $timeout, Config, GeoSrv, GraphicSrv, leafletData) {
 	// GeoSrv
 	var mapService = {};
 	var cachedMap = {};
@@ -49,7 +49,9 @@ angular.module('tocati.services.map', [])
 					GeoSrv.locate().then(function (position) {
 						var me = L.latLng(position[0], position[1]);
 						mapService.setMyPosition(me);
-						var myPosMarker = L.marker(me).addTo(map);
+						var myPosMarker = L.marker(me, {
+							icon: L.icon(GraphicSrv.getMyPositionMarkerIcon())
+						}).addTo(map);
 						cachedMap[mapId].myPos = myPosMarker;
 					});
 				});

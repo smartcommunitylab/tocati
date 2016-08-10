@@ -9918,17 +9918,47 @@ a.button {
 /*
  * Home
  */
-.types-modal .bar {
+.modal-types .bar {
   background-size: 0; }
 
-.types-modal .list .item {
+.modal-types .list .item {
   border: none; }
 
-.types-modal .list .item-checkbox .item-content span {
+.modal-types .list .item-checkbox .item-content span {
   padding-left: 38px; }
 
-.types-modal ion-content .title {
+.modal-types ion-content .title {
   text-align: center; }
+
+/*
+ * Home - List
+ */
+.popup-home .popup .popup-head {
+  display: none; }
+
+.popup-home .popup .popup-body .title {
+  padding-bottom: 10px;
+  line-height: 30px;
+  color: #e64a1a;
+  font-weight: bold; }
+
+.popup-home .popup .popup-body .title img {
+  height: 30px;
+  vertical-align: middle; }
+
+.popup-home .popup .popup-body .name {
+  padding-bottom: 10px;
+  font-size: 18px; }
+
+.popup-home .popup .popup-body .distance {
+  color: #686d6f; }
+
+.popup-home .popup .popup-body .points {
+  padding-top: 10px;
+  font-size: 26px; }
+
+.popup-home .popup .popup-buttons button {
+  text-transform: uppercase; }
 
 /*
  * Home - List

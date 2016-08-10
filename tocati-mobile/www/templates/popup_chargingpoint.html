@@ -1,0 +1,9 @@
+<div class="title">
+	<img src="img/markers/colonnina.png" />
+	<span>{{'chargingpoint' | translate}}</span>
+</div>
+<div class="name">{{selectedChargingPoint.name}}</div>
+<div class="distance">
+	<span ng-if="!!popupValues['distance']">{{'distance' | translate:popupValues}}</span>
+	<span ng-if="!popupValues['distance']">{{'youarehere' | translate}}</span>
+</div>

@@ -7,7 +7,7 @@
 		<!-- Map -->
 		<ion-tab title="{{'map' | translate}}" ng-controller="HomeMapCtrl">
 			<ion-pane>
-				<ion-content class="homemap">
+				<ion-content class="homemap" data-tap-disabled="true">
 					<leaflet event-broadcast="events" center="center" markers="markers" ng-init="initMap()" id="homemap"></leaflet>
 				</ion-content>
 			</ion-pane>

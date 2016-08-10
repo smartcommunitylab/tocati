@@ -3,6 +3,7 @@ angular.module('tocati', [
 	'ngCordova',
 	'ngSanitize',
 	'leaflet-directive',
+	'tocati.services.utils',
 	'tocati.services.config',
 	'tocati.services.graphic',
 	'tocati.services.data',
@@ -11,6 +12,7 @@ angular.module('tocati', [
 	'tocati.services.geolocalization',
 	'tocati.services.map',
 	'pascalprecht.translate',
+	'tocati.controllers.main',
 	'tocati.controllers.home',
 	'tocati.controllers.entry',
 	'tocati.controllers.diary'

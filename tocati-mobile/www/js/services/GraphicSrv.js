@@ -3,6 +3,13 @@ angular.module('tocati.services.graphic', [])
 .factory('GraphicSrv', function () {
 	var graphicService = {};
 
+	graphicService.getMyPositionMarkerIcon = function () {
+		return {
+			iconUrl: '/img/markers/you.png',
+			iconSize: [30, 30]
+		};
+	};
+
 	var poiGraphic = {
 		'eventi': {
 			icon: {
@@ -74,6 +81,13 @@ angular.module('tocati.services.graphic', [])
 	graphicService.getPoiMarkerIcon = function (poiCategory) {
 		if (!!poiGraphic[poiCategory]) {
 			return poiGraphic[poiCategory].icon;
+		}
+		return null;
+	};
+
+	graphicService.getPoiIconC = function (poiCategory) {
+		if (!!poiGraphic[poiCategory]) {
+			return poiGraphic[poiCategory].icon_c;
 		}
 		return null;
 	};
