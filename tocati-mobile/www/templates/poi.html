@@ -1,0 +1,29 @@
+<ion-view view-title="{{poi.name}}" class="poi">
+	<ion-content>
+		<div class="cover" ng-style="poiCoverStyle"></div>
+		<div class="row info">
+			<div class="col col-67 poi-where">
+				<div class="poi-where-sunny">
+					<i class="icon ion-ios-sunny"></i>
+				</div>
+				<div class="poi-where-rainy">
+					<i class="icon ion-ios-rainy"></i>
+				</div>
+			</div>
+			<div class="col col-33 poi-points">
+				{{'points_n' | translate:poiValues}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-100">
+				<h4>{{poi.name}}</h4>
+				<div>{{poi.when}}</div>
+				<div>{{poi.opening}}</div>
+				<div>{{poi.description}}</div>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar-assertive">
+		<button class="button button-block button-clear">{{'checkin' | translate}}</button>
+	</ion-footer-bar>
+</ion-view>

@@ -45,7 +45,7 @@ angular.module('tocati.controllers.home', [])
 /*
  * Home Map controller
  */
-.controller('HomeMapCtrl', function ($scope, $timeout, $filter, $ionicPopup, Utils, Config, GraphicSrv, MapSrv, DataSrv) {
+.controller('HomeMapCtrl', function ($scope, $state, $timeout, $filter, $ionicPopup, Utils, Config, GraphicSrv, MapSrv, DataSrv) {
 	angular.extend($scope, {
 		center: Config.MAP_DEFAULT_CENTER,
 		markers: {},
@@ -205,6 +205,10 @@ angular.module('tocati.controllers.home', [])
 		poiPopup.then(function (go) {
 			if (go) {
 				// TODO view details
+				$state.go('app.poi', {
+					id: poi.objectId,
+					poi: poi
+				});
 			} else {
 				poiPopup.close();
 			}

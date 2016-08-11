@@ -9818,6 +9818,10 @@ a.button {
 /*
  * GENERAL
  */
+/* Buttons */
+.button {
+  text-transform: uppercase; }
+
 /* Tabs */
 .tab-item {
   opacity: 1; }
@@ -9895,9 +9899,6 @@ a.button {
   height: 20%;
   background-color: white; }
 
-.tutorial .tutorial-footer .button {
-  text-transform: uppercase; }
-
 /*
  * Menu
  */
@@ -9957,63 +9958,60 @@ a.button {
   padding-top: 10px;
   font-size: 26px; }
 
-.popup-home .popup .popup-buttons button {
-  text-transform: uppercase; }
-
 /*
  * Home - List
  */
-.card-entry {
+.card-poi {
   padding: 0; }
 
-.card-entry > .row {
+.card-poi > .row {
   padding: 0; }
 
-.card-entry .image {
+.card-poi .image {
   height: 110px;
   padding: 0;
   /*background-image: url(http://placekitten.com/100/110);*/
   background-size: cover;
   background-position: center; }
 
-.card-entry .image img {
+.card-poi .image img {
   width: 100%; }
 
-.card-entry .data {
+.card-poi .data {
   position: relative;
   /*padding: 0 10px 0 10px;*/
   padding: 0; }
 
-.card-entry .data .description {
+.card-poi .data .description {
   padding: 0 10px 0 10px; }
 
-.card-entry .data .description .title {
+.card-poi .data .description .title {
   margin: 0;
   padding-top: 10px; }
 
-.card-entry .data .description .distance {
+.card-poi .data .description .distance {
   margin: 0;
   color: #686d6f; }
 
-.card-entry .data .actions {
+.card-poi .data .actions {
   position: absolute;
   bottom: 0;
   width: 100%;
   padding: 0 10px; }
 
-.card-entry .data .actions .points {
+.card-poi .data .actions .points {
   text-align: right;
   padding: 5px 0; }
 
-.card-entry .data .actions .checkin {
+.card-poi .data .actions .checkin {
   border-top: 1px solid #ececec;
   padding: 5px 0; }
 
-.card-entry .data .actions .checkin .icon {
+.card-poi .data .actions .checkin .icon {
   color: #e64a1a;
   font-size: larger; }
 
-.card-entry .data .actions .checkin .status {
+.card-poi .data .actions .checkin .status {
   float: right;
   text-transform: uppercase;
   font-size: smaller; }
@@ -10063,32 +10061,35 @@ a.button {
 .diary-ranking .pos-even {
   background-color: #ececec; }
 
-/* Entry */
-.entry .cover {
+/* POI */
+.poi .cover {
   height: 150px;
   background-position: center;
   background-size: cover; }
 
-.entry .row.info {
+.poi .row.info {
   height: 70px; }
 
-.entry .row.info,
-.entry .row.info .col {
+.poi .row.info,
+.poi .row.info .col {
   padding: 0; }
 
-.entry .row.info .entry-where {
+.poi .row.info .poi-where {
   padding: 0 10px;
   background-color: #ececec; }
 
-.entry .entry-where .entry-where-sunny .icon,
-.entry .entry-where .entry-where-rainy .icon {
+.poi .poi-where .poi-where-sunny .icon,
+.poi .poi-where .poi-where-rainy .icon {
   color: #686d6f;
   font-size: 28px; }
 
-.entry .row.info .entry-points {
+.poi .row.info .poi-points {
   line-height: 70px;
   color: white;
   background-color: #fcbf0e;
   text-align: center;
   font-size: 20px;
   font-weight: bold; }
+
+.poi .bar-footer .button.button-block {
+  margin: 0; }

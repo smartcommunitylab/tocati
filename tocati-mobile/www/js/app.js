@@ -14,7 +14,7 @@ angular.module('tocati', [
 	'pascalprecht.translate',
 	'tocati.controllers.main',
 	'tocati.controllers.home',
-	'tocati.controllers.entry',
+	'tocati.controllers.poi',
 	'tocati.controllers.diary'
 ])
 
@@ -78,15 +78,15 @@ angular.module('tocati', [
 		}
 	})
 
-	.state('app.entry', {
-		url: '/home/entry/{id}',
+	.state('app.poi', {
+		url: '/home/poi/{id}',
 		params: {
-			entry: null
+			poi: null
 		},
 		views: {
 			'menuContent': {
-				templateUrl: 'templates/entry.html',
-				controller: 'EntryCtrl'
+				templateUrl: 'templates/poi.html',
+				controller: 'PoiCtrl'
 			}
 		}
 	})

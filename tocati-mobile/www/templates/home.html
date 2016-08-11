@@ -18,12 +18,12 @@
 			<ion-pane>
 				<ion-content class="home-list">
 					<ion-list>
-						<div class="card card-entry" ng-repeat="entry in entries" ng-click="openEntry(entry)">
+						<div class="card card-poi" ng-repeat="poi in entries" ng-click="openpoi(poi)">
 							<div class="row">
-								<div class="col col-25 image" style="background-image: url({{entry.typeImage}})"></div>
+								<div class="col col-25 image" style="background-image: url({{poi.typeImage}})"></div>
 								<div class="col col-75 data">
 									<div class="description">
-										<h4 class="title">{{entry.title}}</h4>
+										<h4 class="title">{{poi.title}}</h4>
 										<h6 class="distance">distanza 30m</h6>
 									</div>
 									<div class="actions">
