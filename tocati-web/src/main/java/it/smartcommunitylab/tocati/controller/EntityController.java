@@ -85,7 +85,7 @@ public class EntityController {
 		Criteria criteria = Criteria.where("userId").is(userId);
 		UserData result = storageManager.findOneData(UserData.class, criteria, ownerId);
 		if(logger.isInfoEnabled()) {
-			logger.info(String.format("getUser[%s]:%s", ownerId, userId));
+			logger.info(String.format("getUser[%s] - %s", ownerId, userId));
 		}
 		if(result == null) {
 			throw new EntityNotFoundException(String.format("Profile for user %s not found", userId));
@@ -100,7 +100,7 @@ public class EntityController {
 			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 		}
 		if(logger.isInfoEnabled()) {
-			logger.info(String.format("userLogin[%s]:%s", ownerId, user.getDisplayName()));
+			logger.info(String.format("userLogin[%s]:%s", ownerId, userId));
 		}
 		UserData result = null;
 		
