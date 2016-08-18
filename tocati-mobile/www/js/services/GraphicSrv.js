@@ -18,7 +18,8 @@ angular.module('tocati.services.graphic', [])
 				iconAnchor: [25, 49]
 			},
 			icon_c: '/img/icons/c/eventi.png',
-			icon_w: '/img/icons/w/eventi.png'
+			icon_w: '/img/icons/w/eventi.png',
+			color: '#419F36'
 		},
 		'giochi': {
 			icon: {
@@ -27,7 +28,8 @@ angular.module('tocati.services.graphic', [])
 				iconAnchor: [25, 49]
 			},
 			icon_c: '/img/icons/c/giochi.png',
-			icon_w: '/img/icons/w/giochi.png'
+			icon_w: '/img/icons/w/giochi.png',
+			color: '#CD1521'
 		},
 		'incontri': {
 			icon: {
@@ -36,7 +38,8 @@ angular.module('tocati.services.graphic', [])
 				iconAnchor: [25, 49]
 			},
 			icon_c: '/img/icons/c/incontri.png',
-			icon_w: '/img/icons/w/incontri.png'
+			icon_w: '/img/icons/w/incontri.png',
+			color: '#1B3D78'
 		},
 		'progetti_collaterali': {
 			icon: {
@@ -45,7 +48,8 @@ angular.module('tocati.services.graphic', [])
 				iconAnchor: [25, 49]
 			},
 			icon_c: '/img/icons/c/progetti_collaterali.png',
-			icon_w: '/img/icons/w/progetti_collaterali.png'
+			icon_w: '/img/icons/w/progetti_collaterali.png',
+			color: '#9A9B9A'
 		},
 		'sapori': {
 			icon: {
@@ -54,7 +58,8 @@ angular.module('tocati.services.graphic', [])
 				iconAnchor: [25, 49]
 			},
 			icon_c: '/img/icons/c/sapori.png',
-			icon_w: '/img/icons/w/sapori.png'
+			icon_w: '/img/icons/w/sapori.png',
+			color: '#EF7B2F'
 		},
 		'suoni': {
 			icon: {
@@ -63,12 +68,13 @@ angular.module('tocati.services.graphic', [])
 				iconAnchor: [25, 49]
 			},
 			icon_c: '/img/icons/c/suoni.png',
-			icon_w: '/img/icons/w/suoni.png'
+			icon_w: '/img/icons/w/suoni.png',
+			color: '#FCD019'
 		}
 	};
 
 	// FIXME dev only
-	poiGraphic['cat1'] = poiGraphic['eventi'];
+	poiGraphic['cat1'] = poiGraphic['suoni'];
 
 	graphicService.getChargingPointMarkerIcon = function () {
 		return {
@@ -76,6 +82,13 @@ angular.module('tocati.services.graphic', [])
 			iconSize: [50, 50],
 			iconAnchor: [21, 49]
 		};
+	};
+
+	graphicService.getPoiGraphic = function (poiCategory) {
+		if (!!poiGraphic[poiCategory]) {
+			return poiGraphic[poiCategory];
+		}
+		return null;
 	};
 
 	graphicService.getPoiMarkerIcon = function (poiCategory) {
@@ -88,6 +101,20 @@ angular.module('tocati.services.graphic', [])
 	graphicService.getPoiIconC = function (poiCategory) {
 		if (!!poiGraphic[poiCategory]) {
 			return poiGraphic[poiCategory].icon_c;
+		}
+		return null;
+	};
+
+	graphicService.getPoiIconW = function (poiCategory) {
+		if (!!poiGraphic[poiCategory]) {
+			return poiGraphic[poiCategory].icon_w;
+		}
+		return null;
+	};
+
+	graphicService.getPoiColor = function (poiCategory) {
+		if (!!poiGraphic[poiCategory]) {
+			return poiGraphic[poiCategory].color;
 		}
 		return null;
 	};

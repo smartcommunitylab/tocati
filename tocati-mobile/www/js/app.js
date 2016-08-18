@@ -81,6 +81,7 @@ angular.module('tocati', [
 	.state('app.poi', {
 		url: '/home/poi/{id}',
 		params: {
+			pointId: null,
 			poi: null
 		},
 		views: {

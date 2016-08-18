@@ -12,6 +12,8 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
+//gulp.task('serve:before', ['default']);
+
 gulp.task('default', ['sass']);
 
 gulp.task('sass', function(done) {

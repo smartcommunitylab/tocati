@@ -110,7 +110,7 @@ angular.module('tocati.controllers.home', [])
 	$scope.$on('leafletDirectiveMarker.homemap.click', function (event, args) {
 		if (!!args.model.parentId) {
 			// POI
-			$scope.openPoiPopup($scope.pois[args.modelName]);
+			$scope.openPoiPopup(args.model.parentId, $scope.pois[args.modelName]);
 		} else {
 			// ChargingPoint
 			$scope.openChargingPointPopup($scope.chargingPoints[args.modelName]);
@@ -176,8 +176,9 @@ angular.module('tocati.controllers.home', [])
 		});
 	};
 
-	$scope.openPoiPopup = function (poi) {
+	$scope.openPoiPopup = function (pointId, poi) {
 		$scope.popupValues = {};
+		$scope.chargingPointId = pointId;
 		$scope.selectedPoi = poi;
 		$scope.categoryImage = GraphicSrv.getPoiIconC(poi.category);
 
@@ -206,6 +207,7 @@ angular.module('tocati.controllers.home', [])
 			if (go) {
 				// TODO view details
 				$state.go('app.poi', {
+					pointId: $scope.chargingPointId,
 					id: poi.objectId,
 					poi: poi
 				});
