@@ -1,11 +1,12 @@
 <ion-view view-title="{{'app' | translate}}" class="home">
 	<ion-nav-buttons side="right">
-		<button class="button button-icon button-clear ion-eye" ng-click="typesModal.show()"></button>
+		<button class="button button-icon button-clear ion-eye" ng-click="categoriesModal.show()"></button>
 	</ion-nav-buttons>
 
 	<ion-tabs class="tabs-energized">
 		<!-- Map -->
-		<ion-tab title="{{'map' | translate}}" ng-controller="HomeMapCtrl">
+		<ion-tab title="{{'map' | translate}}">
+			<!--ng-controller="HomeMapCtrl"-->
 			<ion-pane>
 				<ion-content class="homemap" data-tap-disabled="true">
 					<leaflet event-broadcast="events" center="center" markers="markers" ng-init="initMap()" id="homemap"></leaflet>
@@ -14,23 +15,25 @@
 		</ion-tab>
 
 		<!-- Entries list -->
-		<ion-tab title="{{'list' | translate}}" ng-controller="HomeListCtrl">
+		<ion-tab title="{{'list' | translate}}">
+			<!--ng-controller="HomeListCtrl"-->
 			<ion-pane>
 				<ion-content class="home-list">
 					<ion-list>
-						<div class="card card-poi" ng-repeat="poi in entries" ng-click="openpoi(poi)">
+						<div class="card card-poi" ng-repeat="(id, poi) in pois" ng-if="categories[poi.category].checked" ng-click="openPoi(poi)">
 							<div class="row">
-								<div class="col col-25 image" style="background-image: url({{poi.typeImage}})"></div>
+								<div class="col col-25 image" ng-style="getPoiStyle(poi)"></div>
 								<div class="col col-75 data">
 									<div class="description">
-										<h4 class="title">{{poi.title}}</h4>
-										<h6 class="distance">distanza 30m</h6>
+										<h4 class="title">{{poi.name}}</h4>
+										<h6 class="distance" ng-if="distance != 0">{{'distance' | translate:'{distance:' + getDistance(poi) + '}'}}</h6>
+										<h6 class="distance" ng-if="distance == 0" >{{'youarehere' | translate}}</h6>
 									</div>
 									<div class="actions">
-										<div class="points">## punti</div>
+										<div class="points">{{'points_n' | translate:'{points:' + poi.points + '}'}}</div>
 										<div class="checkin">
 											<i class="icon ion-ios-location"></i>
-											<span class="status">Check-in</span>
+											<span class="status">{{'checkin' | translate}}</span>
 										</div>
 									</div>
 								</div>

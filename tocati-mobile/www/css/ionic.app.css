@@ -9919,16 +9919,16 @@ a.button {
 /*
  * Home
  */
-.modal-types .bar {
+.modal-categories .bar {
   background-size: 0; }
 
-.modal-types .list .item {
+.modal-categories .list .item {
   border: none; }
 
-.modal-types .list .item-checkbox .item-content span {
+.modal-categories .list .item-checkbox .item-content span {
   padding-left: 38px; }
 
-.modal-types ion-content .title {
+.modal-categories ion-content .title {
   text-align: center; }
 
 /*
@@ -9971,8 +9971,10 @@ a.button {
   height: 110px;
   padding: 0;
   /*background-image: url(http://placekitten.com/100/110);*/
-  background-size: cover;
-  background-position: center; }
+  /*background-size: cover;*/
+  background-size: 70px;
+  background-position: center;
+  background-repeat: no-repeat; }
 
 .card-poi .image img {
   width: 100%; }
@@ -10097,6 +10099,11 @@ a.button {
 .poi .row.info,
 .poi .row.info .col {
   padding: 0; }
+
+.poi .row.info .col {
+  display: flex;
+  justify-content: center;
+  flex-direction: column; }
 
 .poi .row.info .poi-where {
   padding: 0 10px;

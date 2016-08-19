@@ -3,12 +3,7 @@
 		<div class="cover" ng-style="poiCoverStyle"></div>
 		<div class="row info">
 			<div class="col col-67 poi-where">
-				<div class="poi-where-sunny">
-					<i class="icon ion-ios-sunny"></i>
-				</div>
-				<div class="poi-where-rainy">
-					<i class="icon ion-ios-rainy"></i>
-				</div>
+				{{poi.coordinates[1]}}, {{poi.coordinates[0]}}
 			</div>
 			<div class="col col-33 poi-points">
 				{{'points_n' | translate:poiValues}}

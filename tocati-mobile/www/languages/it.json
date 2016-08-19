@@ -7,6 +7,8 @@
 	"credits": "Credits",
 	"login": "Accedi",
 	"logout": "Esci",
+	"warning": "Attenzione",
+	"geolocation_error": "Controlla che la geolocalizzazione sia attiva sul tuo smartphone",
 	"chargingpoint": "Punto di ricarica",
 	"distance": "distanza {{distance}} Km",
 	"points_n": "{{points}} punti",

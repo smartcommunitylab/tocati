@@ -3,7 +3,27 @@ angular.module('tocati.controllers.main', [])
 /*
  * App generic controller
  */
-.controller('AppCtrl', function ($scope, $state, $ionicHistory, UserSrv, StorageSrv) {
+.controller('AppCtrl', function ($scope, $state, $ionicHistory, $filter, $ionicPopup, UserSrv, StorageSrv, GeoSrv) {
+	/* Check if geolocalization is up & running */
+	GeoSrv.initLocalization().then(
+		function () {},
+		function () {
+			$scope.showAlert = function () {
+				var alertPopup = $ionicPopup.alert({
+					scope: $scope,
+					title: $filter('translate')('warning'),
+					template: $filter('translate')('geolocation_error'),
+					okText: $filter('translate')('ok'),
+					okType: 'button-clear button-assertive',
+				});
+
+				alertPopup.then(function (res) {});
+			};
+
+			$scope.showAlert();
+		}
+	);
+
 	$scope.goTo = function (state, params, root) {
 		if (!!root) {
 			$ionicHistory.nextViewOptions({

@@ -12,7 +12,7 @@ angular.module('tocati.services.geolocalization', [])
 	var localization = undefined;
 	var myPosition = null;
 
-	var initLocalization = function () {
+	geoService.initLocalization = function () {
 		if (typeof localization == 'undefined') {
 			localization = $q.defer();
 
@@ -28,9 +28,9 @@ angular.module('tocati.services.geolocalization', [])
 						console.log('Geolocalization unavailable (Cordova issues)');
 						localization.reject('Geolocalization unavailable (Cordova issues)');
 					}, {
-						//frequency: (20 * 60 * 1000), // 20 mins
-						maximumAge: (10 * 60 * 1000), // 10 mins
-						timeout: 10 * 1000, //1 minute
+						//frequency: (20 * 60 * 1000), // 20 minutes
+						maximumAge: (10 * 60 * 1000), // 10 minutes
+						timeout: 10 * 1000, // 10 seconds
 						enableHighAccuracy: (device.version.indexOf('2.') == 0) // true for Android 2.x
 					});
 				}, false);
@@ -45,8 +45,8 @@ angular.module('tocati.services.geolocalization', [])
 					console.log('Geolocalization unavailable (web issues)');
 					localization.reject('Geolocalization unavailable (web issues)');
 				}, {
-					maximumAge: (10 * 60 * 1000), //5 mins
-					timeout: 10 * 1000, //1 minute
+					maximumAge: (10 * 60 * 1000), // 10 minuntes
+					timeout: 10 * 1000, // 10 seconds
 					enableHighAccuracy: false
 				});
 			}
@@ -62,7 +62,7 @@ angular.module('tocati.services.geolocalization', [])
 
 	geoService.locate = function () {
 		//console.log('geolocalizing...');
-		return initLocalization(localization).then(function (firstGeoLocation) {
+		return geoService.initLocalization().then(function (firstGeoLocation) {
 			return $rootScope.myPosition;
 		});
 	};
