@@ -1,12 +1,16 @@
 package it.smartcommunitylab.tocati.model;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 public class Poi extends BaseObject {
 	private String name;
 	private String description;
+	private String address;
 	private String imageUrl;
 	private String category;
-	private String when;
-	private String opening;
+	private List<Slot> when = Lists.newArrayList();
 	private int points;
 	private double[] coordinates;
 	
@@ -34,18 +38,6 @@ public class Poi extends BaseObject {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getWhen() {
-		return when;
-	}
-	public void setWhen(String when) {
-		this.when = when;
-	}
-	public String getOpening() {
-		return opening;
-	}
-	public void setOpening(String opening) {
-		this.opening = opening;
-	}
 	public int getPoints() {
 		return points;
 	}
@@ -57,6 +49,18 @@ public class Poi extends BaseObject {
 	}
 	public void setCoordinates(double[] coordinates) {
 		this.coordinates = coordinates;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public List<Slot> getWhen() {
+		return when;
+	}
+	public void setWhen(List<Slot> when) {
+		this.when = when;
 	}
 	
 }
