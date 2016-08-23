@@ -32,8 +32,16 @@ angular.module('tocati.services.config', [])
 		zoom: configService.MAP_DEFAULT_ZOOM
 	};
 
-	// Unit: Km
+	// Km
 	configService.YOU_ARE_HERE_DISTANCE = 0.1;
+
+	// Seconds
+	configService.MOVE_ME_TIMER = 5000;
+
+	configService.DATE_FORMAT_L = 'EEEE d MMMM YYYY';
+	configService.DATE_FORMAT_M = 'EEEE d MMMM';
+	configService.DATE_FORMAT_DAY = 'EEE';
+	configService.TIME_FORMAT = 'HH:mm';
 
 	return configService;
 });

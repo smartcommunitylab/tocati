@@ -21,9 +21,11 @@ $t_orange: #e64a1a;
 $t_darkgrey: #686d6f;
 $t_lightgrey: #ececec;
 $t_midgrey: #c6c6c5;
+$t_tocati: #9b174a;
 // Ionic overrides
 $energized: $t_yellow !default;
 $assertive: $t_orange !default;
+$dark: $t_midgrey !default;
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
@@ -334,6 +336,12 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	height: 150px;
 	background-position: center;
 	background-size: cover;
+	background-repeat: no-repeat;
+}
+.poi .cover.no-img {
+	background-size: 90%;
+	background-color: $t_tocati;
+	background-image: url(../img/tocati-logo.png);
 }
 .poi .row.info {
 	height: 70px;
@@ -364,6 +372,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	font-size: 20px;
 	font-weight: bold;
 }
+.poi .bar-footer {
+	padding: 0;
+}
 .poi .bar-footer .button.button-block {
 	margin: 0;
+	border-radius: 0;
+	font-size: 17px;
+	-webkit-transition: all 1s ease-in;
+	-moz-transition: all 1s ease-in;
+	-o-transition: all 1s ease-in;
+	transition: all 1s ease-in;
 }

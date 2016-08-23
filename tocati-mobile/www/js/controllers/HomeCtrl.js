@@ -3,7 +3,7 @@ angular.module('tocati.controllers.home', [])
 /*
  * HOME CONTROLLER
  */
-.controller('HomeCtrl', function ($scope, $state, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, MapSrv, DataSrv) {
+.controller('HomeCtrl', function ($scope, $state, $interval, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, MapSrv, DataSrv) {
 	$scope.chargingPoints = {};
 	$scope.pois = {};
 
@@ -18,7 +18,7 @@ angular.module('tocati.controllers.home', [])
 			name: 'Giochi',
 			checked: true
 		},
-		'eventi': {
+		'AVVENIMENTI': {
 			name: 'Eventi',
 			checked: true
 		},
@@ -34,7 +34,7 @@ angular.module('tocati.controllers.home', [])
 			name: 'Incontri',
 			checked: true
 		},
-		'progetti_collaterali': {
+		'PROGETTI COLLATERALI': {
 			name: 'Progetti collaterali',
 			checked: true
 		}

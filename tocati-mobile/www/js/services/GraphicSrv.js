@@ -11,7 +11,7 @@ angular.module('tocati.services.graphic', [])
 	};
 
 	var poiGraphic = {
-		'eventi': {
+		'AVVENIMENTI': {
 			icon: {
 				iconUrl: '/img/markers/eventi.png',
 				iconSize: [50, 50],
@@ -41,7 +41,7 @@ angular.module('tocati.services.graphic', [])
 			icon_w: '/img/icons/w/incontri.png',
 			color: '#1B3D78'
 		},
-		'progetti_collaterali': {
+		'PROGETTI COLLATERALI': {
 			icon: {
 				iconUrl: '/img/markers/progetti_collaterali.png',
 				iconSize: [50, 50],

@@ -1,6 +1,6 @@
 angular.module('tocati.services.map', [])
 
-.factory('MapSrv', function ($rootScope, $q, $http, $ionicPlatform, $filter, $timeout, Config, GeoSrv, GraphicSrv, leafletData) {
+.factory('MapSrv', function ($rootScope, $q, $http, $ionicPlatform, $filter, $timeout, $interval, Config, GeoSrv, GraphicSrv, leafletData) {
 	// GeoSrv
 	var mapService = {};
 	var cachedMap = {};
@@ -45,20 +45,10 @@ angular.module('tocati.services.map', [])
 				}).addTo(map);
 
 				$ionicPlatform.ready(function () {
-					// My position
-					GeoSrv.locate().then(function (position) {
-						var me = L.latLng(position[0], position[1]);
-						mapService.setMyPosition(me);
-						var meMarker = L.marker(me, {
-							icon: L.icon(GraphicSrv.getMyPositionMarkerIcon())
-						}).addTo(map);
-						cachedMap[mapId].me = meMarker;
-
-						var mePrecision = L.circleMarker(me, {
-							radius: ($rootScope.myPositionAccuracy / 2)
-						}).addTo(map);
-						cachedMap[mapId].precision = mePrecision;
-					});
+					mapService.moveMe(mapId);
+					$interval(function () {
+						mapService.moveMe(mapId);
+					}, Config.MOVE_ME_TIMER);
 				});
 
 				deferred.resolve(map);
@@ -71,10 +61,29 @@ angular.module('tocati.services.map', [])
 		return deferred.promise;
 	};
 
-	mapService.refresh = function (mapId) {
-		this.getMap(mapId).then(function (map) {
-			map.invalidateSize();
-		})
+	mapService.moveMe = function (mapId) {
+		GeoSrv.locate().then(function (position) {
+			var me = L.latLng(position[0], position[1]);
+			mapService.setMyPosition(me);
+			if (!!cachedMap[mapId].me) {
+				cachedMap[mapId].me.setLatLng(me);
+			} else {
+				var meMarker = L.marker(me, {
+					icon: L.icon(GraphicSrv.getMyPositionMarkerIcon())
+				}).addTo(cachedMap[mapId]);
+				cachedMap[mapId].me = meMarker;
+			}
+
+			if (!!cachedMap[mapId].precision) {
+				cachedMap[mapId].precision.setLatLng(me);
+				cachedMap[mapId].precision.setRadius($rootScope.myPositionAccuracy / 2);
+			} else {
+				var mePrecision = L.circleMarker(me, {
+					radius: ($rootScope.myPositionAccuracy / 2)
+				}).addTo(cachedMap[mapId]);
+				cachedMap[mapId].precision = mePrecision;
+			}
+		});
 	};
 
 	mapService.centerOnMe = function (mapId, zoom) {
@@ -87,6 +96,12 @@ angular.module('tocati.services.map', [])
 				});
 			});
 		});
+	};
+
+	mapService.refresh = function (mapId) {
+		this.getMap(mapId).then(function (map) {
+			map.invalidateSize();
+		})
 	};
 
 	mapService.resizeElementHeight = function (element, mapId) {
