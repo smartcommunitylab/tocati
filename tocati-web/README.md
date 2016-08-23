@@ -12,6 +12,7 @@
 ```
 
 #### Result - UsedData
+```
     {
 	"ownerId": "DEMO",
 	"objectId": "899f1eaf-7d7a-4f62-ac9f-ac99e131da11",
@@ -25,27 +26,11 @@
 	"checkinList": [
 		{
 			"timestamp": 1469632874438,
-			"poi": {
-				"ownerId": "DEMO",
-				"objectId": "poi1",
-				"creationDate": 1469631864657,
-				"lastUpdate": 1469631864657,
-				"name": "uno1",
-				"description": "test",
-				"imageUrl": "http://...",
-				"category": "cat1",
-				"when": "\"dfsdfsd\"",
-				"opening": "\"dvfdgdg\"",
-				"points": 123,
-				"coordinates": [
-					11.185455322265625,
-					46.20264638061019
-				]
-			}
+			"poi": {...}
 		}
 	]
     }
-
+```
 
 ### User login 
 ```
@@ -102,21 +87,31 @@
 #### Result - List<Poi>
 ```
 [
-  {
+{
     "ownerId": "DEMO",
-    "objectId": "poi1",
-    "creationDate": 1469631864657,
-    "lastUpdate": 1469631864657,
-    "name": "uno1",
-    "description": "test",
-    "imageUrl": "http://...",
-    "category": "cat1",
-    "when": "\"dfsdfsd\"",
-    "opening": "\"dvfdgdg\"",
-    "points": 123,
+    "objectId": "poi2",
+    "creationDate": 1471941625035,
+    "lastUpdate": 1471941625035,
+    "name": "Duo Varbondei & Sorelle Brizzi",
+    "description": "Ballabili ‘900 – Tra le stelle le musiche da ballo dei vecchi film",
+    "address": "Lungadige San Giorgio",
+    "imageUrl": "https://tocati.it/2016/app/wp-content/uploads/cinema-22-seppia-480x500.jpeg",
+    "category": "AVVENIMENTI",
+    "when": [
+      {
+        "date": 1474063200000,
+        "slots": [
+          {
+            "from": "21:00",
+            "to": "22:30"
+          }
+        ]
+      }
+    ],
+    "points": 54,
     "coordinates": [
-      11.185455322265625,
-      46.20264638061019
+      10.9957524,
+      45.4487674
     ]
   },...
 ]
@@ -159,43 +154,11 @@
         "checkinList": [
           {
             "timestamp": 1469632874438,
-            "poi": {
-              "ownerId": "DEMO",
-              "objectId": "poi1",
-              "creationDate": 1469631864657,
-              "lastUpdate": 1469631864657,
-              "name": "uno1",
-              "description": "test",
-              "imageUrl": "http://...",
-              "category": "cat1",
-              "when": "\"dfsdfsd\"",
-              "opening": "\"dvfdgdg\"",
-              "points": 123,
-              "coordinates": [
-                11.185455322265625,
-                46.20264638061019
-              ]
-            }
+            "poi": {...}
           },
           {
             "timestamp": 1469632909029,
-            "poi": {
-              "ownerId": "DEMO",
-              "objectId": "poi2",
-              "creationDate": 1469631864681,
-              "lastUpdate": 1469631864681,
-              "name": "due2",
-              "description": "test",
-              "imageUrl": "http://...",
-              "category": "cat1",
-              "when": "\"dfsdfsd\"",
-              "opening": "\"dvfdgdg\"",
-              "points": 54,
-              "coordinates": [
-                11.185989081859589,
-                46.203013943262654
-              ]
-            }
+            "poi": {...}
           }
         ],
         "points": 177
