@@ -33,6 +33,7 @@ public class PermissionsManager {
 	private RepositoryManager storage;
 
 	private AACService service;
+	
 	@Autowired
 	private Environment env;
 
@@ -40,6 +41,7 @@ public class PermissionsManager {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
 	@Autowired
 	private RememberMeServices rememberMeServices;
 
