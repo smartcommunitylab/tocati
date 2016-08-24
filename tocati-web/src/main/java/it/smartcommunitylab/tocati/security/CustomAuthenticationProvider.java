@@ -23,6 +23,9 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
 	
 	@Override
 	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+		if(AppUserDetails.isAppUser(authentication)) {
+			return new AppUserDetails(username);
+		}
 		DataSetInfo dataset = datasetSetup.findDataSetById(username);
 		if (dataset == null) {
 			throw new UsernameNotFoundException(username);
