@@ -76,7 +76,15 @@ angular.module('tocati.services.graphic', [])
 	// FIXME dev only
 	poiGraphic['cat1'] = poiGraphic['suoni'];
 
-	graphicService.getChargingPointMarkerIcon = function () {
+	graphicService.getChargingPointMarkerIcon = function (active) {
+		if (!!active) {
+			return {
+				iconUrl: 'img/markers/colonnina_active.png',
+				iconSize: [50, 50],
+				iconAnchor: [21, 49]
+			};
+		}
+
 		return {
 			iconUrl: 'img/markers/colonnina.png',
 			iconSize: [50, 50],

@@ -35,7 +35,7 @@ angular.module('tocati.services.config', [])
 	// Km
 	configService.DELTA_DISTANCE = 100; // FIXME dev values!
 	// Minutes
-	configService.DELTA_TIME = 30;
+	configService.DELTA_TIME = 15;
 	// Seconds
 	configService.TIMER_MOVE_ME = 5000;
 

@@ -134,13 +134,14 @@ angular.module('tocati.controllers.home', [])
 		var updatedMarkers = {};
 		angular.forEach($scope.categories, function (category, categoryId) {
 			if (category.checked) {
-				angular.extend(updatedMarkers, markersCache[cp.objectId][categoryId]);
+				angular.merge(updatedMarkers, markersCache[cp.objectId][categoryId]);
 			}
 		});
 
+		angular.merge(updatedMarkers, markersCache._chargingPoints);
+		var mmm = updatedMarkers[cp.objectId];
+		updatedMarkers[cp.objectId].icon = GraphicSrv.getChargingPointMarkerIcon(true);
 		$scope.markers = updatedMarkers;
-		// add chargingPoint
-		$scope.markers[cp.objectId] = markersCache._chargingPoints[cp.objectId];
 	};
 
 	$scope.openChargingPointPopup = function (cp) {
