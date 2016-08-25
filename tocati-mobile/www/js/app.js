@@ -8,6 +8,7 @@ angular.module('tocati', [
 	'tocati.services.graphic',
 	'tocati.services.data',
 	'tocati.services.storage',
+	'tocati.services.login',
 	'tocati.services.user',
 	'tocati.services.geolocalization',
 	'tocati.services.map',

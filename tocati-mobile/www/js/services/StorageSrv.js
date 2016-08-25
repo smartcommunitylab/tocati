@@ -21,6 +21,10 @@ angular.module('tocati.services.storage', [])
 		localStorage.setItem('user', JSON.stringify(userData));
 	};
 
+	storageService.deleteUser = function () {
+		localStorage.removeItem('user');
+	};
+
 	storageService.getUser = function() {
 		var userDataJSON = localStorage.getItem('user');
 

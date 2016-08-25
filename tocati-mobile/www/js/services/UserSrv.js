@@ -3,14 +3,12 @@ angular.module('tocati.services.user', [])
 .factory('UserSrv', function ($rootScope, $http, $q, Config) {
 	var userService = {};
 
-	var user = {};
-
 	userService.getUser = function () {
-		return user;
+		return $rootScope.user;
 	};
 
 	userService.setUser = function (userData) {
-		user = userData;
+		$rootScope.user = userData;
 	};
 
 	/* get user profile */

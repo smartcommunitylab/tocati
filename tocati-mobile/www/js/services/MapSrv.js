@@ -48,7 +48,7 @@ angular.module('tocati.services.map', [])
 					mapService.moveMe(mapId);
 					$interval(function () {
 						mapService.moveMe(mapId);
-					}, Config.MOVE_ME_TIMER);
+					}, Config.TIMER_MOVE_ME);
 				});
 
 				deferred.resolve(map);

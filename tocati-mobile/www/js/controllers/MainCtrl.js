@@ -3,7 +3,9 @@ angular.module('tocati.controllers.main', [])
 /*
  * App generic controller
  */
-.controller('AppCtrl', function ($scope, $state, $ionicHistory, $filter, $ionicPopup, UserSrv, StorageSrv, GeoSrv) {
+.controller('AppCtrl', function ($scope, $rootScope, $state, $ionicHistory, $filter, $ionicPopup, LoginSrv, UserSrv, StorageSrv, GeoSrv) {
+	$rootScope.user = null;
+
 	/* Check if geolocalization is up & running */
 	GeoSrv.initLocalization().then(
 		function () {},
@@ -35,16 +37,29 @@ angular.module('tocati.controllers.main', [])
 	};
 
 	$scope.login = function () {
-		// FIXME dev only!
-		UserSrv.userLogin('oscar', 'oscar', 'oscar', 'oscar').then(
-			function (userData) {
-				StorageSrv.saveUser(userData);
-				UserSrv.setUser(userData);
+		// FIXME
+		LoginSrv.login('google').then(function (data) {
+			UserSrv.userLogin(data.userId, data.name, data.surname, data.name + ' ' + data.surname).then(
+				function (userData) {
+					StorageSrv.saveUser(userData);
+					UserSrv.setUser(userData);
+				}
+			);
+		});
+	};
+
+	$scope.logout = function () {
+		LoginSrv.logout().then(
+			function () {
+				StorageSrv.deleteUser();
+				UserSrv.setUser(null);
+			},
+			function (reason) {
+				console.log(!!reason ? reason : 'Logout error');
 			}
 		);
 	};
 
-	// FIXME dev only user
 	var user = StorageSrv.getUser();
 	if (!!user) {
 		UserSrv.setUser(user);

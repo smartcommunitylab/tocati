@@ -3,33 +3,6 @@ angular.module('tocati.services.utils', [])
 .factory('Utils', function ($rootScope, $window, $timeout, $ionicLoading, $ionicPopup, $cordovaToast) {
 	var utilsService = {};
 
-	utilsService.getDistanceP2P = function (coords1, coords2) {
-		// distance beetween 2 points in Km
-		var unit = 'K';
-		var lat1 = coords1[1];
-		var lon1 = coords1[0];
-		var lat2 = coords2[1];
-		var lon2 = coords2[0];
-
-		var radlat1 = Math.PI * lat1 / 180;
-		var radlat2 = Math.PI * lat2 / 180;
-		var theta = lon1 - lon2;
-		var radtheta = Math.PI * theta / 180;
-		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-		dist = Math.acos(dist);
-		dist = dist * 180 / Math.PI;
-		dist = dist * 60 * 1.1515;
-
-		if (unit == 'K') {
-			dist = dist * 1.609344;
-		}
-		if (unit == 'N') {
-			dist = dist * 0.8684;
-		}
-
-		return dist;
-	};
-
 	utilsService.roundDecimalPlaces = function (num, decimalPlaces) {
 		// default: 1 decimal places
 		decimalPlaces = !decimalPlaces ? 1 : decimalPlaces;

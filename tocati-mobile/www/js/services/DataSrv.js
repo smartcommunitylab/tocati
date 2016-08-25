@@ -3,60 +3,6 @@ angular.module('tocati.services.data', [])
 .factory('DataSrv', function ($rootScope, $http, $q, Config, UserSrv) {
 	var dataService = {};
 
-	var user = {};
-
-	dataService.getUser = function () {
-		return user;
-	};
-
-	dataService.setUser = function (userData) {
-		user = userData;
-	};
-
-	/* get user profile */
-	dataService.getUserProfile = function () {
-		var deferred = $q.defer();
-
-		$http.get(Config.SERVER_URL + '/api/users/' + Config.OWNER_ID + '/' + UserSrv.getUser()['userId'], Config.HTTP_CONFIG)
-
-		.then(
-			function (response) {
-				// UserData
-				deferred.resolve(response.data);
-			},
-			function (reason) {
-				deferred.reject(reason.data ? reason.data.errorMessage : reason);
-			}
-		);
-
-		return deferred.promise;
-	};
-
-	/* user login */
-	dataService.userLogin = function (userId, name, surname, displayName) {
-		var deferred = $q.defer();
-
-		var body = {
-			'name': name,
-			'surname': surname,
-			'displayName': displayName
-		};
-
-		$http.post(Config.SERVER_URL + '/api/users/' + Config.OWNER_ID + '/' + userId + '/login', body, Config.HTTP_CONFIG)
-
-		.then(
-			function (response) {
-				// UserData
-				deferred.resolve(response.data);
-			},
-			function (reason) {
-				deferred.reject(reason.data ? reason.data.errorMessage : reason);
-			}
-		);
-
-		return deferred.promise;
-	};
-
 	/* ChargingPoint search */
 	dataService.getChargingPoints = function (params) {
 		var deferred = $q.defer();

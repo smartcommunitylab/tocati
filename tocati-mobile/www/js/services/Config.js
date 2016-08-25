@@ -33,10 +33,11 @@ angular.module('tocati.services.config', [])
 	};
 
 	// Km
-	configService.YOU_ARE_HERE_DISTANCE = 0.1;
-
+	configService.DELTA_DISTANCE = 100; // FIXME dev values!
+	// Minutes
+	configService.DELTA_TIME = 30;
 	// Seconds
-	configService.MOVE_ME_TIMER = 5000;
+	configService.TIMER_MOVE_ME = 5000;
 
 	configService.DATE_FORMAT_L = 'EEEE d MMMM YYYY';
 	configService.DATE_FORMAT_M = 'EEEE d MMMM';

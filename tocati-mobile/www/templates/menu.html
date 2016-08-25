@@ -29,8 +29,11 @@
 				<ion-item nav-clear menu-close class="item item-icon-left" ui-sref-active="active" ui-sref="app.rules">
 					<i class="icon ion-help"></i> {{'rules' | translate}}
 				</ion-item>
-				<ion-item nav-clear menu-close class="item item-icon-left" ng-click="login()">
+				<ion-item nav-clear menu-close class="item item-icon-left" ng-if="!user" ng-click="login()">
 					<i class="icon ion-log-in"></i> {{'login' | translate}}
+				</ion-item>
+				<ion-item nav-clear menu-close class="item item-icon-left" ng-if="!!user" ng-click="logout()">
+					<i class="icon ion-log-out"></i> {{'logout' | translate}}
 				</ion-item>
 				<ion-item nav-clear menu-close class="item item-icon-left" ui-sref-active="active" ui-sref="app.credits">
 					<i class="icon ion-information-circled"></i> {{'credits' | translate}}

@@ -3,7 +3,7 @@ angular.module('tocati.controllers.home', [])
 /*
  * HOME CONTROLLER
  */
-.controller('HomeCtrl', function ($scope, $state, $interval, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, MapSrv, DataSrv) {
+.controller('HomeCtrl', function ($scope, $state, $interval, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, GeoSrv, MapSrv, DataSrv) {
 	$scope.chargingPoints = {};
 	$scope.pois = {};
 
@@ -148,9 +148,9 @@ angular.module('tocati.controllers.home', [])
 		$scope.selectedChargingPoint = cp;
 
 		var myPos = MapSrv.getMyPosition();
-		var distance = Utils.getDistanceP2P([myPos.lng, myPos.lat], cp.coordinates);
+		var distance = GeoSrv.distance([myPos.lng, myPos.lat], cp.coordinates);
 
-		if (distance > Config.YOU_ARE_HERE_DISTANCE) {
+		if (distance > Config.DELTA_DISTANCE) {
 			$scope.popupValues['distance'] = Utils.roundDecimalPlaces(distance);
 		} else {
 			$scope.popupValues['distance'] = 0;
@@ -220,9 +220,9 @@ angular.module('tocati.controllers.home', [])
 		$scope.categoryImage = GraphicSrv.getPoiIconC(poi.category);
 
 		var myPos = MapSrv.getMyPosition();
-		var distance = Utils.getDistanceP2P([myPos.lng, myPos.lat], poi.coordinates);
+		var distance = GeoSrv.distance([myPos.lng, myPos.lat], poi.coordinates);
 
-		if (distance > Config.YOU_ARE_HERE_DISTANCE) {
+		if (distance > Config.DELTA_DISTANCE) {
 			$scope.popupValues['distance'] = Utils.roundDecimalPlaces(distance);
 		} else {
 			$scope.popupValues['distance'] = 0;
@@ -283,9 +283,9 @@ angular.module('tocati.controllers.home', [])
 
 	$scope.getDistance = function (poi) {
 		var myPos = MapSrv.getMyPosition();
-		var distance = Utils.getDistanceP2P([myPos.lng, myPos.lat], poi.coordinates);
+		var distance = GeoSrv.distance([myPos.lng, myPos.lat], poi.coordinates);
 
-		if (distance > Config.YOU_ARE_HERE_DISTANCE) {
+		if (distance > Config.DELTA_DISTANCE) {
 			return Utils.roundDecimalPlaces(distance);
 		}
 

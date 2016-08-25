@@ -1,6 +1,6 @@
 angular.module('tocati.controllers.poi', [])
 
-.controller('PoiCtrl', function ($scope, $state, $stateParams, $filter, Utils, Config, StorageSrv, UserSrv, DataSrv) {
+.controller('PoiCtrl', function ($scope, $state, $stateParams, $filter, Utils, Config, StorageSrv, UserSrv, DataSrv, GeoSrv) {
 	$scope.pointId = $stateParams.pointId;
 	$scope.poi = $stateParams.poi;
 
@@ -27,10 +27,36 @@ angular.module('tocati.controllers.poi', [])
 		};
 	}
 
-	$scope.checkinAvailable = function () {
-		// TODO return true if distance is less than the configured value and you are in the time slots
-		return false;
-	};
+	$scope.checkinAvailable = false;
+
+	$scope.$watch('myPosition', function (newPos, oldPos) {
+		var distance = GeoSrv.distance([newPos[1], newPos[0]], $scope.poi.coordinates);
+
+		//geo check
+		if (distance <= Config.DELTA_DISTANCE) {
+			// time check
+			var inSlot = false;
+
+			for (var i = 0; i < $scope.poi.when.length; i++) {
+				var when = $scope.poi.when[i];
+				if (moment().isSame(moment(when.date), 'day')) {
+					// is today!
+					i = $scope.poi.when.length;
+
+					for (var j = 0; j < when.slots.length; j++) {
+						var slot = when.slots[j];
+						if (moment().isBetween(moment(slot.from).subtract(Config.DELTA_TIME, 'minutes'), moment(slot.to))) {
+							inSlot = true;
+							j = when.slots.length;
+						}
+					}
+				}
+			}
+			$scope.checkinAvailable = inSlot ? true : false;
+		} else {
+			$scope.checkinAvailable = false;
+		}
+	});
 
 	$scope.checkin = function () {
 		DataSrv.userCheckin($scope.pointId, $scope.poi.objectId).then(

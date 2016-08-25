@@ -71,28 +71,31 @@ angular.module('tocati.services.geolocalization', [])
 		return $rootScope.myPositionAccuracy;
 	};
 
-	geoService.distance = function (pt1, pt2) {
-		var d = false;
-		if (pt1 && pt1[0] && pt1[1] && pt2 && pt2[0] && pt2[1]) {
-			var lat1 = Number(pt1[0]);
-			var lon1 = Number(pt1[1]);
-			var lat2 = Number(pt2[0]);
-			var lon2 = Number(pt2[1]);
+	geoService.distance = function (coords1, coords2) {
+		// distance beetween 2 points in Km
+		var unit = 'K';
+		var lat1 = coords1[1];
+		var lon1 = coords1[0];
+		var lat2 = coords2[1];
+		var lon2 = coords2[0];
 
-			var R = 6371; // km
-			//var R = 3958.76; // miles
-			var dLat = (lat2 - lat1).toRad();
-			var dLon = (lon2 - lon1).toRad();
-			var lat1 = lat1.toRad();
-			var lat2 = lat2.toRad();
-			var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-				Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-			d = R * c;
-		} else {
-			console.log('Cannot calculate distance!');
+		var radlat1 = Math.PI * lat1 / 180;
+		var radlat2 = Math.PI * lat2 / 180;
+		var theta = lon1 - lon2;
+		var radtheta = Math.PI * theta / 180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		dist = Math.acos(dist);
+		dist = dist * 180 / Math.PI;
+		dist = dist * 60 * 1.1515;
+
+		if (unit == 'K') {
+			dist = dist * 1.609344;
 		}
-		return d;
+		if (unit == 'N') {
+			dist = dist * 0.8684;
+		}
+
+		return dist;
 	};
 
 	geoService.distanceTo = function (gotoPosition) {
