@@ -3,6 +3,7 @@ package it.smartcommunitylab.tocati.storage;
 import it.smartcommunitylab.tocati.common.EntityNotFoundException;
 import it.smartcommunitylab.tocati.model.ChargingPoint;
 import it.smartcommunitylab.tocati.model.Checkin;
+import it.smartcommunitylab.tocati.model.LoginData;
 import it.smartcommunitylab.tocati.model.MyRanking;
 import it.smartcommunitylab.tocati.model.Poi;
 import it.smartcommunitylab.tocati.model.Ranking;
@@ -259,4 +260,13 @@ public class RepositoryManager {
 		}
 		return result;
 	}
+	
+	public LoginData getTokenData(String username) {
+		return mongoTemplate.findOne(new Query(new Criteria("username").is(username)), LoginData.class);
+	}
+	
+	public void saveTokenData(LoginData loginData) {
+		mongoTemplate.save(loginData);
+	}
+	
 }
