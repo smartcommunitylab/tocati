@@ -18,11 +18,13 @@ $dark:                            #444 !default;
 // Tocatì Color Schema
 $t_yellow: #fcbf0e;
 $t_orange: #e64a1a;
+$t_green: #87c419;
 $t_darkgrey: #686d6f;
 $t_lightgrey: #ececec;
 $t_midgrey: #c6c6c5;
 $t_tocati: #9b174a;
 // Ionic overrides
+$balanced: $t_green !default;
 $energized: $t_yellow !default;
 $assertive: $t_orange !default;
 $dark: $t_midgrey !default;

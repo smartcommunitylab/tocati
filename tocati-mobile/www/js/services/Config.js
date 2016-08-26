@@ -32,8 +32,14 @@ angular.module('tocati.services.config', [])
 		zoom: configService.MAP_DEFAULT_ZOOM
 	};
 
+	// Switches
+	configService.VERIFY_SPACETIME = false;
+	// not checked if VERIFY_SPACETIME is false
+	configService.VERIFY_SPACE = true;
+	configService.VERIFY_TIME = true;
+
 	// Km
-	configService.DELTA_DISTANCE = 100; // FIXME dev values!
+	configService.DELTA_DISTANCE = 100; // FIXME this is a dev value
 	// Minutes
 	configService.DELTA_TIME = 15;
 	// Seconds
