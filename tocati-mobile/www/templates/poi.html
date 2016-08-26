@@ -6,7 +6,7 @@
 				{{poi.address}}
 			</div>
 			<div class="col col-33 poi-points">
-				{{'points_n' | translate:poiValues}}
+				{{(poiValues.points == 1 ? 'points_n1' : 'points_n') | translate:poiValues}}
 			</div>
 		</div>
 		<div class="row">

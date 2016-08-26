@@ -8,7 +8,7 @@
 		<ion-tab title="{{'map' | translate}}">
 			<!--ng-controller="HomeMapCtrl"-->
 			<ion-pane>
-				<ion-content class="homemap" data-tap-disabled="true">
+				<ion-content class="homemap" data-tap-disabled="true" scroll="false">
 					<leaflet event-broadcast="events" center="center" markers="markers" ng-init="initMap()" id="homemap"></leaflet>
 				</ion-content>
 			</ion-pane>
@@ -20,7 +20,10 @@
 			<ion-pane>
 				<ion-content class="home-list">
 					<ion-list>
-						<div class="card card-poi" ng-repeat="(id, poi) in pois" ng-if="categories[poi.category].checked" ng-click="openPoi(poi)">
+						<div class="empty-list padding text-center" ng-if="!pois">
+							<h4>Selezionare punto di ricarica</h4>
+						</div>
+						<div class="card card-poi" ng-repeat="(id, poi) in pois" ng-if="!!pois && categories[poi.category].checked" ng-click="openPoi(poi)">
 							<div class="row">
 								<div class="col col-25 image" ng-style="getPoiStyle(poi)"></div>
 								<div class="col col-75 data">
@@ -30,7 +33,7 @@
 										<h6 class="distance" ng-if="distance == 0" >{{'youarehere' | translate}}</h6>
 									</div>
 									<div class="actions">
-										<div class="points">{{'points_n' | translate:'{points:' + poi.points + '}'}}</div>
+										<div class="points">{{(poi.points == 1 ? 'points_n1' : 'points_n') | translate:'{points:' + poi.points + '}'}}</div>
 										<div class="checkin">
 											<i class="icon ion-ios-location"></i>
 											<span class="status">{{'checkin' | translate}}</span>

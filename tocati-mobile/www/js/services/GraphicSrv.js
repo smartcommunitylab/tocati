@@ -21,7 +21,7 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/eventi.png',
 			color: '#419F36'
 		},
-		'giochi': {
+		'I GIOCHI': {
 			icon: {
 				iconUrl: 'img/markers/giochi.png',
 				iconSize: [50, 50],
@@ -31,7 +31,37 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/giochi.png',
 			color: '#CD1521'
 		},
-		'incontri': {
+		'GIOCHI DA TAVOLIERE': {
+			icon: {
+				iconUrl: 'img/markers/giochi.png',
+				iconSize: [50, 50],
+				iconAnchor: [25, 49]
+			},
+			icon_c: 'img/icons/c/giochi.png',
+			icon_w: 'img/icons/w/giochi.png',
+			color: '#CD1521'
+		},
+		'GIOCHI TRADIZIONALI CINESI': {
+			icon: {
+				iconUrl: 'img/markers/giochi.png',
+				iconSize: [50, 50],
+				iconAnchor: [25, 49]
+			},
+			icon_c: 'img/icons/c/giochi.png',
+			icon_w: 'img/icons/w/giochi.png',
+			color: '#CD1521'
+		},
+		'GIOCHI TRADIZIONALI ITALIANI': {
+			icon: {
+				iconUrl: 'img/markers/giochi.png',
+				iconSize: [50, 50],
+				iconAnchor: [25, 49]
+			},
+			icon_c: 'img/icons/c/giochi.png',
+			icon_w: 'img/icons/w/giochi.png',
+			color: '#CD1521'
+		},
+		'PROGETTI COLLATERALI': {
 			icon: {
 				iconUrl: 'img/markers/incontri.png',
 				iconSize: [50, 50],
@@ -41,7 +71,7 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/incontri.png',
 			color: '#1B3D78'
 		},
-		'PROGETTI COLLATERALI': {
+		'_progetti_collaterali': {
 			icon: {
 				iconUrl: 'img/markers/progetti_collaterali.png',
 				iconSize: [50, 50],
@@ -51,7 +81,7 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/progetti_collaterali.png',
 			color: '#9A9B9A'
 		},
-		'sapori': {
+		'_sapori': {
 			icon: {
 				iconUrl: 'img/markers/sapori.png',
 				iconSize: [50, 50],
@@ -61,7 +91,7 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/sapori.png',
 			color: '#EF7B2F'
 		},
-		'suoni': {
+		'_suoni': {
 			icon: {
 				iconUrl: 'img/markers/suoni.png',
 				iconSize: [50, 50],

@@ -8,5 +8,5 @@
 	<span ng-if="!popupValues['distance']">{{'youarehere' | translate}}</span>
 </div>
 <div class="points">
-	<span>{{'points_n' | translate:popupValues}}</span>
+	<span>{{(popupValues.points == 1? 'points_n1' : 'points_n') | translate:popupValues}}</span>
 </div>

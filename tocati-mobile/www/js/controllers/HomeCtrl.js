@@ -5,33 +5,29 @@ angular.module('tocati.controllers.home', [])
  */
 .controller('HomeCtrl', function ($scope, $state, $interval, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, GeoSrv, MapSrv, DataSrv) {
 	$scope.chargingPoints = {};
-	$scope.pois = {};
+	$scope.pois = null;
 
 	$scope.selectedChargingPoint = null;
 
 	$scope.categories = {
-		'cat1': {
-			name: 'Categoria 1',
-			checked: true
-		},
-		'giochi': {
-			name: 'Giochi',
-			checked: true
-		},
 		'AVVENIMENTI': {
-			name: 'Eventi',
+			name: 'Avvenimenti',
 			checked: true
 		},
-		'suoni': {
-			name: 'Suoni',
+		'I GIOCHI': {
+			name: 'I giochi',
 			checked: true
 		},
-		'sapori': {
-			name: 'Sapori',
+		'GIOCHI DA TAVOLIERE': {
+			name: 'Giochi da tavoliere',
 			checked: true
 		},
-		'incontri': {
-			name: 'Incontri',
+		'GIOCHI TRADIZIONALI CINESI': {
+			name: 'Giochi tradizionali cinesi',
+			checked: true
+		},
+		'GIOCHI TRADIZIONALI ITALIANI': {
+			name: 'Giochi tradizionali italiani',
 			checked: true
 		},
 		'PROGETTI COLLATERALI': {
@@ -103,9 +99,9 @@ angular.module('tocati.controllers.home', [])
 						focus: false,
 						draggable: false
 					};
-
-					$scope.markers = angular.copy(markersCache._chargingPoints);
 				});
+
+				$scope.markers = angular.copy(markersCache._chargingPoints);
 
 				if (!!homeMap.me && !!homeMap.me.lat && !!homeMap.me.lon) {
 					boundsArray.push([homeMap.me.lat, homeMap.me.lon]);
@@ -266,7 +262,7 @@ angular.module('tocati.controllers.home', [])
 	$scope.$on('leafletDirectiveMap.homemap.zoomend', function (event, args) {
 		if (!!zoomOut) {
 			$scope.markers = angular.copy(markersCache._chargingPoints);
-			$scope.pois = {};
+			$scope.pois = null;
 			$scope.selectedChargingPoint = null;
 			zoomOut = false;
 		}

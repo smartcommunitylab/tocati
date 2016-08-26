@@ -3,8 +3,12 @@ angular.module('tocati.services.storage', [])
 .factory('StorageSrv', function ($rootScope, $http, $q) {
 	var storageService = {};
 
-	storageService.setTutorialDone = function () {
-		localStorage.setItem('tutorialDone', true);
+	storageService.setTutorialDone = function (done) {
+		if (!done) {
+			localStorage.setItem('tutorialDone', false);
+		} else {
+			localStorage.setItem('tutorialDone', true);
+		}
 	};
 
 	storageService.isTutorialDone = function () {

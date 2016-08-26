@@ -35,7 +35,7 @@ angular.module('tocati', [
 	});
 })
 
-.config(function ($translateProvider) {
+.config(function ($ionicConfigProvider, $translateProvider) {
 	//$translateProvider.translations('it', {});
 	$translateProvider.preferredLanguage('it');
 	$translateProvider.useStaticFilesLoader({
@@ -45,6 +45,9 @@ angular.module('tocati', [
 	//$translateProvider.useSanitizeValueStrategy('sanitize');
 	//$translateProvider.useSanitizeValueStrategy('sanitizeParameters');
 	$translateProvider.useSanitizeValueStrategy('escapeParameters');
+
+	$ionicConfigProvider.tabs.position('top');
+	$ionicConfigProvider.tabs.style('striped');
 })
 
 .config(function ($ionicConfigProvider) {
@@ -99,6 +102,24 @@ angular.module('tocati', [
 			'menuContent': {
 				templateUrl: 'templates/diary.html',
 				controller: 'DiaryCtrl'
+			}
+		}
+	})
+
+	.state('app.rules', {
+		url: '/rules',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/rules.html'
+			}
+		}
+	})
+
+	.state('app.credits', {
+		url: '/credits',
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/credits.html'
 			}
 		}
 	});

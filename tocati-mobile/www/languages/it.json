@@ -1,10 +1,11 @@
 {
-	"app": "Goevway",
+	"app": "GoEvway",
 	"ok": "OK",
 	"close": "Chiudi",
 	"go": "Vai",
 	"home": "Home",
 	"credits": "Credits",
+	"under_construction": "Pagina in costruzione",
 	"login": "Accedi",
 	"logout": "Esci",
 	"warning": "Attenzione",
@@ -12,6 +13,7 @@
 	"chargingpoint": "Punto di ricarica",
 	"distance": "distanza {{distance}} Km",
 	"points_n": "{{points}} punti",
+	"points_n1": "{{points}} punto",
 	"details": "Dettagli",
 	"checkin": "Check-in",
 	"youarehere": "Ti trovi qui",
@@ -29,5 +31,10 @@
 	"diary_ranking_listheader_points": "Punti",
 	"cat_cat1": "Categoria Uno",
 	"cat_AVVENIMENTI": "Avvenimenti",
+	"cat_PROGETTI COLLATERALI": "Progetti collaterali",
+	"cat_I GIOCHI": "I giochi",
+	"cat_GIOCHI DA TAVOLIERE": "Giochi da tavoliere",
+	"cat_GIOCHI TRADIZIONALI CINESI": "Giochi tradizionali cinesi",
+	"cat_GIOCHI TRADIZIONALI ITALIANI": "Giochi tradizionali italiani",
 	"cat_PROGETTI COLLATERALI": "Progetti collaterali"
 }

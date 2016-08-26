@@ -1,5 +1,5 @@
 {
-	"name": "Tocati",
+	"name": "tocati",
 	"private": "true",
 	"dependencies": {
 		"ngCordova": "latest",
