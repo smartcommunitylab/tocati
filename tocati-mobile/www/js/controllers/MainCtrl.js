@@ -3,8 +3,8 @@ angular.module('tocati.controllers.main', [])
 /*
  * App generic controller
  */
-.controller('AppCtrl', function ($scope, $rootScope, $state, $ionicHistory, $filter, $ionicPopup, LoginSrv, UserSrv, StorageSrv, GeoSrv) {
-	$rootScope.user = null;
+.controller('AppCtrl', function ($scope, $rootScope, $state, $ionicHistory, $filter, $timeout, $ionicPopup, LoginSrv, UserSrv, StorageSrv, GeoSrv) {
+//	$rootScope.user = null;
 
 	$scope.goTo = function (state, params, root) {
 		if (!!root) {
@@ -20,12 +20,6 @@ angular.module('tocati.controllers.main', [])
 	if (!!user) {
 		UserSrv.setUser(user);
 	}
-
-	/*
-	if (!StorageSrv.isTutorialDone()) {
-		$scope.goTo('app.tutorial', {}, true);
-	}
-	*/
 
 	/* Check if geolocalization is up & running */
 	GeoSrv.initLocalization().then(
@@ -49,30 +43,33 @@ angular.module('tocati.controllers.main', [])
 
 	$scope.login = function () {
 		// FIXME
-		LoginSrv.login('google').then(function (data) {
-			UserSrv.userLogin(data.userId, data.name, data.surname, data.name + ' ' + data.surname).then(
-				function (userData) {
-					StorageSrv.saveUser(userData);
-					UserSrv.setUser(userData);
-					StorageSrv.setTutorialDone();
-					$scope.goTo('app.home', {}, true);
-				}
-			);
-		});
+//		LoginSrv.login('google').then(function (data) {
+//			UserSrv.userLogin(data.userId, data.name, data.surname, data.name + ' ' + data.surname).then(
+//				function (userData) {
+//					StorageSrv.saveUser(userData);
+//					UserSrv.setUser(userData);
+//					StorageSrv.setTutorialDone();
+//					$scope.goTo('app.home', {}, true);
+//				}
+//			);
+//		});
+      $state.go('app.login');
 	};
 
 	$scope.logout = function () {
-		LoginSrv.logout().then(
-			function () {
-				StorageSrv.deleteUser();
-				UserSrv.setUser(null);
-				StorageSrv.setTutorialDone(false);
-				$scope.goTo('app.tutorial', {}, true);
-			},
-			function (reason) {
-				console.log(!!reason ? reason : 'Logout error');
-			}
-		);
+        $timeout(function(){
+          LoginSrv.logout().then(
+              function () {
+                  StorageSrv.deleteUser();
+                  UserSrv.setUser(null);
+                  StorageSrv.setTutorialDone(false);
+                  $scope.goTo('app.tutorial', {}, true);
+              },
+              function (reason) {
+                  console.log(!!reason ? reason : 'Logout error');
+              }
+          );
+        }, 100);
 	};
 })
 
@@ -80,6 +77,14 @@ angular.module('tocati.controllers.main', [])
  * Tutorial controller
  */
 .controller('TutorialCtrl', function ($scope, $ionicSideMenuDelegate, StorageSrv) {
+    $scope.showTutorial = false;
+
+    if (StorageSrv.isTutorialDone()) {
+		$scope.goTo('app.home', {}, true);
+    } else {
+      $scope.showTutorial = true;
+    }
+
 	// disable sidemenu
 	$ionicSideMenuDelegate.canDragContent(false);
 	// ion-slides options

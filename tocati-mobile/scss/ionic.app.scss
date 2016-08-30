@@ -36,8 +36,15 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 /*
  * GENERAL
  */
-
-
+*::-webkit-input-placeholder {
+  color: $t_midgrey !important;
+}
+*:-moz-placeholder {
+  color: $t_midgrey !important;
+}
+*:-ms-input-placeholder { /* IE10+ */
+  color: $t_midgrey !important;
+}
 /* Buttons */
 
 .button {
@@ -94,6 +101,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 	height: 100%;
 }
 
+#modal-map-container {
+    height: 100% !important;
+}
+
 /*
  * TUTORIAL
  */
@@ -127,6 +138,37 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .tutorial .tutorial-footer {
 	height: 20%;
 	background-color: white;
+}
+
+/*
+ * LOGIN
+ */
+
+.login-page {
+  background-color: $t_yellow;
+
+  .title {
+    display: block;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 32px;
+  }
+  h4 {
+    text-align: center;
+  }
+
+  .footer {
+	height: 20%;
+	background-color: white;
+  }
+
+  .login-link {
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    display: block;
+    padding: 16px 0px;
+  }
 }
 
 /*

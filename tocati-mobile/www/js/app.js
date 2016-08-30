@@ -16,7 +16,8 @@ angular.module('tocati', [
 	'tocati.controllers.main',
 	'tocati.controllers.home',
 	'tocati.controllers.poi',
-	'tocati.controllers.diary'
+	'tocati.controllers.diary',
+	'tocati.controllers.login'
 ])
 
 .run(function ($ionicPlatform) {
@@ -63,6 +64,7 @@ angular.module('tocati', [
 	})
 
 	.state('app.tutorial', {
+        cache: false,
 		url: '/tutorial',
 		views: {
 			'menuContent': {
@@ -78,6 +80,26 @@ angular.module('tocati', [
 			'menuContent': {
 				templateUrl: 'templates/home.html',
 				controller: 'HomeCtrl'
+			}
+		}
+	})
+	.state('app.login', {
+		url: '/login',
+        cache: false,
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/login.html',
+				controller: 'LoginCtrl'
+			}
+		}
+	})
+	.state('app.register', {
+		url: '/register',
+        cache: false,
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/register.html',
+				controller: 'RegisterCtrl'
 			}
 		}
 	})
@@ -125,5 +147,5 @@ angular.module('tocati', [
 	});
 
 	// if none of the above states are matched, use this as the fallback
-	$urlRouterProvider.otherwise('/app/home');
+	$urlRouterProvider.otherwise('/app/tutorial');
 });

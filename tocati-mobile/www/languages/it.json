@@ -1,5 +1,5 @@
 {
-	"app": "GoEvway",
+	"app": "PlayEvway",
 	"ok": "OK",
 	"close": "Chiudi",
 	"go": "Vai",
@@ -37,5 +37,35 @@
 	"cat_GIOCHI DA TAVOLIERE": "Giochi da tavoliere",
 	"cat_GIOCHI TRADIZIONALI CINESI": "Giochi tradizionali cinesi",
 	"cat_GIOCHI TRADIZIONALI ITALIANI": "Giochi tradizionali italiani",
-	"cat_PROGETTI COLLATERALI": "Progetti collaterali"
+	"cat_PROGETTI COLLATERALI": "Progetti collaterali",
+    "no_column": "Selezionare punto di ricarica",
+    "no_poi": "Nessun elemento trovato",
+    "signin_title": "Accedi con le tue credenziali",
+    "signin_pwd_reset": "Password dimenticata?",
+    "text_login_use": "oppure accedi con",
+    "error_popup_title": "Errore",
+    "error_generic": "La registrazione non è andata a buon fine. Riprova più tardi.",
+    "error_email_inuse": "L'email è già in uso.",
+    "signup_name": "Nome",
+    "signup_surname": "Cognome",
+    "signup_email": "Email",
+    "signup_pwd": "Password",
+    "error_required_fields": "Tutti i campi sono obbligatori",
+    "error_password_short": "La lunghezza della password deve essere di almeno 6 caratteri",
+    "signup_success_title": "Registrazione completata!",
+    "signup_success_text": "Completa la registrazione cliccando sul link che trovi nella email che ti abbiamo inviato.",
+    "signup_resend": "Re-inviare l'email di conferma",
+    "error_signin": "Username/password non validi",
+    "signup_signup": "Registrati",
+    "signup_title": "Registrati con",
+    "login_signup": "REGISTRATI",
+    "login_signin": "ACCEDI",
+    "registration_empty_name": "Nome è obbligatorio",
+    "registration_empty_surname": "Cognome è obbligatorio",
+    "registration_empty_mail": "Email è obbligatorio",
+    "error_generic": "La registrazione non è andata a buon fine. Riprova più tardi.",
+    "error_password_short": "La lunghezza della password deve essere di almeno 6 caratteri",
+    "signup_success_title": "Registrazione completata!"
+
+
 }

@@ -1,0 +1,27 @@
+<ion-view id="login" hide-nav-bar="true">
+  <ion-content id=" content " has-header="true" class="login-page">
+    <div class="row row-center title">
+      <div class="col">
+        {{'app' | translate}}
+      </div>
+    </div>
+
+    <div class="login padding">
+      <h4>{{'signin_title' | translate}}</h4>
+      <label class="item item-input">
+        <input type="email" placeholder="{{'signup_email'|translate}}" ng-model="user.email">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="{{'signup_pwd'|translate}}" ng-model="user.password">
+      </label>
+    </div>
+<!--    <a class="text-left login-link" ng-click="passwordRecover()"> {{'signin_pwd_reset' | translate}} </a>-->
+    <div class="footer">
+      <div class="col col-offset-25 col-50">
+        <button class="button button-block button-energized" ng-click="login()">{{'login_signin' | translate}}</button>
+      </div>
+    </div>
+    <a class=" login-link" ng-click="register()"> {{'login_signup' | translate}} </a>
+  </ion-content>
+
+</ion-view>

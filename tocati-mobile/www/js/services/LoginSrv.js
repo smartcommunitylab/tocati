@@ -11,6 +11,7 @@ angular.module('tocati.services.login', [])
 
 	loginService.login = function (provider) {
 		var deferred = $q.defer();
+        authWindow = null;
 
 		if (provider != 'google') {
 			provider = '';
@@ -119,12 +120,49 @@ angular.module('tocati.services.login', [])
 					deferred.reject();
 				});
 		} catch (e) {
-			deferred.reject(e);
+			deferred.resolve(e);
 		}
 
 		return deferred.promise;
 	};
 
+  	loginService.loginEVWay = function (user) {
+		var deferred = $q.defer();
+		$http.get(Config.SERVER_URL + '/'+Config.OWNER_ID+'/userloginevway?email=' + user.email + '&password=' + user.password+'&language='+user.language, Config.HTTP_CONFIG)
+			.then(
+				function (res) {
+                    deferred.resolve(res);
+				},
+				function (reason) {
+					StorageSrv.saveUser(null);
+                    deferred.reject(reason);
+				}
+			);
+
+		return deferred.promise;
+	};
+
+  	loginService.registerEVWay = function (user) {
+		var deferred = $q.defer();
+		$http.get(Config.SERVER_URL + '/'+Config.OWNER_ID+'/userregisterevway?'+
+                  'email=' + user.email +
+                  '&password=' + user.password +
+                  '&language='+user.language +
+                  '&name='+user.name +
+                  '&surname='+user.surname
+                  , Config.HTTP_CONFIG)
+			.then(
+				function (res) {
+                    deferred.resolve(res);
+				},
+				function (reason) {
+					StorageSrv.saveUser(null);
+                    deferred.reject(reason);
+				}
+			);
+
+		return deferred.promise;
+	};
 	/*
 	loginService.signin = function (user) {
 		var deferred = $q.defer();

@@ -42,7 +42,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,30 +92,30 @@ public class EntityController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/api/users/{ownerId}/{userId}/login", method = RequestMethod.POST)
-	public @ResponseBody UserData userLogin(@RequestBody UserData user, @PathVariable String ownerId, 
-			@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
-			throw new UnauthorizedException("Unauthorized Exception: token not valid");
-		}
-		if(logger.isInfoEnabled()) {
-			logger.info(String.format("userLogin[%s]:%s", ownerId, userId));
-		}
-		UserData result = null;
-		
-		user.setOwnerId(ownerId);
-		user.setUserId(userId);
-		
-		Criteria criteria = Criteria.where("userId").is(userId);
-		UserData userDB = storageManager.findOneData(UserData.class, criteria, ownerId);
-		if(userDB == null) {
-			user.setObjectId(Utils.getUUID());
-			result = storageManager.addUser(user);
-		} else {
-			result = userDB;
-		}
-		return result;
-	}
+//	@RequestMapping(value = "/api/users/{ownerId}/{userId}/login", method = RequestMethod.POST)
+//	public @ResponseBody UserData userLogin(@RequestBody UserData user, @PathVariable String ownerId,
+//			@PathVariable String userId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
+//			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+//		}
+//		if(logger.isInfoEnabled()) {
+//			logger.info(String.format("userLogin[%s]:%s", ownerId, userId));
+//		}
+//		UserData result = null;
+//
+//		user.setOwnerId(ownerId);
+//		user.setUserId(userId);
+//
+//		Criteria criteria = Criteria.where("userId").is(userId);
+//		UserData userDB = storageManager.findOneData(UserData.class, criteria, ownerId);
+//		if(userDB == null) {
+//			user.setObjectId(Utils.getUUID());
+//			result = storageManager.addUser(user);
+//		} else {
+//			result = userDB;
+//		}
+//		return result;
+//	}
 	
 	@RequestMapping(value = "/api/chargingPoints/{ownerId}", method = RequestMethod.GET)
 	public @ResponseBody List<ChargingPoint> getChargingPoints(@PathVariable String ownerId,

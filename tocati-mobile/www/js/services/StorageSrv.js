@@ -14,7 +14,7 @@ angular.module('tocati.services.storage', [])
 	storageService.isTutorialDone = function () {
 		var tutorialDone = localStorage.getItem('tutorialDone');
 
-		if (!!tutorialDone) {
+		if (!!tutorialDone && tutorialDone != 'false') {
 			return true;
 		}
 

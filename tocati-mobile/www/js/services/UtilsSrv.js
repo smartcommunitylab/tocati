@@ -1,6 +1,6 @@
 angular.module('tocati.services.utils', [])
 
-.factory('Utils', function ($rootScope, $window, $timeout, $ionicLoading, $ionicPopup, $cordovaToast) {
+.factory('Utils', function ($rootScope, $translate, $window, $timeout, $ionicLoading, $ionicPopup, $cordovaToast) {
 	var utilsService = {};
 
 	utilsService.roundDecimalPlaces = function (num, decimalPlaces) {
@@ -9,35 +9,10 @@ angular.module('tocati.services.utils', [])
 		return Math.round(num * 10 * decimalPlaces) / (10 * decimalPlaces);
 	};
 
-	utilsService.getLang = function () {
-		var browserLanguage = '';
-		// works for earlier version of Android (2.3.x)
-		var androidLang;
-		if ($window.navigator && $window.navigator.userAgent && (androidLang = $window.navigator.userAgent.match(/android.*\W(\w\w)-(\w\w)\W/i))) {
-			browserLanguage = androidLang[1];
-		} else {
-			// works for iOS, Android 4.x and other devices
-			browserLanguage = $window.navigator.userLanguage || $window.navigator.language;
-		}
+    utilsService.getLang = function() {
+      return $translate.use();
+    }
 
-		var lang = browserLanguage.substring(0, 2);
-		if (lang != 'it' && lang != 'en' && lang != 'de') {
-			lang = 'en'
-		};
-
-		return lang;
-	};
-
-	utilsService.getLanguage = function () {
-		navigator.globalization.getLocaleName(
-			function (locale) {
-				alert('locale: ' + locale.value + '\n');
-			},
-			function () {
-				alert('Error getting locale\n');
-			}
-		);
-	};
 
 	utilsService.toast = function (message, duration, position) {
 		message = message || 'There was a problem...';

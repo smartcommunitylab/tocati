@@ -128,11 +128,15 @@ angular.module('tocati.controllers.home', [])
 	/* Refreshes POIs markers using the category filter selections */
 	var refreshPoiMarkers = function (cp) {
 		var updatedMarkers = {};
+        var filteredCount = 0;
 		angular.forEach($scope.categories, function (category, categoryId) {
 			if (category.checked) {
 				angular.merge(updatedMarkers, markersCache[cp.objectId][categoryId]);
+                filteredCount++;
 			}
 		});
+
+        $scope.filteredCount = filteredCount;
 
 		angular.merge(updatedMarkers, markersCache._chargingPoints);
 		var mmm = updatedMarkers[cp.objectId];

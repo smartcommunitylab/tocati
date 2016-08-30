@@ -1,13 +1,21 @@
 package it.smartcommunitylab.tocati.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserData extends BaseObject {
 	private String userId;
 	private String name;
 	private String surname;
 	private String displayName;
+
+	private String email;
+	private String language;
+
+	private Map<String, String> customData;
+
 	private List<Checkin> checkinList = new ArrayList<Checkin>();
 	private int points;
 	
@@ -47,4 +55,25 @@ public class UserData extends BaseObject {
 	public void setPoints(int points) {
 		this.points = points;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getLanguage() {
+		return language;
+	}
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+	public Map<String, String> getCustomData() {
+		if (customData == null) customData = new HashMap<String, String>();
+		return customData;
+	}
+	public void setCustomData(Map<String, String> customData) {
+		this.customData = customData;
+	}
+
+
 }

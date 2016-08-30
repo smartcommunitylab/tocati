@@ -1,6 +1,6 @@
 angular.module('tocati.services.config', [])
 
-.factory('Config', function () {
+.factory('Config', function ($translate) {
 	var configService = {};
 
 	configService.SERVER_URL = CONF.SERVER_URL;
