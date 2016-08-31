@@ -33,6 +33,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -45,6 +47,8 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 @Service
 public class GOEvWayAuthenticator {
+
+	private static final transient Logger logger = LoggerFactory.getLogger(GOEvWayAuthenticator.class);
 
 	@Autowired
 	@Value("${evway.apitoken}")
@@ -68,6 +72,7 @@ public class GOEvWayAuthenticator {
 
 		JsonNode node = Utils.readJsonFromString(res);
 		if (node.get("status").get("errorCode").asInt() > 0) {
+			logger.error("Error in login: "+ res);
 			return null;
 		}
 
@@ -97,6 +102,7 @@ public class GOEvWayAuthenticator {
 
 		JsonNode node = Utils.readJsonFromString(res);
 		if (node.get("status").get("errorCode").asInt() > 0) {
+			logger.error("Error in register: "+ res);
 			return null;
 		}
 		JsonNode user = node.get("data").get("user");
