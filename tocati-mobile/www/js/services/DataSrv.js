@@ -3,7 +3,7 @@ angular.module('tocati.services.data', [])
 .factory('DataSrv', function ($rootScope, $http, $q, Config, UserSrv) {
 	var dataService = {};
 
-	/* ChargingPoint search */
+    /* ChargingPoint search */
 	dataService.getChargingPoints = function (params) {
 		var deferred = $q.defer();
 
@@ -62,6 +62,10 @@ angular.module('tocati.services.data', [])
 
 		.then(
 			function (response) {
+                // update ranking
+                dataService.getRanking();
+                // update checkins
+                $rootScope.user.checkinMap[poiId] = true;
 				// UserData
 				deferred.resolve(response.data);
 			},
@@ -74,14 +78,19 @@ angular.module('tocati.services.data', [])
 	};
 
 	/* getRanking */
-	dataService.getRanking = function () {
+	dataService.getRanking = function (start, count) {
 		var deferred = $q.defer();
 
-		$http.get(Config.SERVER_URL + '/api/classification/' + Config.OWNER_ID + '/' + UserSrv.getUser()['userId'], Config.HTTP_CONFIG)
+        var url = Config.SERVER_URL + '/api/classification/' + Config.OWNER_ID + '/' + UserSrv.getUser()['userId']+'?';
+        if (start > 0) url += 'start='+start;
+        if (count > 0) url += '&count='+count;
+
+		$http.get(url, Config.HTTP_CONFIG)
 
 		.then(
 			function (response) {
 				// MyRanking
+                $rootScope.ranking = response.data;
 				deferred.resolve(response.data);
 			},
 			function (reason) {
@@ -91,6 +100,10 @@ angular.module('tocati.services.data', [])
 
 		return deferred.promise;
 	};
+
+    dataService.isCheckedIn = function(poiId) {
+      return $rootScope.user.checkinMap[poiId];
+    }
 
 	return dataService;
 });

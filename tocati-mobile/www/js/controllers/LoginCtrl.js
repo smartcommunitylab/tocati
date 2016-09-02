@@ -6,12 +6,15 @@ angular.module('tocati.controllers.login', [])
 
   $scope.login = function() {
     Utils.loading();
-    LoginSrv.loginEVWay($scope.user).then(function(userData){
-      Utils.loaded();
+    LoginSrv.loginEVWay($scope.user).then(function(data){
+      var userData = data.data;
       StorageSrv.saveUser(userData);
       UserSrv.setUser(userData);
-      StorageSrv.setTutorialDone();
-      $scope.goTo('app.home', {}, true);
+      StorageSrv.setTutorialDone(true);
+      DataSrv.getRanking().finally(function(){
+        Utils.loaded();
+        $scope.goTo('app.home', {}, true);
+      });
     }, function(err) {
       Utils.loaded();
       console.log('Login failure ' + err);
@@ -38,11 +41,13 @@ angular.module('tocati.controllers.login', [])
 
     Utils.loading();
     LoginSrv.registerEVWay($scope.user).then(function(userData){
-      Utils.loaded();
       StorageSrv.saveUser(userData);
       UserSrv.setUser(userData);
-      StorageSrv.setTutorialDone();
-      $scope.goTo('app.home', {}, true);
+      StorageSrv.setTutorialDone(true);
+      DataSrv.getRanking().finally(function(){
+        Utils.loaded();
+        $scope.goTo('app.home', {}, true);
+      });
     }, function(err) {
       Utils.loaded();
       console.log('Register failure ' + err);

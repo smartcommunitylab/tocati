@@ -39,5 +39,13 @@ angular.module('tocati.services.storage', [])
 		return null;
 	};
 
+    storageService.setChargingPoint = function(id) {
+      localStorage.setItem('chargingPoint', id);
+    };
+    storageService.getChargingPoint = function() {
+      return localStorage.getItem('chargingPoint');
+    }
+
+
 	return storageService;
 });

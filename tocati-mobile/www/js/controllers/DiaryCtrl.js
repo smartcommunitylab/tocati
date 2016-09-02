@@ -1,6 +1,6 @@
 angular.module('tocati.controllers.diary', [])
 
-.controller('DiaryCtrl', function ($scope, UserSrv, DataSrv) {
+.controller('DiaryCtrl', function ($scope, UserSrv, DataSrv, Utils) {
 	$scope.myUserId = UserSrv.getUser()['userId'];
 	$scope.myDisplayName = UserSrv.getUser()['displayName'];
 	$scope.me = {
@@ -8,22 +8,30 @@ angular.module('tocati.controllers.diary', [])
 		points: 0
 	};
 
-	$scope.ranking = [];
+	$scope.ranking = null;
 
-	/* Populate ranking */
-	DataSrv.getRanking().then(
-		function (myranking) {
-			$scope.me.position = myranking.position;
-			$scope.me.points = myranking.points;
-			$scope.ranking = myranking.ranking;
+    /* Populate ranking */
+    var updateRanking = function(bg) {
+      if (!bg) Utils.loading();
+      DataSrv.getRanking().then(
+          function (myranking) {
+              if (!bg) Utils.loaded();
+              $scope.me.position = myranking.position;
+              $scope.me.points = myranking.points;
+              $scope.ranking = myranking.ranking;
 
-			angular.forEach($scope.ranking, function (rankingUser) {
-				if (rankingUser.data.userId == $scope.myUserId) {
-					$scope.me.data = rankingUser.data;
-				}
-			});
-		}
-	);
+              angular.forEach($scope.ranking, function (rankingUser) {
+                  if (rankingUser.data.userId == $scope.myUserId) {
+                      $scope.me.data = rankingUser.data;
+                  }
+              });
+          }
+      );
+    }
+    $scope.$on("$ionicView.enter", function(event, data){
+      updateRanking($scope.ranking != null);
+    });
+
 })
 
 .controller('DiaryPointsCtrl', function ($scope, $ionicScrollDelegate, GraphicSrv) {

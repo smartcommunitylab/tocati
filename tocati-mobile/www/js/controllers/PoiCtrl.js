@@ -13,14 +13,10 @@ angular.module('tocati.controllers.poi', [])
 	$scope.alreadyCheckedIn = false;
 
 	var verifyPreviousCheckin = function () {
-		var checkinList = UserSrv.getUser().checkinList;
-		for (var i = 0; i < checkinList.length; i++) {
-			var checkin = checkinList[i];
-			if (checkin.poi.objectId === $scope.poi.objectId) {
-				$scope.alreadyCheckedIn = true;
-				i = checkinList.length;
-			}
-		}
+      if (DataSrv.isCheckedIn($scope.poi.objectId)) {
+        $scope.alreadyCheckedIn = true;
+
+      }
 	};
 
 	verifyPreviousCheckin();

@@ -63,6 +63,7 @@ angular.module('tocati.controllers.main', [])
                   StorageSrv.deleteUser();
                   UserSrv.setUser(null);
                   StorageSrv.setTutorialDone(false);
+                  StorageSrv.setChargingPoint(null);
                   $scope.goTo('app.tutorial', {}, true);
               },
               function (reason) {

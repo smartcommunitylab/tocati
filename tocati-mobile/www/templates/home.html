@@ -10,10 +10,12 @@
 			<ion-pane>
 				<ion-content class="homemap" data-tap-disabled="true" scroll="false">
                     <div id="modal-map-container" data-tap-disabled="true">
-<!--                        <leaflet event-broadcast="events" center="center" markers="markers" paths="pathLine" style="width: 100%; height: 700px;" ng-init="initMap()"  id="ttMap"></leaflet>-->
-					<leaflet event-broadcast="events" center="center" markers="markers" ng-init="initMap()" id="homemap"></leaflet>
+                      <leaflet event-broadcast="events" center="center" markers="markers" ng-init="initMap()" id="homemap"></leaflet>
                     </div>
-				</ion-content>
+              </ion-content>
+                    <div class="bar bar-footer bar-assertive">
+                      <div class="title" ui-sref="app.diary">{{'ranking_footer' | translate:ranking}}</div>
+                    </div>
 			</ion-pane>
 		</ion-tab>
 
@@ -22,7 +24,7 @@
 			<!--ng-controller="HomeListCtrl"-->
 			<ion-pane>
 				<ion-content class="home-list">
-					<ion-list>
+					<ion-list class="home-list-list">
 						<div class="empty-list padding text-center" ng-if="!pois">
 							<h4>{{'no_column' | translate}}</h4>
 						</div>
@@ -42,7 +44,8 @@
 										<div class="points">{{(poi.points == 1 ? 'points_n1' : 'points_n') | translate:'{points:' + poi.points + '}'}}</div>
 										<div class="checkin">
 											<i class="icon ion-ios-location"></i>
-											<span class="status">{{'checkin' | translate}}</span>
+											<span class="status" ng-if="!user.checkinMap[id]">{{ 'checkin' | translate}}</span>
+											<i class="status icon ion-checkmark" ng-if="user.checkinMap[id]"></i>
 										</div>
 									</div>
 								</div>
@@ -50,6 +53,9 @@
 						</div>
 					</ion-list>
 				</ion-content>
+                    <div class="bar bar-footer bar-assertive">
+                      <div class="title" ui-sref="app.diary">{{'ranking_footer' | translate:ranking}}</div>
+                    </div>
 			</ion-pane>
 		</ion-tab>
 	</ion-tabs>

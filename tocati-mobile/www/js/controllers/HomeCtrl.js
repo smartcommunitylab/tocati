@@ -3,9 +3,12 @@ angular.module('tocati.controllers.home', [])
 /*
  * HOME CONTROLLER
  */
-.controller('HomeCtrl', function ($scope, $state, $interval, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, GeoSrv, MapSrv, DataSrv) {
+.controller('HomeCtrl', function ($scope, $state, $interval, $timeout, $filter, $ionicPopup, $ionicSideMenuDelegate, $ionicModal, Utils, Config, GraphicSrv, GeoSrv, MapSrv, DataSrv, StorageSrv) {
 	$scope.chargingPoints = {};
 	$scope.pois = null;
+
+    Utils.loading();
+    DataSrv.getRanking().finally(Utils.loaded);
 
 	$scope.selectedChargingPoint = null;
 
@@ -87,8 +90,13 @@ angular.module('tocati.controllers.home', [])
 				markersCache._chargingPoints = {};
 				var boundsArray = [];
 
-				angular.forEach(cpList, function (cp) {
+                var stored = StorageSrv.getChargingPoint();
+                var selected = null;
+                angular.forEach(cpList, function (cp) {
 					$scope.chargingPoints[cp.objectId] = cp;
+                    if (cp.objectId == stored) {
+                      selected = cp;
+                    }
 					boundsArray.push([cp.coordinates[1], cp.coordinates[0]]);
 
 					markersCache._chargingPoints[cp.objectId] = {
@@ -107,7 +115,11 @@ angular.module('tocati.controllers.home', [])
 					boundsArray.push([homeMap.me.lat, homeMap.me.lon]);
 				}
 
-				homeMap.fitBounds(boundsArray);
+                if (selected != null) {
+                  applyChargingPoint(selected);
+                } else {
+				  homeMap.fitBounds(boundsArray);
+                }
 			},
 			function (error) {
 				// TODO handle errors
@@ -169,42 +181,47 @@ angular.module('tocati.controllers.home', [])
 
 		cpPopup.then(function (go) {
 			if (go) {
-				DataSrv.getPOIsByChargingPoint(cp.objectId).then(
-					function (pois) {
-						$scope.pois = {};
-						markersCache[cp.objectId] = {};
-						var boundsArray = [];
-
-						angular.forEach(pois, function (poi) {
-							$scope.pois[poi.objectId] = poi;
-							boundsArray.push([poi.coordinates[1], poi.coordinates[0]]);
-
-							if (!markersCache[cp.objectId][poi.category]) {
-								markersCache[cp.objectId][poi.category] = {};
-							}
-
-							markersCache[cp.objectId][poi.category][poi.objectId] = {
-								parentId: cp.objectId,
-								lat: poi.coordinates[1],
-								lng: poi.coordinates[0],
-								name: poi.objectId,
-								icon: GraphicSrv.getPoiMarkerIcon(poi.category),
-								focus: false,
-								draggable: false
-							};
-						});
-
-						refreshPoiMarkers(cp);
-						// fit map
-						boundsArray.push([$scope.chargingPoints[cp.objectId].coordinates[1], $scope.chargingPoints[cp.objectId].coordinates[0]]);
-						homeMap.fitBounds(boundsArray);
-					}
-				);
+              applyChargingPoint(cp);
 			} else {
 				cpPopup.close();
 			}
 		});
 	};
+
+    var applyChargingPoint = function(cp) {
+      StorageSrv.setChargingPoint(cp.objectId);
+      DataSrv.getPOIsByChargingPoint(cp.objectId).then(
+          function (pois) {
+              $scope.pois = {};
+              markersCache[cp.objectId] = {};
+              var boundsArray = [];
+
+              angular.forEach(pois, function (poi) {
+                  $scope.pois[poi.objectId] = poi;
+                  boundsArray.push([poi.coordinates[1], poi.coordinates[0]]);
+
+                  if (!markersCache[cp.objectId][poi.category]) {
+                      markersCache[cp.objectId][poi.category] = {};
+                  }
+
+                  markersCache[cp.objectId][poi.category][poi.objectId] = {
+                      parentId: cp.objectId,
+                      lat: poi.coordinates[1],
+                      lng: poi.coordinates[0],
+                      name: poi.objectId,
+                      icon: GraphicSrv.getPoiMarkerIcon(poi.category),
+                      focus: false,
+                      draggable: false
+                  };
+              });
+
+              refreshPoiMarkers(cp);
+              // fit map
+              boundsArray.push([$scope.chargingPoints[cp.objectId].coordinates[1], $scope.chargingPoints[cp.objectId].coordinates[0]]);
+              homeMap.fitBounds(boundsArray);
+          }
+      );
+    }
 
 	$scope.openPoi = function (poi) {
 		$state.go('app.poi', {
@@ -269,6 +286,7 @@ angular.module('tocati.controllers.home', [])
 			$scope.pois = null;
 			$scope.selectedChargingPoint = null;
 			zoomOut = false;
+            StorageSrv.setChargingPoint(null);
 		}
 	});
 

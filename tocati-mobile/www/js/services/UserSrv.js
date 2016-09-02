@@ -9,6 +9,12 @@ angular.module('tocati.services.user', [])
 
 	userService.setUser = function (userData) {
 		$rootScope.user = userData;
+        if (userData != null) {
+          $rootScope.user.checkinMap = {};
+          $rootScope.user.checkinList.forEach(function(c){
+            $rootScope.user.checkinMap[c.poi.objectId] = true;
+          });
+        }
 	};
 
 	/* get user profile */

@@ -9877,7 +9877,11 @@ a.button {
   height: 100%; }
 
 #modal-map-container {
-  height: 100% !important; }
+  height: 100% !important;
+  padding-bottom: 45px; }
+
+.home-list-list .list {
+  padding-bottom: 45px; }
 
 /*
  * TUTORIAL
@@ -10017,7 +10021,8 @@ a.button {
 .card-poi .data {
   position: relative;
   /*padding: 0 10px 0 10px;*/
-  padding: 0; }
+  padding: 0;
+  height: 110px; }
 
 .card-poi .data .description {
   padding: 0 10px 0 10px; }
