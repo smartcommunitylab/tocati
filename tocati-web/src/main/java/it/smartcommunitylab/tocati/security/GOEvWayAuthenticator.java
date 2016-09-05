@@ -101,7 +101,7 @@ public class GOEvWayAuthenticator {
 			logger.error("Error in register: "+ res);
 			return null;
 		}
-		return "ok";
+		return node.get("data").asText();
 	}
 	
 	public UserData register(String username, String password, String lang) throws Exception {
