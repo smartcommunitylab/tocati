@@ -210,6 +210,29 @@ public class UserAuthController {
 		return null;
 	}
 	
+	@RequestMapping("/{ownerId}/resetpwdevway")
+	public @ResponseBody String resetPwdEVWay(@PathVariable String ownerId, @RequestParam String email, HttpServletRequest request, HttpServletResponse response) throws IOException, UnauthorizedException {
+//		if(!Utils.validateAPIRequest(request, dataSetSetup, storageManager)) {
+//			throw new UnauthorizedException("Unauthorized Exception: token not valid");
+//		}
+		if(logger.isInfoEnabled()) {
+			logger.info(String.format("loginEVWay[%s]", ownerId));
+		}
+
+		try {
+			String result = evwayAuth.resetPwd(email);
+			if (result == null) {
+				response.setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+				return null;
+			}
+			return result;
+
+		} catch (Exception e) {
+			response.setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+		}
+		return null;
+	}
+	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public void register(@RequestBody RegUser user, HttpServletResponse response) {
 		String url = permissions.getRegisterURL();

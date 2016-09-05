@@ -84,6 +84,26 @@ public class GOEvWayAuthenticator {
 	}
 
 
+
+	/**
+	 * @param email
+	 * @return
+	 * @throws Exception 
+	 */
+	public String resetPwd(String email) throws Exception {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("email", email);
+		String res = sendPost("https://evway.net/api/v2/userResetPassword", params);
+		if (res == null) return null;
+
+		JsonNode node = Utils.readJsonFromString(res);
+		if (node.get("status").get("errorCode").asInt() > 0) {
+			logger.error("Error in register: "+ res);
+			return null;
+		}
+		return "ok";
+	}
+	
 	public UserData register(String username, String password, String lang) throws Exception {
 		UserData result = new UserData();
 
@@ -136,4 +156,5 @@ public class GOEvWayAuthenticator {
 		}
 		return null;
 	}
+
 }
