@@ -190,6 +190,7 @@ angular.module('tocati.controllers.home', [])
 
     var applyChargingPoint = function(cp) {
       StorageSrv.setChargingPoint(cp.objectId);
+      $scope.selectedChargingPoint = cp;
       DataSrv.getPOIsByChargingPoint(cp.objectId).then(
           function (pois) {
               $scope.pois = {};
@@ -304,10 +305,11 @@ angular.module('tocati.controllers.home', [])
 		var myPos = MapSrv.getMyPosition();
 		var distance = GeoSrv.distance([myPos.lng, myPos.lat], poi.coordinates);
 
-		if (distance > Config.DELTA_DISTANCE) {
+//		if (distance > Config.DELTA_DISTANCE) {
+//			return Utils.roundDecimalPlaces(distance);
+//		}
+//
+//		return 0;
 			return Utils.roundDecimalPlaces(distance);
-		}
-
-		return 0;
 	};
 });

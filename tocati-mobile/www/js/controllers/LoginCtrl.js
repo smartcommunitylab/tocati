@@ -29,6 +29,9 @@ angular.module('tocati.controllers.login', [])
   $scope.register = function() {
     $state.go('app.register');
   }
+  $scope.passwordRecover = function() {
+    $state.go('app.reset');
+  }
 
 })
 
@@ -79,4 +82,31 @@ angular.module('tocati.controllers.login', [])
         return true;
         console.log(JSON.stringify($scope.user));
     }
+})
+
+
+.controller('ResetCtrl', function ($scope, $state, $ionicPopup, $ionicHistory, $filter, StorageSrv, UserSrv, DataSrv, LoginSrv, Utils) {
+
+  $scope.user = {email: ''};
+
+  $scope.reset = function() {
+    Utils.loading();
+    LoginSrv.resetEVWay($scope.user.email).then(function(){
+      Utils.loaded();
+      $ionicHistory.nextViewOptions({
+        historyRoot: true,
+        disableBack: true
+      });
+      $scope.goTo('app.login', {}, true);
+    }, function(err) {
+      Utils.loaded();
+      console.log('Register failure ' + err);
+      $ionicPopup.alert({
+        title: $filter('translate')('error_popup_title'),
+        template: $filter('translate')('error_generic'),
+        okType: 'button-energized'
+      });
+    });
+  };
+
 })

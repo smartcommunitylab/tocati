@@ -66,6 +66,8 @@
     "error_generic": "La registrazione non è andata a buon fine. Riprova più tardi.",
     "error_password_short": "La lunghezza della password deve essere di almeno 6 caratteri",
     "signup_success_title": "Registrazione completata!",
-    "ranking_footer": "Punti: {{points}}, Posizione: {{position}}"
+    "ranking_footer": "Punti: {{points}}, Posizione: {{position}}",
+    "reset" : "Reset",
+    "reset_title": "Reset password"
 
 }

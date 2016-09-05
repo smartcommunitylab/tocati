@@ -7,24 +7,15 @@
     </div>
 
     <div class="login padding">
-      <h4>{{'signup_title' | translate}}</h4>
-      <label class="item item-input">
-        <input type="text" placeholder="{{'signup_name'|translate}}" ng-model="user.name">
-      </label>
-      <label class="item item-input">
-        <input type="text" placeholder="{{'signup_surname'|translate}}" ng-model="user.surname">
-      </label>
+      <h4>{{'reset_title' | translate}}</h4>
       <label class="item item-input">
         <input type="email" placeholder="{{'signup_email'|translate}}" ng-model="user.email">
-      </label>
-      <label class="item item-input">
-        <input type="password" placeholder="{{'signup_pwd'|translate}}" ng-model="user.password">
       </label>
     </div>
 <!--    <a class="text-left login-link" ng-click="passwordRecover()"> {{'signin_pwd_reset' | translate}} </a>-->
     <div class="footer">
       <div class="col col-offset-25 col-50">
-        <button class="button button-block button-energized" ng-click="register()">{{'login_signup' | translate}}</button>
+        <button class="button button-block button-energized" ng-click="reset()">{{'reset' | translate}}</button>
       </div>
     </div>
   </ion-content>

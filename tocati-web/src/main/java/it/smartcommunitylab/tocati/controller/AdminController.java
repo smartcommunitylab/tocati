@@ -140,6 +140,7 @@ public class AdminController {
 	@ResponseStatus(value=HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
 	public Map<String,String> handleError(HttpServletRequest request, Exception exception) {
+		exception.printStackTrace();
 		return Utils.handleError(exception);
 	}
 	

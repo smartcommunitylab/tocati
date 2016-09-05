@@ -40,6 +40,8 @@ angular.module('tocati', [
 .config(function ($ionicConfigProvider, $translateProvider) {
 	//$translateProvider.translations('it', {});
 	$translateProvider.preferredLanguage('it');
+    moment.locale('it');
+
 	$translateProvider.useStaticFilesLoader({
 		prefix: 'languages/',
 		suffix: '.json'
@@ -106,6 +108,16 @@ angular.module('tocati', [
 			'menuContent': {
 				templateUrl: 'templates/register.html',
 				controller: 'RegisterCtrl'
+			}
+		}
+	})
+	.state('app.reset', {
+		url: '/reset',
+        cache: false,
+		views: {
+			'menuContent': {
+				templateUrl: 'templates/reset.html',
+				controller: 'ResetCtrl'
 			}
 		}
 	})

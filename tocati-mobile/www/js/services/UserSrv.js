@@ -11,6 +11,7 @@ angular.module('tocati.services.user', [])
 		$rootScope.user = userData;
         if (userData != null) {
           $rootScope.user.checkinMap = {};
+          if (!$rootScope.user.checkinList) $rootScope.user.checkinList = [];
           $rootScope.user.checkinList.forEach(function(c){
             $rootScope.user.checkinMap[c.poi.objectId] = true;
           });

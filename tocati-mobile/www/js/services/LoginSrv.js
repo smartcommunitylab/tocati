@@ -163,6 +163,23 @@ angular.module('tocati.services.login', [])
 
 		return deferred.promise;
 	};
+  	loginService.resetEVWay = function (email) {
+		var deferred = $q.defer();
+		$http.get(Config.SERVER_URL + '/'+Config.OWNER_ID+'/resetpwdevway?'+
+                  'email=' + email
+                  , Config.HTTP_CONFIG)
+			.then(
+				function (res) {
+                    deferred.resolve(res);
+				},
+				function (reason) {
+					StorageSrv.saveUser(null);
+                    deferred.reject(reason);
+				}
+			);
+
+		return deferred.promise;
+	};
 	/*
 	loginService.signin = function (user) {
 		var deferred = $q.defer();
