@@ -9964,11 +9964,13 @@ a.button {
 .modal-categories .list .item {
   border: none; }
 
-.modal-categories .list .item-checkbox .item-content span {
-  padding-left: 38px; }
-
 .modal-categories ion-content .title {
   text-align: center; }
+
+.modal-categories .category-img {
+  height: 60px;
+  width: 60px;
+  padding: 15px; }
 
 /*
  * Home - List

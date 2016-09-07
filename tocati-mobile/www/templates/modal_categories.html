@@ -7,10 +7,13 @@
 	<ion-content class="padding">
 		<h4 class="title">{{'modal_choose' | translate}}:</h4>
 		<ion-list>
-			<ion-checkbox class="checkbox-assertive item-checkbox-right item-icon-left" ng-repeat="(id, category) in categories" ng-model="category.checked">
-				<!--<i class="icon ion-stop"></i>-->
-				<span>{{category.name}}</span>
-			</ion-checkbox>
+            <div class="row" ng-repeat="(id, category) in categories">
+              <img ng-src="{{categoryIcon(id)}}" class="category-img" />
+              <ion-checkbox class="col col-center checkbox-assertive item-checkbox-right item-icon-left" ng-model="category.checked">
+                <!--<i class="icon ion-stop"></i>-->
+                  <span>{{category.name}}</span>
+              </ion-checkbox>
+            </div>
 		</ion-list>
 	</ion-content>
 </ion-modal-view>

@@ -11,7 +11,7 @@ angular.module('tocati.services.graphic', [])
 	};
 
 	var poiGraphic = {
-		'AVVENIMENTI': {
+		'EVENTS': {
 			icon: {
 				iconUrl: 'img/markers/eventi.png',
 				iconSize: [50, 50],
@@ -21,7 +21,7 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/eventi.png',
 			color: '#419F36'
 		},
-		'I GIOCHI': {
+		'GAMES': {
 			icon: {
 				iconUrl: 'img/markers/giochi.png',
 				iconSize: [50, 50],
@@ -31,76 +31,106 @@ angular.module('tocati.services.graphic', [])
 			icon_w: 'img/icons/w/giochi.png',
 			color: '#CD1521'
 		},
-		'GIOCHI DA TAVOLIERE': {
+		'SERVICES': {
 			icon: {
-				iconUrl: 'img/markers/giochi.png',
+				iconUrl: 'img/markers/servizi.png',
 				iconSize: [50, 50],
 				iconAnchor: [25, 49]
 			},
-			icon_c: 'img/icons/c/giochi.png',
-			icon_w: 'img/icons/w/giochi.png',
-			color: '#CD1521'
-		},
-		'GIOCHI TRADIZIONALI CINESI': {
-			icon: {
-				iconUrl: 'img/markers/giochi.png',
-				iconSize: [50, 50],
-				iconAnchor: [25, 49]
-			},
-			icon_c: 'img/icons/c/giochi.png',
-			icon_w: 'img/icons/w/giochi.png',
-			color: '#CD1521'
-		},
-		'GIOCHI TRADIZIONALI ITALIANI': {
-			icon: {
-				iconUrl: 'img/markers/giochi.png',
-				iconSize: [50, 50],
-				iconAnchor: [25, 49]
-			},
-			icon_c: 'img/icons/c/giochi.png',
-			icon_w: 'img/icons/w/giochi.png',
-			color: '#CD1521'
-		},
-		'PROGETTI COLLATERALI': {
-			icon: {
-				iconUrl: 'img/markers/incontri.png',
-				iconSize: [50, 50],
-				iconAnchor: [25, 49]
-			},
-			icon_c: 'img/icons/c/incontri.png',
-			icon_w: 'img/icons/w/incontri.png',
+			icon_c: 'img/icons/c/servizi.png',
+			icon_w: 'img/icons/w/servizi.png',
 			color: '#1B3D78'
-		},
-		'_progetti_collaterali': {
-			icon: {
-				iconUrl: 'img/markers/progetti_collaterali.png',
-				iconSize: [50, 50],
-				iconAnchor: [25, 49]
-			},
-			icon_c: 'img/icons/c/progetti_collaterali.png',
-			icon_w: 'img/icons/w/progetti_collaterali.png',
-			color: '#9A9B9A'
-		},
-		'_sapori': {
-			icon: {
-				iconUrl: 'img/markers/sapori.png',
-				iconSize: [50, 50],
-				iconAnchor: [25, 49]
-			},
-			icon_c: 'img/icons/c/sapori.png',
-			icon_w: 'img/icons/w/sapori.png',
-			color: '#EF7B2F'
-		},
-		'_suoni': {
-			icon: {
-				iconUrl: 'img/markers/suoni.png',
-				iconSize: [50, 50],
-				iconAnchor: [25, 49]
-			},
-			icon_c: 'img/icons/c/suoni.png',
-			icon_w: 'img/icons/w/suoni.png',
-			color: '#FCD019'
 		}
+//      'AVVENIMENTI': {
+//			icon: {
+//				iconUrl: 'img/markers/eventi.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/eventi.png',
+//			icon_w: 'img/icons/w/eventi.png',
+//			color: '#419F36'
+//		},
+//		'I GIOCHI': {
+//			icon: {
+//				iconUrl: 'img/markers/giochi.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/giochi.png',
+//			icon_w: 'img/icons/w/giochi.png',
+//			color: '#CD1521'
+//		},
+//		'GIOCHI DA TAVOLIERE': {
+//			icon: {
+//				iconUrl: 'img/markers/giochi.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/giochi.png',
+//			icon_w: 'img/icons/w/giochi.png',
+//			color: '#CD1521'
+//		},
+//		'GIOCHI TRADIZIONALI CINESI': {
+//			icon: {
+//				iconUrl: 'img/markers/giochi.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/giochi.png',
+//			icon_w: 'img/icons/w/giochi.png',
+//			color: '#CD1521'
+//		},
+//		'GIOCHI TRADIZIONALI ITALIANI': {
+//			icon: {
+//				iconUrl: 'img/markers/giochi.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/giochi.png',
+//			icon_w: 'img/icons/w/giochi.png',
+//			color: '#CD1521'
+//		},
+//		'PROGETTI COLLATERALI': {
+//			icon: {
+//				iconUrl: 'img/markers/incontri.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/incontri.png',
+//			icon_w: 'img/icons/w/incontri.png',
+//			color: '#1B3D78'
+//		},
+//		'_progetti_collaterali': {
+//			icon: {
+//				iconUrl: 'img/markers/progetti_collaterali.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/progetti_collaterali.png',
+//			icon_w: 'img/icons/w/progetti_collaterali.png',
+//			color: '#9A9B9A'
+//		},
+//		'_sapori': {
+//			icon: {
+//				iconUrl: 'img/markers/sapori.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/sapori.png',
+//			icon_w: 'img/icons/w/sapori.png',
+//			color: '#EF7B2F'
+//		},
+//		'_suoni': {
+//			icon: {
+//				iconUrl: 'img/markers/suoni.png',
+//				iconSize: [50, 50],
+//				iconAnchor: [25, 49]
+//			},
+//			icon_c: 'img/icons/c/suoni.png',
+//			icon_w: 'img/icons/w/suoni.png',
+//			color: '#FCD019'
+//		}
 	};
 
 	// FIXME dev only

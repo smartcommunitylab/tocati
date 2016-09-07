@@ -5,7 +5,7 @@
 
 	<ion-tabs class="tabs-energized">
 		<!-- Map -->
-		<ion-tab title="{{'map' | translate}}">
+		<ion-tab title="{{'map' | translate}}" on-select="updateMap()">
 			<!--ng-controller="HomeMapCtrl"-->
 			<ion-pane>
 				<ion-content class="homemap" data-tap-disabled="true" scroll="false">

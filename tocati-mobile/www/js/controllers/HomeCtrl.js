@@ -13,30 +13,43 @@ angular.module('tocati.controllers.home', [])
 	$scope.selectedChargingPoint = null;
 
 	$scope.categories = {
-		'AVVENIMENTI': {
-			name: 'Avvenimenti',
-			checked: true
-		},
-		'I GIOCHI': {
-			name: 'I giochi',
-			checked: true
-		},
-		'GIOCHI DA TAVOLIERE': {
-			name: 'Giochi da tavoliere',
-			checked: true
-		},
-		'GIOCHI TRADIZIONALI CINESI': {
-			name: 'Giochi tradizionali cinesi',
-			checked: true
-		},
-		'GIOCHI TRADIZIONALI ITALIANI': {
-			name: 'Giochi tradizionali italiani',
-			checked: true
-		},
-		'PROGETTI COLLATERALI': {
-			name: 'Progetti collaterali',
-			checked: true
-		}
+//		'AVVENIMENTI': {
+//			name: 'Avvenimenti',
+//			checked: true
+//		},
+//		'I GIOCHI': {
+//			name: 'I giochi',
+//			checked: true
+//		},
+//		'GIOCHI DA TAVOLIERE': {
+//			name: 'Giochi da tavoliere',
+//			checked: true
+//		},
+//		'GIOCHI TRADIZIONALI CINESI': {
+//			name: 'Giochi tradizionali cinesi',
+//			checked: true
+//		},
+//		'GIOCHI TRADIZIONALI ITALIANI': {
+//			name: 'Giochi tradizionali italiani',
+//			checked: true
+//		},
+//		'PROGETTI COLLATERALI': {
+//			name: 'Progetti collaterali',
+//			checked: true
+//		}
+      'GAMES': {
+        name: "I giochi",
+        checked: true
+      },
+      'EVENTS': {
+        name: "Gli eventi",
+        checked: true
+      },
+      'SERVICES': {
+        name: "I servizi",
+        checked: true
+      }
+
 	};
 
 	$ionicModal.fromTemplateUrl('templates/modal_categories.html', {
@@ -291,6 +304,10 @@ angular.module('tocati.controllers.home', [])
 		}
 	});
 
+    $scope.categoryIcon = function(cat) {
+      return GraphicSrv.getPoiIconC(cat);
+    }
+
 	/*
 	 * LIST STUFF
 	 */
@@ -312,4 +329,8 @@ angular.module('tocati.controllers.home', [])
 //		return 0;
 			return Utils.roundDecimalPlaces(distance);
 	};
+
+    $scope.updateMap = function() {
+      $timeout(function(){MapSrv.refresh('homemap')},100);
+    }
 });
