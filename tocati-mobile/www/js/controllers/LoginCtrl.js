@@ -43,7 +43,8 @@ angular.module('tocati.controllers.login', [])
     if (!checkParams()) return;
 
     Utils.loading();
-    LoginSrv.registerEVWay($scope.user).then(function(userData){
+    LoginSrv.registerEVWay($scope.user).then(function(data){
+      var userData = data.data;
       StorageSrv.saveUser(userData);
       UserSrv.setUser(userData);
       StorageSrv.setTutorialDone(true);

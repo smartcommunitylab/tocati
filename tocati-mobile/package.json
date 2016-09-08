@@ -28,6 +28,7 @@
     "com.cordova.plugins.cookiemaster"
   ],
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ]
 }
