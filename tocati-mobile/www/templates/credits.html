@@ -1,5 +1,55 @@
 <ion-view view-title="{{'credits' | translate}}">
-	<ion-content class="padding">
-		<p>{{'under_construction' | translate}}</p>
-	</ion-content>
+	<ion-content class="padding text-center">
+        <div class="row">
+            <div class="col">
+                <div class="credits_title">{{'app'|translate}}</div>
+            </div>
+        </div>
+        <div class="row credits_row version">
+            <div class="col credits_version">{{version}}</div>
+        </div>
+        <div class="row credits_row credits_subtitle">
+            <div class="col"><span>{{'credits_project' | translate}}</span>
+            </div>
+        </div>
+        <div class="row credits_row">
+            <div class="col col-center">
+                <a href="#" onclick="window.open('http://www.smartcommunitylab.it/', '_system', 'location=yes'); return false;"><img class="image center" src="img/credits/logo-sco-fbk.png" width="100%" />
+                </a>
+            </div>
+        </div>
+
+        <div class="row credits_row credits_subtitle">
+            <div class="col"><span>{{'credits_collaboration' | translate}}</span>
+            </div>
+        </div>
+        <div class="row credits_row">
+            <div class="col col-center">
+                <a href="#" onclick="window.open('https://evway.net', '_system', 'location=yes'); return false;"><img class="image center" src="img/credits/evway.png" width="25%" />
+                </a>
+            </div>
+        </div>
+
+        <div class="row credits_row credits_subtitle">
+            <div class="col"><span>{{'credits_participation' | translate}}</span>
+            </div>
+        </div>
+        <div class="row credits_row">
+            <div class="col col-center">
+                <a href="#" onclick="window.open('http://www.eitdigital.eu/', '_system', 'location=yes'); return false;"><img class="image center" src="img/credits/small_eit.png" width="90%" />
+                </a>
+            </div>
+            <div class="col col-center">
+                <a href="#" onclick="window.open('http://www.streetlife-project.eu/', '_system', 'location=yes'); return false;"><img class="image center" src="img/credits/streetlife.png" width="90%" />
+                </a>
+            </div>
+        </div>
+
+        <div class="row credits_row credits_subtitle">
+            <div class="col"><span class="credits-title">{{'credits_info' | translate}}</span>
+                <br/><a class="credits_mail" href="mailto:info@smartcommunitylab.it">info@smartcommunitylab.it</a>
+            </div>
+        </div>
+
+    </ion-content>
 </ion-view>

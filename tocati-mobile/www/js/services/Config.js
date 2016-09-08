@@ -1,10 +1,12 @@
 angular.module('tocati.services.config', [])
 
-.factory('Config', function ($translate) {
+.factory('Config', function ($translate, $rootScope) {
 	var configService = {};
 
 	configService.SERVER_URL = CONF.SERVER_URL;
 	configService.OWNER_ID = CONF.OWNER_ID;
+
+    $rootScope.version = CONF.VERSION;
 
 	configService.HTTP_CONFIG = {
 		timeout: 5000,

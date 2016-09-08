@@ -62,8 +62,16 @@
     "error_generic": "La registrazione non è andata a buon fine. Riprova più tardi.",
     "error_password_short": "La lunghezza della password deve essere di almeno 6 caratteri",
     "signup_success_title": "Registrazione completata!",
-    "ranking_footer": "Punti: {{points}}, Posizione: {{position}}",
+    "ranking_footer": "Punti: {{points}}, Classifica: {{position}}",
     "reset" : "Reset",
-    "reset_title": "Reset password"
+    "reset_title": "Reset password",
+    "credits_project": "Un progetto di:",
+    "credits_collaboration": "In collaborazione con:",
+    "credits_participation": "Con la partecipazione di:",
+    "credits_info": "Per informazioni:",
+    "tutorial1": "Scegli un evento di Tocatì che ti interessa dalla mappa...",
+    "tutorial2": "... o dalla lista.",
+    "tutorial3": "Recati all'evento e, quando lo hai raggiunto, fai check-in tramite app.",
+    "tutorial4": " Per controllare punti e classifica, vai ne \"Il mio diario\"."
 
 }
