@@ -333,4 +333,8 @@ angular.module('tocati.controllers.home', [])
     $scope.updateMap = function() {
       $timeout(function(){MapSrv.refresh('homemap')},100);
     }
+
+    $scope.$on("$ionicView.enter", function(event, data){
+      $timeout(function(){MapSrv.refresh('homemap')},100);
+    });
 });

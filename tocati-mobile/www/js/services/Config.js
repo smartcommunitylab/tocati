@@ -35,13 +35,13 @@ angular.module('tocati.services.config', [])
 	};
 
 	// Switches
-	configService.VERIFY_SPACETIME = false;
+	configService.VERIFY_SPACETIME = true;
 	// not checked if VERIFY_SPACETIME is false
 	configService.VERIFY_SPACE = true;
 	configService.VERIFY_TIME = true;
 
 	// Km
-	configService.DELTA_DISTANCE = 100; // FIXME this is a dev value
+	configService.DELTA_DISTANCE = 0.1; // FIXME this is a dev value
 	// Minutes
 	configService.DELTA_TIME = 15;
 	// Seconds

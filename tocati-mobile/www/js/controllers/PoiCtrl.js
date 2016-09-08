@@ -1,8 +1,14 @@
 angular.module('tocati.controllers.poi', [])
 
-.controller('PoiCtrl', function ($scope, $state, $stateParams, $filter, Utils, Config, StorageSrv, UserSrv, DataSrv, GeoSrv) {
+.controller('PoiCtrl', function ($scope, $rootScope, $state, $stateParams, $filter, Utils, Config, StorageSrv, UserSrv, DataSrv, GeoSrv) {
 	$scope.pointId = $stateParams.pointId;
 	$scope.poi = $stateParams.poi;
+
+//    $scope.poi.coordinates = [11.151702, 46.067872];
+//    $scope.poi.when.forEach(function(w){
+//      w.date = new Date().getTime();
+//      w.slots = [{from: '13:00', to: '13:30'}];
+//    });
 
 	$scope.poiValues = {
 		points: $scope.poi.points,
@@ -46,14 +52,19 @@ angular.module('tocati.controllers.poi', [])
 
 	if (Config.VERIFY_SPACETIME) {
 		$scope.$watch('myPosition', function (newPos, oldPos) {
+            if (newPos == null) return;
+
 			var distance = GeoSrv.distance([newPos[1], newPos[0]], $scope.poi.coordinates);
+            var threshold = Config.DELTA_DISTANCE;
 
 			if (!Config.VERIFY_SPACE) {
-				distance = 0;
-			}
+		      distance = 0;
+//			} else if ($rootScope.myPositionAccuracy != null) {
+//              threshold += $rootScope.myPositionAccuracy / 1000;
+            }
 
 			//geo check
-			if (distance <= Config.DELTA_DISTANCE) {
+			if (distance <= threshold) {
 				// time check
 				var inSlot = false;
 
@@ -68,7 +79,10 @@ angular.module('tocati.controllers.poi', [])
 
 							for (var j = 0; j < when.slots.length; j++) {
 								var slot = when.slots[j];
-								if (moment().isBetween(moment(slot.from).subtract(Config.DELTA_TIME, 'minutes'), moment(slot.to))) {
+                                var n = moment();
+                                var f = moment(slot.from, 'HH:mm').subtract(Config.DELTA_TIME, 'minutes');
+                                var t = moment(slot.to, 'HH:mm').add(Config.DELTA_TIME, 'minutes');
+								if (n.isBetween(f, t)) {
 									inSlot = true;
 									j = when.slots.length;
 								}
