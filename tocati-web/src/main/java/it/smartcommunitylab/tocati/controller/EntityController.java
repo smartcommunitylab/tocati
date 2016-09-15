@@ -198,7 +198,7 @@ public class EntityController {
 			logger.info(String.format("getMyRanking[%s] - %s", ownerId, userId));
 		}
 		int startPage = 1; 
-		int maxItemsPerPage = 10;
+		int maxItemsPerPage = 1000;
 		if(Utils.isNotEmpty(request.getParameter("start"))) {
 			try {
 				startPage = Integer.valueOf(request.getParameter("start"));
