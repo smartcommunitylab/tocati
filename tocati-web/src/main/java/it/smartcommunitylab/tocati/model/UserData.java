@@ -81,7 +81,7 @@ public class UserData extends BaseObject {
 		if (StringUtils.hasText(name)) dn += name;
 		if (StringUtils.hasText(surname)) dn += " " + surname;
 		dn = dn.trim();
-		if (dn.length() == 0) displayName = dn;
+		if (dn.length() != 0) displayName = dn;
 	}
 
 
