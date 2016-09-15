@@ -82,7 +82,27 @@ public class UserData extends BaseObject {
 		if (StringUtils.hasText(surname)) dn += " " + surname;
 		dn = dn.trim();
 		if (dn.length() != 0) displayName = dn;
+		else displayName = obfuscateDisplayName(displayName);
+	}
+	private static String obfuscateDisplayName(String dn) {
+		int idx = dn.indexOf('@');
+		String pre, star, post;
+		if (idx <= 5) {
+			pre = dn.substring(0, idx - 1);
+		} else {
+			pre = dn.substring(0, 5);
+		}
+		if (dn.length() - idx <= 4) {
+			post = dn.substring(dn.length() - idx + 1);
+		} else {
+			post = dn.substring(dn.length() - 4);
+		}
+		star = "*****";
+		return pre + star + post;
 	}
 
+//	public static void main(String[] args) {
+//		System.err.println(obfuscateDisplayName(""));
+//	}
 
 }
