@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.util.StringUtils;
+
 public class UserData extends BaseObject {
 	private String userId;
 	private String name;
@@ -73,6 +75,13 @@ public class UserData extends BaseObject {
 	}
 	public void setCustomData(Map<String, String> customData) {
 		this.customData = customData;
+	}
+	public void updateDisplayName() {
+		String dn = "";
+		if (StringUtils.hasText(name)) dn += name;
+		if (StringUtils.hasText(surname)) dn += " " + surname;
+		dn = dn.trim();
+		if (dn.length() == 0) displayName = dn;
 	}
 
 

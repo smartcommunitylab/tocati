@@ -227,6 +227,7 @@ public class RepositoryManager {
 		int maxIndex = startPage * maxItemsPerPage;
 		int index = 1;
 		for(UserData user : classification) {
+			user.updateDisplayName();
 			if(user.getUserId().equals(userId)) {
 				myRanking.setPoints(user.getPoints());
 				myRanking.setPosition(index);
