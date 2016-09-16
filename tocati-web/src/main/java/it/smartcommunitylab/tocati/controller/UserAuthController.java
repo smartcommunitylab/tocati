@@ -135,7 +135,7 @@ public class UserAuthController {
 //			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 //		}
 		if(logger.isInfoEnabled()) {
-			logger.info(String.format("loginEVWay[%s]", ownerId));
+			logger.info(String.format("loginEVWay[%s] register: %s", ownerId, email));
 		}
 
 		try {
@@ -172,7 +172,7 @@ public class UserAuthController {
 //			throw new UnauthorizedException("Unauthorized Exception: token not valid");
 //		}
 		if(logger.isInfoEnabled()) {
-			logger.info(String.format("loginEVWay[%s]", ownerId));
+			logger.info(String.format("loginEVWay[%s] login: %s", ownerId, email));
 		}
 
 		try {
